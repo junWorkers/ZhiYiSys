@@ -1,0 +1,283 @@
+<table id="admessage_info" data-options="fit:true"></table>
+<script>
+	$(function(){
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+		datagrid=$('#admessage_info').datagrid({
+			url:'../adServlet',
+			queryParams:{op:"getPageAdmessageInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'amid',
+			sortOrder:'asc',
+			remoteSort:false,
+		columns:[[
+		          {field:'amid',title:'广告信息编号',width:100,align:'center',checkbox:true},
+		          {field:'amids',title:'广告信息编号',width:100,align:'center',sortable:true},
+		          {field:'aposition',title:'位置',width:100,align:'center',sortable:true},
+		          {field:'sdate',title:'开始时间',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'jdate',title:'结束时间',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'weight',title:'权重',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'alink',title:'链接',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field : 'status1',title : '状态',width : 100,align : 'center',editor : {type:"combobox",options:{
+						required:true,valueField:'sid',textField:'sname',data:statusObj}},
+						formatter:function(value,row,index) {
+							for (var i = 0; i < statusObj.length; i ++) {
+								if (statusObj[i].sid == value) {
+									return statusObj[i].sname;
+								}
+							}
+							return value;
+						}
+					} 
+		          ]],
+		toolbar: [{
+			text:"添加",
+			iconCls: 'icon-add',
+			handler: function(){
+				
+				$.post("../adServlet",{op:"getAllAd"},function(data){
+					var obj=$("#admessage_aposition");
+					var opt;
+					$.each(data.rows,function(index,item){
+						opt="<option value='"+item.aid+"'>"+item.aposition+"</option>";
+						obj.append($(opt));
+					});
+				},"json");
+				
+				$("#win6").dialog("open");
+				$("#add4").css("display","inline-block");
+				$("#edit4").css("display","none");
+				
+				$("#admessage_pic_show").html('');
+				$("#admessage_aposition").val('');
+				$("#admessage_sdate").datebox('setValue','');
+				$("#admessage_jdate").datebox('setValue','');
+				
+				$("#admessage_weight").val('');
+				$("#admessage_alink").val('');
+			}
+		},{
+			text:"修改",
+			iconCls: 'icon-edit',
+			handler: function(){
+				$.post("../adServlet",{op:"getAllAd"},function(data){
+					var obj=$("#admessage_aposition");
+					var opt;
+					$.each(data.rows,function(index,item){
+						opt="<option value='"+item.aid+"'>"+item.aposition+"</option>";
+						obj.append($(opt));
+					});
+				},"json");
+				
+				var  rows=datagrid.datagrid("getChecked")[0];
+  				if(rows==undefined){
+  					$.messager.show({
+  						title:"温馨提示",
+  						msg:"请选择您要修改的数据...",
+  						timeout:2000,
+  						showType:'slide'
+  					});
+  				}else{
+  					$("#win6").dialog("open");
+  					$("#add4").css("display","none");
+  					$("#edit4").css("display","inline-block");
+  					var  amid=datagrid.datagrid("getChecked")[0].amid;
+  					$("#edit4").attr("href","javascript:updateAdmessageInfo("+amid+")");
+  					
+  					$.post("../adServlet",{op:"findadmessageByAmid",amid:amid},function(data){
+  						var admessage=data.rows;
+  						
+  						$("#admessage_aposition").find("option[text='"+admessage.aposition+"']").attr("selected",true);
+  						$("#admessage_sdate").datebox('setValue',admessage.sdate.substr(0,10));
+  						$("#admessage_jdate").datebox('setValue',admessage.jdate.substr(0,10));
+  						
+  						$("#admessage_weight").val(admessage.weight);
+  						$("#admessage_alink").val(admessage.alink);
+  						$("#admessage_status1").find("option[text='"+admessage.status1+"']").attr("selected",true);
+  						var str="";
+  						var pics=admessage.mpath.split(",");
+  						for(var i=0;i<pics.length;i++){
+  							str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+  						}
+  						$("#admessage_pic_show").html($(str));
+  						 
+  					},"json");
+  				}
+			}
+		},{
+			text:"删除",
+			iconCls: 'icon-remove',
+			handler: function(){
+				//
+				var rows=datagrid.datagrid("getChecked");
+				if(rows.length<=0){   //
+					$.messager.show({
+						title:"友情提示",
+						msg:"请选择要删除的数据...",
+						timeout:2000,
+						showType:'slide'
+					});
+				}else{
+					$.messager.confirm('信息确认','您确定要删除选中的数据吗？',function(r){
+						if(r){
+							var amids="";
+							for(var i=0;i<rows.length-1;i++){
+								amids+=rows[i].amid+",";
+							}
+							amids+=rows[i].amid;
+							
+							//将要删除aid发送到服务器
+							$.post("../adServlet",{op:"delAdmessage",amids:amids},function(data){
+								if(data==1){   //删除成功
+									$.messager.show({
+										title:"删除提示",
+										msg:"广告信息删除成功...",
+										timeout:2000,
+										showType:'slide'
+									});
+									datagrid.datagrid("reload");  //重新加载数据一次
+								}else{
+									$.messager.alert('失败提示','广告信息删除失败...','error');
+								}
+							});
+						}
+					});
+				}
+			}
+		}]
+	});
+});
+	
+</script>
+<style>
+	.myinput{
+		width:160px;
+	}
+	
+	label{
+		padding-right:10px;
+	}
+	
+</style>
+<div id="win6" class="easyui-dialog" title="添加广告信息" style="width:600px;height:340px" data-options="modal:true,closed:true">  
+    <div style="float:right;width:150px;margin-right:20px;margin-top:10px;">
+		<fieldset id="admessage_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+    <form action="" style="padding:20px;float:left;">
+		<label>广告位位置：</label>
+		<select name="aposition" id="admessage_aposition" style="width:150px;">
+				
+		</select><br /><br />
+		<label>开始时间：</label><input name="sdate" id="admessage_sdate" class="easyui-datebox myinput" required/><br /><br />
+		<label>结束时间：</label><input name="jdate" id="admessage_jdate" class="easyui-datebox myinput" required/><br /><br />
+		<label>权&nbsp;&nbsp;&nbsp;&nbsp;重&nbsp;&nbsp;&nbsp;：</label><input type="text" name="weight" id="admessage_weight" class="myinput"/><br /><br />
+		<label>链&nbsp;&nbsp;&nbsp;&nbsp;接&nbsp;&nbsp;&nbsp;：</label><input type="text" name="alink" id="admessage_alink" class="myinput"/><br /><br />
+		<label>状&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;&nbsp;&nbsp;：</label>
+		<select name="status1" id="admessage_status1" style="width:160px;">
+				<option value='1'>可用</option>
+				<option value='0'>不可用</option>
+		</select><br /><br />
+		<label>图片路径：</label><input type="file" name="pic" id="admessage_pic" onchange="previewMultipleImage(this,'admessage_pic_show')"/><br /><br />
+		<div id="admessage_info" style="margin-left:35%">
+			<a href="javascript:addAdmessageInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="add4" style="display:inline-block">添加</a>
+			<a href="javascript:updateAdmessageInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edit4">修改</a>
+		</div>
+	</form>
+</div>
+<script>
+	function addAdmessageInfo(){
+		var aid=$("#admessage_aposition").val();
+		var sdate=$("#admessage_sdate").datebox('getValue');
+		var jdate=$("#admessage_jdate").datebox('getValue');
+		
+		var weight=$("#admessage_weight").val();
+		var alink=$("#admessage_alink").val();
+		var status1=$("#admessage_status1").val();
+		
+		$.ajaxFileUpload({
+			url:"../adServlet?op=addAdmessageInfo",
+			secureuri:false,
+			fileElementId:"admessage_pic",
+			dataType:"json",
+			data:{aid:aid,sdate:sdate,jdate:jdate,weight:weight,alink:alink,status1:status1},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"广告信息添加成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win6").dialog("close");
+					$("#admessage_info").datagrid("reload");
+					
+					$("#admessage_pic_show").html('');
+					$("#admessage_aposition").val('');
+					$("#admessage_sdate").datebox('setValue','');
+					$("#admessage_jdate").datebox('setValue','');
+					
+					$("#admessage_weight").val('');
+					$("#admessage_alink").val('');
+
+				}else{
+					$.messager.alert("失败提示","广告信息添加失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","广告信息添加有误...\n"+e,"error");
+			}
+		});
+	}
+	function updateAdmessageInfo(amid){
+		var aid=$("#admessage_aposition").val();
+		var sdate=$("#admessage_sdate").datebox('getValue');
+		var jdate=$("#admessage_jdate").datebox('getValue');
+		
+		var weight=$("#admessage_weight").val();
+		var alink=$("#admessage_alink").val();
+		var status1=$("#admessage_status1").val();
+		
+		$.ajaxFileUpload({
+			url:"../adServlet?op=updateAdmessageInfo&amid="+amid,
+			secureuri:false,
+			fileElementId:"admessage_pic",
+			dataType:"json",
+			data:{aid:aid,sdate:sdate,jdate:jdate,weight:weight,alink:alink,status1:status1},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"广告信息修改成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win6").dialog("close");
+					$("#admessage_info").datagrid("reload");
+					
+					$("#admessage_pic_show").html('');
+					$("#admessage_aposition").val('');
+					$("#admessage_sdate").datebox('setValue','');
+					$("#admessage_jdate").datebox('setValue','');
+					
+					$("#admessage_weight").val('');
+					$("#admessage_alink").val('');
+					
+				}else{
+					$.messager.alert("失败提示","广告信息修改失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","广告信息修改有误...\n"+e,"error");
+			}
+		});
+	}
+</script>

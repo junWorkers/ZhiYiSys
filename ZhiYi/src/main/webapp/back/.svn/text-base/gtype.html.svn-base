@@ -1,0 +1,249 @@
+<table id="gtype_info" data-options="fit:true"></table>
+<script>
+	$(function(){
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
+		datagrid=$('#gtype_info').datagrid({
+			url:'../gtypeServlet',
+			queryParams:{op:"getPageTypeInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'tid',
+			sortOrder:'asc',
+			remoteSort:false,
+		columns:[[
+		          {field:'tid',title:'序列编号',width:100,align:'center',checkbox:true},
+		          {field:'tids',title:'序列编号',width:100,align:'center',sortable:true},
+		          {field:'tname',title:'序列名称',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'tdescribe',title:'序列描述',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field : 'status',title : '状态',width : 100,align : 'center',editor : {type:"combobox",options:{
+						required:true,valueField:'sid',textField:'sname',data:statusObj}},
+						formatter:function(value,row,index) {
+							for (var i = 0; i < statusObj.length; i ++) {
+								if (statusObj[i].sid == value) {
+									return statusObj[i].sname;
+								}
+							}
+							return value;
+						}
+					} 
+		          ]],
+		toolbar: [{
+			text:"添加",
+			iconCls: 'icon-add',
+			handler: function(){
+				$("#win").dialog("open");
+				$("#adds").css("display","inline-block");
+				$("#edits").css("display","none");
+				$("#gtype_tname").val('');
+				$("#gtype_tdescribe").val('');
+				$("#gtype_pic").val('');
+				$("#gtype_pic_show").html('');
+			}
+		},{
+			text:"修改",
+			iconCls: 'icon-edit',
+			handler: function(){
+				var  rows=datagrid.datagrid("getChecked")[0];
+				if(rows==undefined){
+					$.messager.show({
+						title:"温馨提示",
+						msg:"请选择您要修改的数据...",
+						timeout:2000,
+						showType:'slide'
+					});
+				}else{
+					$("#adds").css("display","none");
+					$("#edits").css("display","inline-block");
+					$("#win").dialog("open");
+					var  tid=datagrid.datagrid("getChecked")[0].tid;
+					$("#edits").attr("href","javascript:updateGtypeInfo("+tid+")");
+					
+					$.post("../gtypeServlet",{op:"findGtypeByTid",tid:tid},function(data){
+						var gtype=data.rows;
+						$("#gtype_tname").val(gtype.tname);
+						$("#gtype_tdescribe").val(gtype.tdescribe);
+						var str="";
+						var pics=gtype.tpath.split(",");
+						for(var i=0;i<pics.length;i++){
+							str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+						}
+						$("#gtype_pic_show").html($(str));
+						
+					},"json");
+				}
+			}
+		},{
+			text:"删除",
+			iconCls: 'icon-remove',
+			handler: function(){
+				//
+				var rows=datagrid.datagrid("getChecked");
+				if(rows.length<=0){   //
+					$.messager.show({
+						title:"友情提示",
+						msg:"请选择要删除的数据...",
+						timeout:2000,
+						showType:'slide'
+					});
+				}else{
+					$.messager.confirm('信息确认','您确定要删除选中的数据吗？',function(r){
+						if(r){
+							var tids="";
+							for(var i=0;i<rows.length-1;i++){
+								tids+=rows[i].tid+",";
+							}
+							tids+=rows[i].tid;
+							
+							//将要删除aid发送到服务器
+							$.post("../gtypeServlet",{op:"delGtypeInfo",tids:tids},function(data){
+								if(data==1){   //删除成功
+									$.messager.show({
+										title:"删除提示",
+										msg:"商城序列信息删除成功...",
+										timeout:2000,
+										showType:'slide'
+									});
+									datagrid.datagrid("reload");  //重新加载数据一次
+								}else{
+									$.messager.alert('失败提示','商城序列信息删除失败...','error');
+								}
+							});
+						}
+					});
+				}
+				
+			}
+		},{
+			text:"保存",
+			iconCls: 'icon-save',
+			handler: function(){
+				datagrid.datagrid("endEdit",editRow);   //关闭当前正在编辑的行
+				//获取当前被修改的对象
+				var rows=datagrid.datagrid("getChanges")[0];
+				if(rows==undefined){
+					datagrid.datagrid("rejectChanges");   //回滚自创建以来或自上次调用acceptChanges，所有变化的数据
+					datagrid.datagrid("unselectAll");  
+					editRow=undefined;
+				}else{
+					rows["op"]=op;
+					
+					$.post("../adminServlet",rows,function(data){
+						data=parseInt($.trim(data));
+						if(data==1){   //
+							$.messager.show({
+								title:"成功提示",
+								msg:'商城序列信息'+flag+'成功...',
+								timeout:2000,
+								showType:'slide'
+							});
+						}else{
+							$.messager.alert('失败提示','商城序列信息'+flag+'失败...','error');
+						}
+						
+						rows=null;
+						datagrid.datagrid("reload");  //重新加载数据一次
+						editRow=undefined;
+						datagrid.datagrid("rejectChanges");   //回滚自创建以来或自上次调用acceptChanges，所有变化的数据
+						datagrid.datagrid("unselectAll");
+					});
+				}
+			}
+		}]
+	});
+});
+</script>
+<div id="win" class="easyui-dialog" title="添加商城序列" style="width:600px;height:220px" data-options="iconCls:'icon-add',modal:true,closed:true">  
+    <div style="float:right;width:150px;margin-right:20px;">
+		<fieldset id="gtype_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+    <form action="" style="padding:20px;float:left;">
+		<label>序列名称：</label><input type="text" name="tname" id="gtype_tname" class="myinput"/><br /><br />
+		<label>序列描述：</label><input type="text" name="tdescribe" id="gtype_tdescribe" class="myinput"/><br /><br />
+		<label>序列图片：</label><input type="file" name="pic" id="gtype_pic" onchange="previewMultipleImage(this,'gtype_pic_show')"/><br /><br />
+		<div id="gtype_info" style="margin-left:35%">
+			<a href="javascript:addGtypeInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="adds" style="display:inline-block">添加</a>
+			<a href="javascript:updateGtypeInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edits">修改</a>
+		</div>
+	</form>
+</div> 
+<script>
+	function addGtypeInfo(){
+		var tname=$("#gtype_tname").val();
+		var tdescribe=$("#gtype_tdescribe").val();
+		
+		$.ajaxFileUpload({
+			url:"../gtypeServlet?op=addGtypeInfo",
+			secureuri:false,
+			fileElementId:"gtype_pic",
+			dataType:"json",
+			data:{tname:tname,tdescribe:tdescribe},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"商城序列信息添加成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win").dialog("close");
+					$("#gtype_info").datagrid("reload");
+					$("#gtype_tname").val('');
+					$("#gtype_tdescribe").val('');
+					$("#gtype_pic").val('');
+					$("#gtype_pic_show").html('');
+					
+				}else{
+					$.messager.alert("失败提示","商城序列信息添加失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","商城序列信息添加有误...\n"+e,"error");
+			}
+		});
+	}
+	
+	function updateGtypeInfo(tid){
+		var tname=$("#gtype_tname").val();
+		var tdescribe=$("#gtype_tdescribe").val();
+		
+		$.ajaxFileUpload({
+			url:"../gtypeServlet?op=updateGtypeInfo&tid="+tid,
+			secureuri:false,
+			fileElementId:"gtype_pic",
+			dataType:"json",
+			data:{tname:tname,tdescribe:tdescribe},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"商城序列信息修改成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win").dialog("close");
+					$("#gtype_info").datagrid("reload");
+					$("#gtype_tname").val('');
+					$("#gtype_tdescribe").val('');
+					$("#gtype_pic").val('');
+					$("#gtype_pic_show").html('');
+					
+				}else{
+					$.messager.alert("失败提示","商城序列信息修改失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","商城序列信息修改有误...\n"+e,"error");
+			}
+		});
+	}
+
+</script>

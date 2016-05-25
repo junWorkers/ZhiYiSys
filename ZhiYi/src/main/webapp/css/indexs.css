@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+#copyright p{
+	color:#B0810B;
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+	padding:10px 0px;
+	margin:0px;
+}
+#copyright a{
+	display:inline-block;
+	height:32px;
+	line-height:32px;
+	text-decoration: none;
+	color:#B0810B;
+	font-size:14px;
+	font-weight:bold;
+	padding-left:30px;
+}
+
+#newslogo{
+	background: #B3DFDA url("../images/login_4.gif")  10px center;
+	background-size:300px 90px;
+	padding: 0px;
+	margin:0px;
+	height:100px;
+	width:100%;
+}

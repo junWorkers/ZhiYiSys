@@ -1,0 +1,67 @@
+<table id="show_user_info" data-options="fit:true"></table>
+<style>
+	
+</style>
+<div id="show_user_info_find" style="width:100%,text-align:left">
+	<span style="padding-left:20px">会员名称：</span><input type="text" name="uname" id="show_user_uname"/>
+	<span style="padding-left:20px">商品名称：</span><select id="good" style="width:100px;">
+		<option value="0" >全部</option>
+	</select>
+	<span style="padding-left:20px">购物时间：</span><input name="ndate1" id="show_goods_ndate1" class="easyui-datebox myinput" required/>
+	<span >到 </span><input name="ndate2" id="show_goods_ndate2" class="easyui-datebox myinput" required/>
+	<a href="javascript:findUserInfoByInfo()" style="padding-left:20px" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查询</a>
+</div>
+<script>
+$(function(){
+	var obj=$("#good");
+	var opt="";
+	$.post("../goodsServlet",{op:"getAllGoodsName"},function(data){
+		$.each(data.rows,function(index,item){
+			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
+			obj.append($(opt));
+		});
+	},"json");
+	
+	var datagrid;
+	var editRow=undefined;
+	var op;
+	var flag;
+
+	$('#show_user_info').datagrid({
+		url:'../orderServlet',
+		queryParams:{op:"getPageUserInfo"},
+		fitColumns:true,
+		striped:true,
+		loadMsg:"数据加载中...",
+		pagination:true,
+		rownumbers:true,
+		sortName:'num',
+		sortOrder:'desc',
+		remoteSort:false,
+		columns:[[
+		          {field:'onums',title:'选择',width:100,align:'center',checkbox:true},
+		          {field:'uname',title:'会员名称',width:100,align:'center',sortable:true},
+		          {field:'gname',title:'所购商品名称',width:100,align:'center',sortable:true},
+		          {field:'color',title:'商品颜色',width:100,align:'center',sortable:true},
+		          {field:'gversion',title:'商品版本',width:100,align:'center',sortable:true},
+		          {field:'num',title:'商品购买数量',width:100,align:'center'},
+		          {field:'xdate10',title:'购买时间',width:100,align:'center'},
+		]],
+		toolbar:"#show_user_info_find"
+	});
+});
+
+function findUserInfoByInfo(){
+	var uname=$.trim($("#show_user_uname").val());
+	var gid=$.trim($("#good").val());
+	var kdate=$("#show_goods_ndate1").datebox('getValue');
+	var jdate=$("#show_goods_ndate2").datebox('getValue');
+	$('#show_user_info').datagrid({
+		url:'../orderServlet',
+		queryParams:{op:"findUserInfoByInfo",uname:uname,gid:gid,kdate:kdate,jdate:jdate}
+	});
+}
+</script>
+
+
+

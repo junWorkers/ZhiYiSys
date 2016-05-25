@@ -1,0 +1,14 @@
+
+
+
+
+
+@charset "utf-8";
+/* 弹出框 */
+#facebox{z-index: 19891021; border:6px #999 solid; opacity: 0.8; top: -6px; left: -6px; width: 422px; height: 224px; border-radius:5px;}
+
+#facebox .title{
+    font-size: 14px; margin: 0px; padding-bottom: 6px; padding-top: 20px; border-bottom: 1px solid #F00; background: #fff; border-radius: 6px 6px 0px 0px; margin-left:15px;
+}
+#facebox .title span{ display: block; padding: 4px 0px 5px; color:#999; background: #fff; font-weight:500}
+#facebox  .content{ margin-left:15px; line-height:20px; font-size:14px; color:#999; margin-top:20px;}

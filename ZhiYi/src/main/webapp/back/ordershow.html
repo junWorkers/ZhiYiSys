@@ -1,0 +1,64 @@
+<table id="show_goods_info" data-options="fit:true"></table>
+<style>
+	
+</style>
+<div id="show_goods_info_find" style="width:100%,text-align:left">
+	<span style="padding-left:20px">商品名称：</span><select id="goods" style="width:100px;">
+		<option value="0" >全部</option>
+	</select>
+	<span style="padding-left:20px">销售时间：</span><input name="ndate1" id="show_goods_ndate1" class="easyui-datebox myinput" required/>
+	<span >到 </span><input name="ndate2" id="show_goods_ndate2" class="easyui-datebox myinput" required/>
+	<a href="javascript:findGoodsInfoByInfo()" style="padding-left:20px" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查询</a>
+</div>
+<script>
+$(function(){
+	var obj=$("#goods");
+	var opt="";
+	$.post("../goodsServlet",{op:"getAllGoodsName"},function(data){
+		
+		$.each(data.rows,function(index,item){
+			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
+			obj.append($(opt));
+		});
+	},"json");
+	
+	var datagrid;
+	var editRow=undefined;
+	var op;
+	var flag;
+
+	$('#show_goods_info').datagrid({
+		url:'../orderServlet',
+		queryParams:{op:"getPageOrderInfo"},
+		fitColumns:true,
+		striped:true,
+		loadMsg:"数据加载中...",
+		pagination:true,
+		rownumbers:true,
+		sortName:'num',
+		sortOrder:'desc',
+		remoteSort:false,
+		columns:[[
+		          {field:'onums',title:'选择',width:100,align:'center',checkbox:true},
+		          {field:'gname',title:'商品名称',width:100,align:'center',sortable:true},
+		          {field:'color',title:'颜色',width:100,align:'center',sortable:true},
+		          {field:'gversion',title:'版本',width:100,align:'center',sortable:true},
+		          {field:'num',title:'商品销售数量',width:100,align:'center'},
+		]],
+		toolbar:"#show_goods_info_find"
+	});
+});
+
+function findGoodsInfoByInfo(){
+	var gid=$.trim($("#goods").val());
+	var kdate=$("#show_goods_ndate1").datebox('getValue');
+	var jdate=$("#show_goods_ndate2").datebox('getValue');
+	$('#show_goods_info').datagrid({
+		url:'../orderServlet',
+		queryParams:{op:"findGoodsInfoByInfo",gid:gid,kdate:kdate,jdate:jdate}
+	});
+}
+</script>
+
+
+

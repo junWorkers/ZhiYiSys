@@ -1,0 +1,245 @@
+<table id="goodsPar_info" data-options="fit:true"></table>
+<script>
+	var obj=$("#goodsPar_goodsPartype");
+	var opt="";
+	$.post("../goodsServlet",{op:"getAllGoods"},function(data){
+		
+		$.each(data.rows,function(index,item){
+			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
+			obj.append($(opt));
+		});
+	},"json");
+	$(function(){
+		
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		datagrid=$('#goodsPar_info').datagrid({
+			url:'../goodsServlet',
+			queryParams:{op:"getPageGoodsParInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'gpid',
+			sortOrder:'asc',
+			remoteSort:false,
+			columns:[[
+				  		{field:'gpid',title:'编号',width:100,align:'center',checkbox:true},
+				  		{field:'gpids',title:'编号',width:100,align:'center',sortable:true},
+				  		{field:'gname',title:'商品名称',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+				  		{field:'color',title:'颜色',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+				  		{field:'gversion',title:'版本',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+				  		{field:'gpposition',title:'显示位置',width:100,align:'center',editor:{type:"text",options:{required:true}}}
+			]],
+			toolbar: [{
+				text:"添加",
+				iconCls: 'icon-add',
+				handler: function(){
+					
+					$("#win5").dialog("open");
+					$("#add3").css("display","inline-block");
+					$("#edit3").css("display","none");
+					
+					$("#goodsPar_pic_show").html('');
+					$("#goodsPar_goodsPartype").val('');
+					$("#goodsPar_color").val('');
+					$("#goodsPar_gversion").val('');
+					$("#goodsPar_meal").val('');
+					$("#goodsPar_gpposition").val('');
+				}
+			},{
+				text:"修改",
+				iconCls: 'icon-edit',
+				handler: function(){
+					
+					var  rows=datagrid.datagrid("getChecked")[0];
+					if(rows==undefined){
+						$.messager.show({
+							title:"温馨提示",
+							msg:"请选择您要修改的数据...",
+							timeout:2000,
+							showType:'slide'
+						});
+					}else{
+						$("#add3").css("display","none");
+						$("#edit3").css("display","inline-block");
+						
+						var  gpid=datagrid.datagrid("getChecked")[0].gpid;
+						$("#edit3").attr("href","javascript:updateGoodsParInfo("+gpid+")");
+						
+						$.post("../goodsServlet",{op:"findGoodsParByGpid",gpid:gpid},function(data){
+							var goodsPar=data.rows;
+	  						$("#goodsPar_goodsPartype").find("option[text='"+goodsPar.gname+"']").attr("selected",true);
+							$("#goodsPar_color").val(goodsPar.color);
+							$("#goodsPar_gversion").val(goodsPar.gversion);
+							$("#goodsPar_meal").val(goodsPar.meal);
+							$("#goodsPar_gpposition").val(goodsPar.gpposition);
+							var str="";
+							var pics=goodsPar.gppath.split(",");
+							for(var i=0;i<pics.length;i++){
+								str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+							}
+							$("#goodsPar_pic_show").html($(str));
+							
+						},"json");
+						$("#win5").dialog("open");
+					}
+				}
+			},{
+				text:"删除",
+				iconCls: 'icon-remove',
+				handler: function(){
+					//
+					var rows=datagrid.datagrid("getChecked");
+					if(rows.length<=0){   //
+						$.messager.show({
+							title:"友情提示",
+							msg:"请选择要删除的数据...",
+							timeout:2000,
+							showType:'slide'
+						});
+					}else{
+						$.messager.confirm('信息确认','您确定要删除选中的数据吗？',function(r){
+							if(r){
+								var gpids="";
+								for(var i=0;i<rows.length-1;i++){
+									gpids+=rows[i].gpid+",";
+								}
+								gpids+=rows[i].gpid;
+								
+								//将要删除aid发送到服务器
+								$.post("../goodsServlet",{op:"delgoodsParInfo",gpids:gpids},function(data){
+									if(data==1){   //删除成功
+										$.messager.show({
+											title:"删除提示",
+											msg:"商品参数信息删除成功...",
+											timeout:2000,
+											showType:'slide'
+										});
+										datagrid.datagrid("reload");  //重新加载数据一次
+									}else{
+										$.messager.alert('失败提示','商品参数信息删除失败...','error');
+									}
+								});
+							}
+						});
+					}
+					
+				}
+			}]
+	});
+});
+</script>
+<style>
+	.myinput{
+		width:200px;
+	}
+	
+	label{
+		padding-right:10px;
+	}
+	
+</style>
+<div id="win5" class="easyui-dialog" title="商品参数信息操作" style="width:600px;height:340px" data-options="iconCls:'icon-add',modal:true,closed:true">  
+    <div style="float:right;width:150px;margin-right:20px;margin-top:10px;">
+		<fieldset id="goodsPar_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+    <form action="" style="padding:20px;float:left;">
+		<label>所属&nbsp;商品名&nbsp;&nbsp;：</label>
+		<select name="gid" id="goodsPar_goodsPartype" style="width:160px;">
+				
+		</select><br /><br />
+		<label>颜色：</label><input type="text" name="color" id="goodsPar_color" class="myinput"/><br /><br />
+		<label>版本：</label><input type="text" name="gversion" id="goodsPar_gversion" class="myinput"/><br /><br />
+		<label>套餐：</label><input type="text" name="meal" id="goodsPar_meal" class="myinput"/><br /><br />
+		<label>位置：</label><input type="text" name="gpposition" id="goodsPar_gpposition" class="myinput"/><br /><br />
+		<label>图片路径：</label><input type="file" name="pic" id="goodsPar_pic" onchange="previewMultipleImage(this,'goodsPar_pic_show')"/><br /><br />
+		<div id="goodsPar_info" style="margin-left:35%">
+			<a href="javascript:addgoodsParInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="add3" style="display:inline-block">添加</a>
+			<a href="javascript:updateGoodsParInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edit3">修改</a>
+		</div>
+	</form>
+</div>
+<script>
+function addgoodsParInfo(){
+	var gid=$("#goodsPar_goodsPartype").val();
+	var color=$("#goodsPar_color").val();
+	var gversion=$("#goodsPar_gversion").val();
+	var meal=$("#goodsPar_meal").val();
+	var gpposition=$("#goodsPar_gpposition").val();
+	$.ajaxFileUpload({
+		url:"../goodsServlet?op=addgoodsPar",
+		secureuri:false,
+		fileElementId:"goodsPar_pic",
+		dataType:"json",
+		data:{gid:gid,color:color,gversion:gversion,meal:meal,gpposition:gpposition},
+		success:function(data,status){
+			if(parseInt($.trim(data))==1){   //
+				$.messager.show({
+					title:"成功提示",
+					msg:"商品参数信息添加成功...",
+					timeout:2000,
+					showType:'slide'
+				});
+				$("#win5").dialog("close");
+				$("#goodsPar_info").datagrid("reload");
+				$("#goodsPar_pic_show").html('');
+				$("#goodsPar_goodsPartype").val('');
+				$("#goodsPar_color").val('');
+				$("#goodsPar_gversion").val('');
+				$("#goodsPar_meal").val('');
+				$("#goodsPar_gpposition").val('');
+				
+			}else{
+				$.messager.alert("失败提示","商品参数信息添加失败...","error");
+			}
+		},
+		error:function(data,status,e){
+			$.messager.alert("错误提示","商品参数信息添加有误...\n"+e,"error");
+		}
+	});
+}
+function updateGoodsParInfo(gpid){
+	var gid=$("#goodsPar_goodsPartype").val();
+	var color=$("#goodsPar_color").val();
+	var gversion=$("#goodsPar_gversion").val();
+	var meal=$("#goodsPar_meal").val();
+	var gpposition=$("#goodsPar_gpposition").val();
+	
+	$.ajaxFileUpload({
+		url:"../goodsServlet?op=updateGoodsParInfo&gpid="+gpid,
+		secureuri:false,
+		fileElementId:"goodsPar_pic",
+		dataType:"json",
+		data:{gid:gid,color:color,gversion:gversion,meal:meal,gpposition:gpposition},
+		success:function(data,status){
+			if(parseInt($.trim(data))==1){   //
+				$.messager.show({
+					title:"成功提示",
+					msg:"商城参数信息修改成功...",
+					timeout:2000,
+					showType:'slide'
+				});
+				$("#win5").dialog("close");
+				$("#goodsPar_info").datagrid("reload");
+				$("#goodsPar_pic_show").html('');
+				$("#goodsPar_color").val('');
+				$("#goodsPar_gversion").val('');
+				$("#goodsPar_meal").val('');
+				$("#goodsPar_gpposition").val('');
+				
+			}else{
+				$.messager.alert("失败提示","商城参数信息修改失败...","error");
+			}
+		},
+		error:function(data,status,e){
+			$.messager.alert("错误提示","商城参数信息修改有误...\n"+e,"error");
+		}
+	});
+}
+</script>

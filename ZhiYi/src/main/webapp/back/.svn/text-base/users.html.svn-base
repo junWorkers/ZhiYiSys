@@ -1,0 +1,357 @@
+<table id="users_info" data-options="fit:true"></table>
+<script>
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		var statusObj=[{sid:'男',sname:'男'},{sid:'女',sname:'女'}];
+		
+		datagrid=$('#users_info').datagrid({
+			url:'../usersServlet',
+			queryParams:{op:"getPageUsersInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'usid',
+			sortOrder:'asc',
+			remoteSort:false,
+		columns:[[
+		          {field:'usid',title:'会员编号',width:100,align:'center',checkbox:true},
+		          {field:'usids',title:'会员编号',width:100,align:'center',sortable:true},
+		          {field:'uname',title:'会员名称 ',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'pwd',title:'会员密码',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'sex',title : '性别',width : 100,align : 'center',editor : {type:"combobox",options:{
+						required:true,valueField:'sid',textField:'sname',data:statusObj}},
+						formatter:function(value,row,index) {
+							for (var i = 0; i < statusObj.length; i ++) {
+								if (statusObj[i].sid == value) {
+									return statusObj[i].sname;
+								}
+							}
+							return value;
+						}
+					} , 
+		          {field:'passport',title:'证件号',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'phone',title:'手机号码',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'email',title:'注册邮箱',width:100,align:'center',editor:{type:"text",options:{required:true}}},
+		          {field:'_do',title:'操作',width:100,align:'center',
+		        	  formatter:function(value,rowData,index){
+		        		 return '<img src="../easyui/icons/search.png"/><a class="icon-search1 icon-padding" href="javascript:showusersDetail(\''+rowData.usid+'\')">详细</a>';
+		        	  }
+		          }
+		          ]],
+		          toolbar: [{
+		  			text:"添加",
+		  			iconCls: 'icon-add',
+		  			handler: function(){
+		  				flag="添加";
+						op="addUsersInfo";    //当前的操作
+						//先判断有没有正在编辑的行
+						if(editRow!=undefined){
+							datagrid.datagrid("rejectChanges");   //说明有行正在被编辑，则还原当前的修改
+							datagrid.datagrid("endEdit",editRow);   //关闭当前正在编辑的行
+							editRow=undefined;
+						}else{  //在表格的最前面添加一行
+							datagrid.datagrid("insertRow",{index:0,row:{}});
+							
+							//打开编辑器
+							datagrid.datagrid("beginEdit",0);
+							editRow=0;  //记录当前正在被编辑的行
+						}
+		  			}
+		  		},{
+		  			text:"修改",
+		  			iconCls: 'icon-edit',
+		  			handler: function(){
+		  				var  rows=datagrid.datagrid("getChecked")[0];
+		  				if(rows==undefined){
+		  					$.messager.show({
+		  						title:"温馨提示",
+		  						msg:"请选择您要修改的数据...",
+		  						timeout:2000,
+		  						showType:'slide'
+		  					});
+		  				}else{
+		  					$("#users_add_usersInfo").dialog("open");
+		  					var  usid=datagrid.datagrid("getChecked")[0].usid;
+		  					$("#edit").attr("href","javascript:updateusersInfo("+usid+")");
+		  					
+		  					var ue=UE.getEditor('editor');
+		  					$.post("../usersServlet",{op:"findusersByUsid",usid:usid},function(data){
+		  						var users=data.rows;
+		  						$("#users_uname").val(users.uname);
+		  						$("#users_pwd").val(users.pwd);
+		  						$("#users_pname").val(users.pname);
+		  						$("#users_sex").val(users.sex);
+		  						$("#users_birth").val(users.birth);
+		  						$("#users_birthplace").val(users.birthplace);
+		  						$("#users_address").val(users.address);
+		  						$("#users_passport").val(users.passport);
+		  						$("#users_tel").val(users.tel);
+		  						$("#users_phone").val(users.phone);
+		  						$("#users_qq").val(users.qq);
+		  						$("#users_email").val(users.email);
+		  						
+		  						ue.setContent(users.intro);
+		  						var str="";
+		  						var pics=users.pic.split(",");
+		  						for(var i=0;i<pics.length;i++){
+		  							str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+		  						}
+		  						$("#users_pic_show").html($(str));
+		  						
+		  					},"json");
+		  				}
+		  			}
+		  		},{
+		  			text:"删除",
+		  			iconCls: 'icon-remove',
+		  			handler: function(){
+		  				//
+						var rows=datagrid.datagrid("getChecked");
+						if(rows.length<=0){   //
+							$.messager.show({
+								title:"友情提示",
+								msg:"请选择要删除的数据...",
+								timeout:2000,
+								showType:'slide'
+							});
+						}else{
+							$.messager.confirm('信息确认','您确定要删除选中的数据吗？',function(r){
+								if(r){
+									var usids="";
+									for(var i=0;i<rows.length-1;i++){
+										usids+=rows[i].usid+",";
+									}
+									usids+=rows[i].usid;
+									
+									//将要删除usid发送到服务器
+									$.post("../usersServlet",{op:"delUsersInfo",usids:usids},function(data){
+										if(data==1){   //删除成功
+											$.messager.show({
+												title:"删除提示",
+												msg:"会员信息删除成功...",
+												timeout:2000,
+												showType:'slide'
+											});
+											datagrid.datagrid("reload");  //重新加载数据一次
+										}else{
+											$.messager.alert('失败提示','会员信息删除失败...','error');
+										}
+									});
+								}
+							});
+						}
+		  			}
+		  		},{
+					text:"保存",
+					iconCls: 'icon-save',
+					handler: function(){
+						datagrid.datagrid("endEdit",editRow);   //关闭当前正在编辑的行
+						//获取当前被修改的对象
+						var rows=datagrid.datagrid("getChanges")[0];
+						if(rows==undefined){
+							datagrid.datagrid("rejectChanges");   //回滚自创建以来或自上次调用acceptChanges，所有变化的数据
+							datagrid.datagrid("unselectAll");  
+							editRow=undefined;
+						}else{
+							rows["op"]=op;
+							
+							$.post("../usersServlet",rows,function(data){
+								data=parseInt($.trim(data));
+								if(data==1){   //
+									$.messager.show({
+										title:"成功提示",
+										msg:'会员信息'+flag+'成功...',
+										timeout:2000,
+										showType:'slide'
+									});
+								}else{
+									$.messager.alert('失败提示','会员信息'+flag+'失败...','error');
+								}
+								
+								rows=null;
+								datagrid.datagrid("reload");  //重新加载数据一次
+								editRow=undefined;
+								datagrid.datagrid("rejectChanges");   //回滚自创建以来或自上次调用acceptChanges，所有变化的数据
+								datagrid.datagrid("unselectAll");
+							});
+						}
+					}
+				},{
+					text:'撤销',
+					iconCls: 'icon-redo',
+					handler: function(){
+						datagrid.datagrid("rejectChanges");   //说明有行正在被编辑，则还原当前的修改
+						datagrid.datagrid("endEdit",editRow);   //关闭当前正在编辑的行
+						editRow=undefined;
+					}
+				}]
+		  	});
+</script>
+<style>
+	.myinput{
+		width:200px;
+		border:1px solid #F63;
+	}
+	
+	label{
+		padding-right:10px;
+	}
+	#users_info a{
+		margin-left:30%;
+	}
+</style>
+<div id="users_add_usersInfo" class="easyui-dialog" title="添加会员信息" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
+	<div style="float:right;width:380px;margin-right:20px;">
+		<fieldset id="users_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+	<form action="" style="padding:20px;float:left;">
+		<label>用&nbsp;户&nbsp;名&nbsp;&nbsp;：</label><input type="text" name="uname" id="users_uname" class="myinput"/><br /><br />
+		<label>密&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="pwd" name="pwd" id="users_pwd" class="myinput"/><br /><br />
+		<label>真实姓名：</label><input type="text" name="pname" id="users_pname" class="myinput"/><br /><br />
+		<label>性&nbsp;&nbsp;&nbsp;&nbsp;别&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;<select name="tid" id="users_sex" class="myinput">
+																		<option>男</option>
+																		<option>女</option>
+																  </select><br /><br />
+		<label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="pic" id="users_pic" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br />
+		<label>生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="birth" id="users_birth" class="myinput"/><br /><br />
+		<label>出&nbsp;生&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="birthplace" id="users_birthplace" class="myinput"/><br /><br />
+		<label>居&nbsp;住&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="address" id="users_address" class="myinput"/><br /><br />
+		<label>证&nbsp;件&nbsp;号&nbsp;&nbsp;：</label><input type="text" name="passport" id="users_passport" class="myinput"/><br /><br />
+		<label>固定电话：</label><input type="text" name="tel" id="users_tel" class="myinput"/><br /><br />
+		<label>手机号码：</label><input type="text" name="phone" id="users_phone" class="myinput"/><br /><br />
+		<label>Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="qq" id="users_qq" class="myinput"/><br /><br />
+		<label>email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="email" id="users_email" class="myinput"/><br /><br />		
+		<label>自我介绍：</label>
+		<div id="users_content">
+			<script id="editor" type="text/plain" style="width:800px;height:400px;"></script>
+		</div><br/><br/>
+		<div id="users_info">
+			<a href="javascript:updateusersInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="edit">修改</a>
+		</div>
+	</form>
+</div>
+
+<div id="users_add_usersInfo_show" class="easyui-dialog" title="添加会员信息" data-options="fit:true,resizable:true,modal:true,closed:true">
+	<div style="float:right;width:380px;margin-right:20px;">
+		<fieldset id="users_pic_show_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+	<form action="" style="padding:20px;float:left;">
+		<label>用&nbsp;户&nbsp;名&nbsp;&nbsp;：</label><input type="text" name="uname" id="users_uname_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>密&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="pwd" name="pwd" id="users_pwd_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>真实姓名：</label><input type="text" name="pname" id="users_pname_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>性&nbsp;&nbsp;&nbsp;&nbsp;别&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;<select name="tid" id="users_sex_show" class="myinput" readonly="readonly">
+																		<option>男</option>
+																		<option>女</option>
+																  </select><br /><br />
+		<label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="pic" id="users_pic_show" readonly="readonly" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br />
+		<label>生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="birth" id="users_birth_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>出&nbsp;生&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="birthplace" id="users_birthplace_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>居&nbsp;住&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="address" id="users_address_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>证&nbsp;件&nbsp;号&nbsp;&nbsp;：</label><input type="text" name="passport" id="users_passport_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>固定电话：</label><input type="text" name="tel" id="users_tel_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>手机号码：</label><input type="text" name="phone" id="users_phone_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="qq" id="users_qq_show" class="myinput" readonly="readonly"/><br /><br />
+		<label>email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="email" id="users_email_show" class="myinput" readonly="readonly"/><br /><br />		
+		<label>自我介绍：</label>
+		<div id="users_content_show" style="width:800px;height:400px;">
+			
+		</div><br/><br/>
+	</form>
+</div>
+<script>
+    var ue=UE.getEditor('editor');
+    
+    function showusersDetail(usid){
+		$("#users_add_usersInfo_show").dialog("open");
+		$.post("../usersServlet",{op:"findusersByUsid",usid:usid},function(data){
+			var users=data.rows;
+				$("#users_uname_show").val(users.uname);
+				$("#users_pwd_show").val(users.pwd);
+				$("#users_pname_show").val(users.pname);
+				$("#users_sex_show").val(users.sex);
+				$("#users_birth_show").val(users.birth);
+				$("#users_birthplace_show").val(users.birthplace);
+				$("#users_address_show").val(users.address);
+				$("#users_passport_show").val(users.passport);
+				$("#users_tel_show").val(users.tel);
+				$("#users_phone_show").val(users.phone);
+				$("#users_qq_show").val(users.qq);
+				$("#users_email_show").val(users.email);
+				$("#users_content_show").html(users.intro);
+			var str="";
+			
+			var pics=users.pic.split(",");
+			for(var i=0;i<pics.length;i++){
+				str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+			}
+			$("#users_pic_show_show").html($(str));
+		},"json");
+	}
+    
+    
+	function updateusersInfo(usid){
+		var uname=$("#users_uname").val();
+		var pwd=$("#users_pwd").val();
+		var pname=$("#users_pname").val();
+		var sex=$("#users_sex").val();
+		var birth=$("#users_birth").val();
+		var birthplace=$("#users_birthplace").val();
+		var address=$("#users_address").val();
+		var passport=$("#users_passport").val();
+		var tel=$("#users_tel").val();
+		var phone=$("#users_phone").val();
+		var qq=$("#users_qq").val();
+		var email=$("#users_email").val();
+		
+		var intro=ue.getContent();
+		
+		$.ajaxFileUpload({
+			url:"../usersServlet?op=updateUsersInfo&usid="+usid,
+			secureuri:false,
+			fileElementId:"users_pic",
+			dataType:"json",
+			data:{uname:uname,pwd:pwd,pname:pname,sex:sex,birth:birth,birthplace:birthplace,
+				address:address,intro:intro,passport:passport,tel:tel,phone:phone,qq:qq,email:email},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"会员信息修改成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#users_add_usersInfo").dialog("close");
+					$("#users_info").datagrid("reload");
+					
+					$("#users_uname").val('');
+					$("#users_pwd").val('');
+					$("#users_pname").val('');
+					$("#users_birth").val('');
+					$("#users_birthplace").val('');
+					$("#users_address").val('');
+					$("#users_passport").val('');
+					$("#users_tel").val('');
+					$("#users_phone").val('');
+					$("#users_qq").val('');
+					$("#users_email").val('');
+	
+					ue.setContent("");
+					
+				}else{
+					$.messager.alert("失败提示","会员信息修改失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","会员信息修改有误...\n"+e,"error");
+			}
+		});
+	}
+</script>

@@ -1,0 +1,198 @@
+@charset "utf-8";
+/* CSS Document */
+
+.bg-payorder {
+    background: rgba(0, 0, 0, 0) url("../images/bg_payorder.jpg") no-repeat scroll center center;
+    height: 180px;
+    width: 100%;
+}
+.bg-payorder .bg-nav{
+	margin-left:600px;
+}
+ul{ 
+	list-style:none;
+	
+}
+.bg-payorder .bg-nav ul li{
+	float:left;
+	margin-top:130px;
+}
+.bg-payorder .bg-nav ul li{
+	color:#FFF;
+}
+.bg-payorder .bg-nav ul li a{
+	color:#FFF;
+}
+.bg-payorder .bg-nav ul li a:hover{
+	color:#000;
+}
+.fillOrder ul li{ color:#666;}
+.fillOrder .con{ width: 1200px; padding:0 10px; float:center; background:#fff; padding-bottom:20px; }
+#shippingAddress .hd h2 {
+    background: #fafafa none repeat scroll 0 0;
+    color: #585858;
+    font-size: 18px;
+    padding: 10px 10px 10px 15px;
+}
+.fillOrder .con .address { width:350px; overflow:hidden; padding-bottom: 20px; }
+.fillOrder .con .address .hd{ width:100%; float:left; padding-top:20px; font-size:14px; color:#808184; line-height:22px; font-weight: bold; }
+
+.fillOrder .con .address .subHd{ width:100%; margin-top:30px; padding-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
+
+.fillOrder .con .newAddress{ margin-top:20px; padding-left:60px; clear:both; }
+.fillOrder .con .newAddress ul{ width:100%; float:left; }
+.fillOrder .con .newAddress ul li{ margin-top:12px; width:100%; float:left; line-height: 38px;}
+.fillOrder .con .newAddress label{ width: 100px; float:left; font-size: 14px;}
+.fillOrder .con .newAddress .inputBg{ float: left; /* width:276px; */ /* background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) 0 -616px no-repeat; */ }
+.fillOrder .con .newAddress .inputBg a{ color:red; front-size:14px;}
+.fillOrder .con .newAddress input{border-radius: 4px; width: 500px; height: 30px; padding: 0px 13px; border: 1px solid #e0e4e7; outline:none; background:none; line-height: 30px\9;}
+.fillOrder .con .newAddress .tips{ padding-left: 270px; color:#acacac; font-size:14px;}
+.btn{ width:100%; margin-top:40px; }
+.fillOrder .con .newAddress .save{ /* background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) -2px -535px no-repeat; */ width: 106px; height: 35px; border:none; text-align:center; color:#fff; font-size:14px; float:left; margin-left: 270px; margin-top:15px; cursor:pointer; background: #e8380d; line-height: 28px; border-radius: 24px; font-size: 12px;}
+.fillOrder .con .city{ float:left;/* width:275px; */height:26px; }
+.fillOrder .con .city .fixBg{  /*height:24px; */left:0; top:0; width:125px; /*background:url(../../images/payment/51dfc7b90a1bb59d4d000e02.png) 0 -540px no-repeat;*/ }
+.fillOrder .con .city .fixBg.selected{ width:272px; height:233px; background-position:0 -600px; }
+.fillOrder .con .city .showCity{ clear:both; height:24px; }
+.fillOrder .con .city .fixBg input{ width:78px; padding:0; height:24px; text-align: center; line-height:24px; display:inline-block; }
+.fillOrder .con .city .fixBg .btnSelected{ width:40px; height:24px; text-indent:-9999px; display:inline-block; cursor:pointer; }
+.fillOrder .con .city .allCity a{ width:48px; padding-top:7px; padding-left:20px; float:left; line-height:18px; }
+.fillOrder .con .city .allCity a:hover,.fillOrder .con .city .allCity a.on{ color:#ea412d; }
+
+.fillOrder .con .delStyle{ float:left; width:278px; height:26px; }
+.fillOrder .con .disFixBg{ height:24px; left:0; top:0; width:280px; /*background:url(../../images/payment/51dfc7b90a1bb59d4d000e02.png) -312px -540px no-repeat;*/ }
+.fillOrder .con .disFixBg.selected{ height:100px; background-position:-312px -600px; }
+.fillOrder .con .disFixBg.selected a{ display: block; padding-left: 10px;  padding-top:5px;line-height: 20px;}
+.fillOrder .con .delivery{ clear:both; height:24px; }
+.fillOrder .con .disFixBg input{ width:234px; padding:0; height:24px; text-align: center; line-height:24px; display:inline-block; }
+.fillOrder .con .disFixBg .btnSelected{ width:40px; height:24px; text-indent:-9999px; display:inline-block; cursor:pointer; }
+
+.fillOrder .con .allAddress{ padding-top:10px; width: 350px; float: left;}
+.fillOrder .con .allAddress .subHd{ margin-top:10px; width: 880px;}
+.fillOrder .con .allAddress span{ padding-right:10px; display:inline-block;}
+.fillOrder .con .allAddress span.radio{ padding:0;}
+.fillOrder .con .address .subHd input[type='radio']{ float:left; margin:4px 5px 0 0; display:inline; }
+
+.fillOrder .conB{ padding-bottom:10px; float:left; }
+.fillOrder .con{ width: 1170px; padding:0 10px; float:left; background:#fff; padding-bottom:20px; }
+.fillOrder .con .address { width:100%; overflow:hidden; padding-bottom: 20px; }
+.fillOrder .con .address .hd{ width:100%; float:left; padding-top:20px; font-size:14px; color:#808184; line-height:22px; font-weight: bold; }
+.fillOrder .con .address .hd .ico{ margin-left:10px; background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) 0 -454px no-repeat; width:15px; height:15px; float:left; margin-top:3px; }
+.fillOrder .con .address .subHd{ width:100%; margin-top:30px;margin-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
+.fillOrder .con .address .subHd .radio{ background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) -3px -498px no-repeat; width:15px; height:15px; float:left; margin-top:3px; margin-right:5px; cursor:pointer; }
+.fillOrder .con .address .subHd .radio.selected{ background-position:-38px -497px; }
+.fillOrder .con .address .newAddress{ }
+.fl {float:left;}
+.fillOrder .con .newAddress{ margin-top:20px; padding-left:60px; clear:both; }
+.fillOrder .con .newAddress ul{ width:100%; float:left; }
+.fillOrder .con .newAddress ul li{ margin-top:12px; width:100%; float:left; line-height: 38px;}
+.fillOrder .con .newAddress label{ width: 100px; float:left; font-size: 14px;}
+.fillOrder .con .newAddress .inputBg{ float: left; /* width:276px; */ /* background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) 0 -616px no-repeat; */ }
+.fillOrder .con .newAddress input{border-radius: 4px; width: 500px; height: 30px; padding: 0px 13px; border: 1px solid #e0e4e7; outline:none; background:none; line-height: 30px\9;}
+.fillOrder .con .newAddress .tips{ /* padding-left: 270px; */ float:left; color:#acacac; }
+.btn{ width:100%; margin-top:40px; }
+.fillOrder .con .newAddress .save{ /* background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) -2px -535px no-repeat; */ width: 106px; height: 35px; border:none; text-align:center; color:#fff; font-size:14px; float:left; margin-left: 270px; margin-top:15px; cursor:pointer; background: #e8380d; line-height: 28px; border-radius: 24px; font-size: 12px;}
+.fillOrder .con .city{ float:left;/* width:275px; */height:26px; position:relative; }
+.fillOrder .con .city .fixBg{ position:absolute; /*height:24px; */left:0; top:0; width:125px; /*background:url(../../images/payment/51dfc7b90a1bb59d4d000e02.png) 0 -540px no-repeat;*/ }
+.fillOrder .con .city .fixBg.selected{ width:272px; height:233px; background-position:0 -600px; }
+.fillOrder .con .city .showCity{ clear:both; height:24px; }
+.fillOrder .con .city .fixBg input{ width:78px; padding:0; height:24px; text-align: center; line-height:24px; display:inline-block; }
+.fillOrder .con .city .fixBg .btnSelected{ width:40px; height:24px; text-indent:-9999px; display:inline-block; cursor:pointer; }
+.fillOrder .con .city .allCity a{ width:48px; padding-top:7px; padding-left:20px; float:left; line-height:18px; }
+.fillOrder .con .city .allCity a:hover,.fillOrder .con .city .allCity a.on{ color:#ea412d; }
+
+.fillOrder .con .delStyle{ float:left; width:278px; height:26px; position:relative; }
+.fillOrder .con .disFixBg{ position:absolute; height:24px; left:0; top:0; width:280px; /*background:url(../../images/payment/51dfc7b90a1bb59d4d000e02.png) -312px -540px no-repeat;*/ }
+.fillOrder .con .disFixBg.selected{ height:100px; background-position:-312px -600px; }
+.fillOrder .con .disFixBg.selected a{ display: block; padding-left: 10px;  padding-top:5px;line-height: 20px;}
+.fillOrder .con .delivery{ clear:both; height:24px; }
+.fillOrder .con .disFixBg input{ width:234px; padding:0; height:24px; text-align: center; line-height:24px; display:inline-block; }
+.fillOrder .con .disFixBg .btnSelected{ width:40px; height:24px; text-indent:-9999px; display:inline-block; cursor:pointer; }
+
+.fillOrder .con .allAddress{ padding-top:10px; width: 350px; float: left;}
+.fillOrder .con .allAddress .subHd{position:relative;padding:10px;margin-top: 20px; width: 300px;  height: 145px;  border: 2px solid #D8D8D8; cursor: pointer;}
+.fillOrder .con .allAddress .subHd-checked{border: 2px solid #e8340e;}
+.fillOrder .con .allAddress .subHd .subHd-div{position: absolute;bottom: -11px;right: 0;width: 28px;height: 28px;border-bottom: none;}
+.fillOrder .con .allAddress .subHd .checked{background:url(../images/address_checked.jpg)no-repeat;}
+.fillOrder .con .allAddress .subHd div{ border-bottom: 1px dashed #d5d5d5;padding: 5px 0;}
+.fillOrder .con .allAddress span{ padding-right:10px; display:inline-block;}
+.fillOrder .con .allAddress span.radio{ padding:0;}
+.fillOrder .con .address .subHd input[type='radio']{ float:left; margin:4px 5px 0 0; display:inline; }
+.fillOrder .con .allAddress .allAddress-btn{position: absolute;bottom: 2px;right: 23px;border: none!important;color:#cc0000;display:none;}
+.fillOrder .con .allAddress .subHd:hover .allAddress-btn{display:block;}
+.mod .hd{height:46px;}
+.mod .hd h2{ background: #fafafa none repeat scroll 0 0;
+    color: #585858;
+    font-size: 18px;
+    padding: 10px 10px 10px 15px;}
+#cart table{ 
+	margin-top:20px; color:#666;
+}	
+	
+#cart table th {
+    background: #fafafa none repeat scroll 0 0;
+    border: 1px solid #e7e7e7;
+	font-weight:100;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+td{ 
+	text-align:center;
+	border:1px solid #e7e7e7;
+}
+.costs{ 
+	float:right;
+	margin-top:20px;
+}
+.costs p{
+	height:40px;
+	width:180px;
+    text-align: right;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.costs em {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 5px;
+	color:#666;
+}
+.title{
+	font-size:14px;
+}
+b, em, i {
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    vertical-align: middle;
+}
+.costs label{
+	color:#333;
+	font-size:18px;
+}
+.costs span {
+    color: #ea4725;
+}
+.costs label, .costs span {
+    height: 40px;
+    line-height: 40px;
+}
+
+.submit {
+    background: #e8380d none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight:bold;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 96px;
+	float:right;
+	margin-top:60px;
+	margin-right:-180px;
+}
+

@@ -1,0 +1,113 @@
+.jvectormap-label {
+    position: absolute;
+    display: none;
+    border: solid 1px #CDCDCD;
+    -moz-border-radius: 3px;
+    background: #292929;
+    color: white;
+    font-family: sans-serif, Verdana;
+    font-size: smaller;
+    padding: 3px;
+}
+
+.jvectormap-zoomin, .jvectormap-zoomout {
+    position: absolute;
+    -moz-border-radius: 3px;
+    background: #292929;
+    padding: 3px;
+    color: white;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    line-height: 10px;
+    text-align: center;
+}
+
+.jvectormap-zoomin {
+    left: 10px;
+    top: 10px;
+}
+
+.jvectormap-zoomout {
+    left: 10px;
+    top: 30px;
+}
+#container{
+	float:left;
+}
+.stores{
+	padding-left:150px;
+	float: left;overflow: hidden;margin-bottom: 85px; margin-top:55px;
+}
+.stores li{display:none;border-top: 1px solid #e7e7e7;width: 360px; margin-top:20px;}
+.stores li{display:none;border-bottom: 1px solid #e7e7e7;width: 360px;}
+.st-col {
+    line-height: 30px;
+    min-height: 30px;
+    overflow-y: hidden;
+    padding-bottom: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5px;
+}
+.st-col .st-name {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.st-col .st-name:hover {
+    color:#666;
+}
+.exchange {
+	margin-left:-2px;
+    background-color: #e8380d;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    height: 20px;
+    line-height: 20px;
+	margin-top:5px;
+    padding-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0;
+    width: 85px;
+	text-align:center;
+}
+.st-col .st-dec {
+    font-size: 14px;
+    margin-left: 22px;
+}
+.st-col .st-dec .progress {
+    margin-bottom: 10px;
+}
+.st-col .st-dec p {
+    color: #6e7073;
+    line-height: 1.8;
+}
+.st-col .st-name {
+    display: block;
+    font-size: 18px;
+
+}
+.st-col .st-dec .storename{
+	font-size:18px;
+	color:#999;
+}
+.st-col .st-dec .storename:hover{
+	color:red;
+}
+.st-col a{
+	text-decoration:none;
+}
+.arrow{color:#e8380d;font-family:'新宋体';font-size:20px;margin-left:22px;}
+#province{font-family:"微软雅黑";font-size:20px; color:#666;}
+
+
+
+	

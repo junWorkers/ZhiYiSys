@@ -1,0 +1,15 @@
+<style>
+	#main{
+		background: #B3DFDA;
+	}
+	.imgs{
+		bakground:#B3DFDA;
+	}
+	
+</style>
+<center>
+
+<div id="main" border:false">
+  <img src="#" width="100%" height="100%" class="imgs" />
+</div>
+</center>

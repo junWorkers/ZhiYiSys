@@ -1,0 +1,48 @@
+// JavaScript Document
+
+//设置滚动的标题栏
+{
+	var str='找回密码——指艺官方网站　';
+	function run(){		
+		str=str.substring(1,str.length)+str.substring(0,1);
+		document.title=str;         //在标题栏中显示
+		window.status=str;         //在状态栏中显示   IE浏览器
+	}
+	//定时器
+	window.setInterval('run()','500');     //每隔0.2秒调用run()方法一次
+}
+//邮箱验证
+function checkEmail(){
+	var reg=/^\w+@\w+\.(com)|(cn)$/;
+	var email=document.getElementById('email').value;
+	if(email==''){
+		document.getElementById('email_error_tag').innerHTML="&nbsp;&nbsp;请输入邮箱地址";
+		document.getElementById('email_error_tag').style.color='red';
+		return false;
+	}else if(!reg.test(email)){
+		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱地址格式错误';
+		document.getElementById('email_error_tag').style.color='red';
+		return false;
+	}else{
+		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱格式符合';
+		document.getElementById('email_error_tag').style.color='green';
+		return true;
+	}
+}
+//验证码
+function checkcaptcha(){
+	//document.getElementById('verification').style.display='block';
+	var captcha=document.getElementById('captcha').value;
+	if(captcha==''){
+		document.getElementById('captcha_error_tag').innerHTML='&nbsp;&nbsp;验证码不能为空，输入图片中的字符';
+		document.getElementById('captcha_error_tag').style.color='red';
+		return false;
+	}else{
+		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;验证码正确';
+		document.getElementById('email_error_tag').style.color='green';
+		return true;
+	}
+}
+function show1(){
+	document.getElementById('verification').style.display='block';
+}

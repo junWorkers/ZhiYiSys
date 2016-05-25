@@ -1,0 +1,30 @@
+
+
+
+
+
+
+@charset "utf-8";
+/* 购物详细页 */
+.pdtby{background-color:#efefef;}
+.pdtby .pdtby-inner{width: 1170px;margin: 0 auto;overflow: hidden;height: 700px;}
+.pdtby-inner .pdtby-details{float: right; padding-right: 100px; margin-top: 60px; color: #fff; line-height: 1.5; width: 520px;}
+.pdtby-details .pdtby-title{font-size: 40px; color: #000; margin-top:-22px;border-bottom:1px solid #cecece; padding-bottom: 20px; font-weight:400;}
+.pdtby-details .pdtby-dec{  line-height: 1.8; margin-top:31px; margin-bottom:40px; color:#666; font-size:16px; font-weight:100;}
+.pdtby-details .pdtby-price{font-size: 42px; margin-bottom: 10px;color:#eb4f2c;}
+.pdtby-img a{ background-color:#fff; display: inline-block; overflow: hidden; margin-right: 10px; top: 0; left: 0; border: 1px solid #e2e2e2; margin-bottom: 5px; border-radius:3px; padding:4px 0; }
+.pdtby-img .current{ border: 1px solid #eb4f2c;}
+.pdtby-img img{ width: 52px; height: 47px; vertical-align: middle;}
+.pdtby-btn-groups .btn-gobuy{ background:#eb4f2c; width:190px; height:40px; line-height:40px; text-align:center; border-radius:5px; margin-left:0px; color:#fff; font-size:16px; border:1px solid #eb4f2c;}
+.btn-gobuy a{ color:#FFF;}
+.pdtby-btn-groups .btn-gobuy:hover{ background:#D41414;}
+.tabs{ width:450px; overflow:hidden; float:left; }
+.thuma{ margin-left:-20px;}
+.thuma img{ height:500px; width:500px;}
+.thumb { margin-top:530px; height:105px; width:500px; overflow:hidden; float:left; margin-left:-400px;}
+.thumb li{cursor: pointer; border:1px solid #e2e2e2; width: 80px; margin-right: 30px; display: block; float: left; text-align: center; }
+.thumb li img{ height:80px; width:80px;}
+.thumb li.selected{border:1px solid #eb4f2c;}
+.thumb li.unselected{border:1px solid #ccc;}
+
+

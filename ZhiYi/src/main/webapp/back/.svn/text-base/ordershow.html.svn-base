@@ -1,0 +1,67 @@
+<table id="show_news_info" data-options="fit:true"></table>
+<style>
+	
+</style>
+<div id="show_news_info_find" style="width:100%,text-align:left">
+	<span style="padding-left:20px">商品名称：</span><select id="typeInfo" style="width:100px;">
+		<option value="0" >全部</option>
+	</select>
+	<span style="padding-left:20px">销售时间：</span><input name="ndate" id="show_news_ndate" class="easyui-datebox myinput" required/>
+	<span >到 </span><input name="ndate" id="show_news_ndate" class="easyui-datebox myinput" required/>
+	<a href="javascript:findNewsInfoByInfo()" style="padding-left:20px" class="easyui-linkbutton" data-options="iconCls:'icon-add'">查询</a>
+</div>
+<script>
+	
+	$.post("../typeServlet",{op:"getAllNewsType"},function(data){
+		var obj=$("#typeInfo");
+		var opt;
+		$.each(data.rows,function(index,item){
+			opt="<option value='"+item.tid+"'>"+item.tname+"</option>";
+			obj.append($(opt));
+		});
+	},"json");
+	
+	var datagrid;
+	var editRow=undefined;
+	var op;
+	var flag;
+$(function(){
+	$('#show_news_info').datagrid({
+		url:'../newsServlet',
+		queryParams:{op:"getPageNewsInfo"},
+		fitColumns:true,
+		striped:true,
+		loadMsg:"数据加载中...",
+		pagination:true,
+		rownumbers:true,
+		sortName:'nid',
+		sortOrder:'asc',
+		remoteSort:false,
+		columns:[[
+		          {field:'nids',title:'选择',width:100,align:'center',checkbox:true},
+		          {field:'nid',title:'商品名称',width:100,align:'center',sortable:true},
+		          {field:'color',title:'颜色',width:100,align:'center',sortable:true},
+		          {field:'gversion',title:'版本',width:100,align:'center',sortable:true},
+		          {field:'gnum',title:'商品销售数量',width:100,align:'center'},
+		          {field:'auth',title:'销售时间',width:100,align:'center'},
+		]],
+		toolbar:"#show_news_info_find"
+	});
+});
+
+function findNewsInfoByInfo(){
+	var title=$.trim($("#show_news_title").val());
+	var ndate=$("#show_news_ndate").datebox('getValue');
+	var tid=$.trim($("#typeInfo").val());
+	$('#show_news_info').datagrid({
+		url:'../newsServlet',
+		queryParams:{op:"findNewsInfoByInfo",title:title,ndate:ndate,tid:tid}
+	});
+	//$.post("../newsServlet?d="+new Date(),{op:"findNewsInfoByInfo",title:title,ndate:ndate,tid:tid},function(data){
+}
+
+
+</script>
+
+
+

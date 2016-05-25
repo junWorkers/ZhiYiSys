@@ -1,0 +1,148 @@
+@charset "utf-8";
+/* CSS Document */
+
+.high{background: #d5732a; overflow:hidden;}
+.high .section{height: 300px; padding-top:190px;}
+.high .title{width: 100%; left: 0; text-align: center; color: #fff;}
+.high .title h2{color: #fff; font-size: 46px; font-weight: 200;}
+.high .title h3{color: #fff; font-size: 40px; font-weight: 100; padding-top: 0;}
+.high .title p.stitle{width: 420px; margin: 0 auto; color: #fff; text-align: center; padding-top: 15px; font-weight:100;}
+.high .title a.readmore-btn{width: 8em; padding: 8px; border: 2px #fff solid; text-align: center; display: inline-block; font-size: 18px; color: #fff; margin-top: 40px; font-weight: 400;}
+.index-high-video{background:#FFF;}
+
+.s1{background: #fff;}
+.s1 .section{height: 1000px;	}
+.s1 .title{width: 480px; float:left; margin-top:330px; margin-left:205px;}
+.s1 .title h2{color: #333; font-size: 48px; font-weight: 400;}
+.s1 .title h3{color: #333; font-size: 48px; padding-top: 0; font-weight:100;}
+.s1 .title p.stitle{color: #666; text-align: left; padding-top: 15px;}
+.s1 .figure{width: 285px; height: 590px; float:right; margin-top: 230px; margin-right: 204px; overflow: hidden;}
+
+.s2{background: #000;}
+.s2 .section{height: 1600px; margin-left:280px;}
+.s2 .index-s2-video{width: 100%; height: 1080px; margin-left:-280px;}
+.s2 .title{width: 650px; margin-top: -1116px; left: 50%; text-align: center; padding-top: 1000px;}
+.s2 .title h2{color: #fff; font-size: 48px; font-weight: 400;}
+.s2 .title h3{color: #fff; font-size: 48px; font-weight: 200;}
+.s2 .title p.stitle{text-align: center; color: #fff; font-family: "Microsoft Yahei","微软雅黑",Arial,Helvetica,sans-serif;}
+.s2 .title ul{ width: 900px;margin: 0 auto;margin-top: 50px;left: -80px;}
+.s2 .title ul li{float: left; width: 300px; margin-top: 20px; display: inline-block; text-align: left;}
+.s2 .title ul li img{float: left;width: 60px;height: 60px;}
+.s2 .title ul li p{color: #999; margin-top: 22px; margin-left: 30px; font-size: 16px; font-weight: 600; display: inline-block; line-height: 1em;}
+
+.s3{background:url(../images/zx300-s3-showd.png) no-repeat;height: 1600px;}
+.s3 .title{height: 1600px; margin-left:280px;}
+.s3 .title{width: 750px; margin-top:100px; left: 145px;text-align: center;}
+.s3 .title h2{color: #333;font-size: 48px; font-weight: 400;}
+.s3 .title h3{color: #333;font-size: 48px; font-weight: 200;}
+.s3 .title p.stitle{text-align: left;color: #666;text-align: center; margin-top:30px;}
+.s3 .title ul{width: 750px;margin-top: 80px; margin-left:60px;}
+.s3 .title ul li{width: 375px;float: left;display: inline-block;margin-top: 50px;text-align: left;}
+.s3 .title ul li:last-child{margin-top: 20px;}
+.s3 .title ul li img{width: 60px;height: 60px; float: left;margin-right: 25px;}
+.s3 .title ul li span{color: #333; font-size: 18px;top: 10px;line-height: 1.5em;}
+.s3 .title ul li p{color: #666;margin-top: 10px;}
+
+.s4{background: url(../images/zx300-s4-bg.jpg) center center no-repeat; background-size: 2560px 1000px;}
+.s4 .section{height: 1000px;}
+.s4 .title{ margin-left:180px; width: 470px; padding-top: 200px;}
+.s4 .title h2{color: #fff; font-size: 48px;font-weight: 400;}
+.s4 .title h3{color: #fff;font-size: 48px; font-weight: 100;}
+.s4 .title p.stitle{text-align: left; color: #fff;}
+.s4 .title ul{margin-top: 50px;}
+.s4 .title ul li{width: 100%;height: 120px;display: inline-block;float: left;}
+.s4 .title ul li img{float: left;width: 100px;height: 120px;}
+.s4 .title ul li span{font-size: 60px;color: #fff;line-height: 1em;top: 10px;}
+.s4 .title ul li span strong{font-weight: 100;}
+.s4 .title ul li span b{font-size: 30px;color: #fff;vertical-align: baseline; font-weight: 100;}
+.s4 .title ul li p{color: #fff;margin-top: 10px;}
+.s4 .figure{width: 720px; height: 340px; top: 220px; left: -100px;}
+
+.s5{background:url(../images/zx300-s5-bg.jpg) center center no-repeat; background-size: 1920px 1300px;}
+.s5 .section{height: 1300px;}
+.s5 .title{width: 750px; padding-top: 500px; margin-left:280px;text-align: center;}
+.s5 .title h2{color: #333;font-size: 48px; font-weight: 400;}
+.s5 .title h3{color: #333;font-size: 48px; font-weight: 200;}
+.s5 .title p.stitle{text-align: center;color: #666; width: 540px;margin: 0 auto; margin-top:50px;}
+.s5 .title img{margin-top: 50px;width: 180px;height: 180px;}
+
+.s6{background: #f7f7f7 url(../images/zx300-s6-bg.jpg) center center no-repeat; background-size: 1920px 1600px; min-width: 1040px;}
+.s6 .section{height: 1600px;}
+.s6 .title{width: 800px; padding-top: 160px; left: 145px;text-align: center;  margin-left:280px;}
+.s6 .title h2{color: #333;font-size: 48px; font-weight: 400;}
+.s6 .title h3{color: #333;font-size: 48px; font-weight: 200;}
+.s6 .title p.stitle{color: #444; margin: 0 auto;text-align: center;}
+.s6 .figure{width: 100%; height: 100%; top: 0;left:0; background-color: #f7f7f7; background-color: rgba(247,247,247,.2);}
+.s6 .figure #p1{ float:left; padding-left: 250px; padding-top:90px;}
+.s6 .figure #p2{ float:right; padding-right: 170px; margin-top:-440px;}
+.s6 .figure #p3{ float:left; padding-left: 550px; margin-top:-160px;}
+.s6 .figure #p4{ float:right; padding-right: 620px; margin-top:-670px;}
+
+
+
+
+
+
+
+.s8{background:url(../images/zx300-s8-bg.jpg) center center no-repeat; background-size: 1920px 1000px;}
+.s8 .section{height: 1000px;}
+.s8 .title{width: 490px; padding-top: 350px;margin-right: 50px; margin-left:780px;}
+.s8 .title h2{color: #333;font-size: 48px; font-weight: 400;}
+.s8 .title h3{color: #333;font-size: 48px; font-weight: 200; }
+.s8 .title p.stitle{text-align: left; color: #444; padding-top:40px;}
+
+.s9{background: url(../images/zx300-s9-bg.jpg) center center no-repeat; background-size: 1920px 1150px;}
+.s9 .section{height: 1150px;}
+.s9 .title{width: 200px; padding-top: 120px; left: 420px; margin-left:560px;}
+.s9 .title h2{color: #ccc;font-size: 48px;font-weight: 600;}
+.s9 .title p.stitle{text-align: left; color: #ccc;}
+.s9 .title ul{margin: 0 auto;margin-top: 90px;margin-left:200px;width: 300px;}
+.s9 .title ul li{display: inline-block;width: 100%;height: 70px; float: left;}
+.s9 .title ul li:nth-child(6){margin-top: 25px;}
+.s9 .title ul li img{width: 50px;height: 50px;float: left;}
+.s9 .title ul li span{font-size: 16px;color: #666;line-height: 1.5em;}
+.s9 .title ul li p{font-size: 16px;color: #999;}
+
+.nb-purchase-popup{background-color: #fff; border-radius: 8px; width: 800px; height: 500px; overflow: hidden; position: fixed; left: 50%; margin-left: -400px; top: 150px; z-index: 99; box-shadow: 0 10px 50px rgba(0,0,0,0.3); display: none;}
+.nb-purchase-popup img{  margin-right:4px;}
+.nb-purchase-popup a.nb-p-close{width: 40px; height: 40px; position: absolute; top: 10px; right: 10px; -webkit-transition: opacity .3s ease; -moz-transition: opacity .3s ease; transition: opacity .3s ease;}
+.nb-purchase-popup a.nb-p-close:hover{opacity: .8;}
+.nb-purchase-popup .figure-area{width: 410px; height: 410px; position: absolute; top: 50%; left: 20px; margin-top: -205px; overflow: hidden;}
+.nb-purchase-popup .figure-area img{width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; display: none;}
+.nbp-goods-info{margin-left: 440px; margin-right: 40px; padding-top: 50px; color: #333;}
+.nbp-goods-info h2.title{font-size: 24px; line-height: 1.4em;}
+.nbp-goods-info p.subtitle{font-size: 18px; line-height: 1.2em; margin-top: 5px;}
+.nbp-goods-info dl{display: block; margin-top: 30px; font-size: 16px;}
+.nbp-goods-info dl dt{display: block; margin-bottom: 5px;}
+.nbp-goods-info dl.nbp-goods-color dd a{display: inline-block; width: 24px; height: 24px; overflow: hidden; border-radius: 50%; margin-right: 5px; border: 2px #fff solid; position: relative; top: 0; left: 0;}
+.nbp-goods-info dl.nbp-goods-color dd a em{display: inline-block; width: 24px; height: 24px; overflow: hidden; border-radius: 50%;}
+.nbp-goods-info dl.nbp-goods-color dd a.border em{border: 1px #ccc solid; width: 22px; height: 22px;}
+.nbp-goods-info dl.nbp-goods-color dd a.current{border-color: #e7380d;}
+.nbp-goods-info dl.nbp-goods-color dd a.current em{border: none; width: 24px; height: 24px;}
+.nbp-goods-info dl.nbp-goods-count dd strong{display: inline-block; border: 1px #ccc solid; border-radius: 25px; overflow: hidden;}
+.nbp-goods-info dl.nbp-goods-count dd strong b{width: 35px; height: 35px; overflow: hidden; display: inline-block; background-size: 20px; background-position: center center; background-repeat: no-repeat; cursor: pointer; vertical-align: middle;}
+.nbp-goods-info dl.nbp-goods-count dd strong b.r{background-image: url(../images/nbp-goods-countr.jpg);}
+.nbp-goods-info dl.nbp-goods-count dd strong b.p{background-image: url(../images/nbp-goods-countp.jpg);}
+.nbp-goods-info dl.nbp-goods-count dd strong input{border: none; background: none; width: 2em; text-align: center; color: #333; font-size: 16px; padding: 2px 5px; vertical-align: middle;}
+.nbp-goods-info .nbp-goods-price{margin-top: 30px;}
+.nbp-goods-info .nbp-goods-price strong{display: inline-block; vertical-align: middle; font-size: 36px; font-weight: bold; line-height: 1em; margin-right: 10px;}
+.nbp-goods-info .nbp-goods-price strong sup{display: inline-block; vertical-align: top; font-weight: normal; font-size: 18px; line-height: 1.6em;}
+.nbp-goods-info .nbp-goods-price span{display: inline-block; vertical-align: bottom; line-height: 1.3em; color: #999; font-size: 18px; text-decoration: line-through;}
+.nbp-goods-info .nbp-goods-btn{margin-top: 30px;}
+.nbp-goods-info .nbp-goods-btn a{border: 1px #e7380d solid; color: #e7380d; border-radius: 4px; height: 35px; line-height: 35px; width: 10em; text-align: center; display: inline-block; font-size: 12px; -webkit-transition: all .3s ease; -moz-transition: all .3s ease; transition: all .3s ease; font-weight: bold;}
+.nbp-goods-info .nbp-goods-btn a:hover{}
+@media print, only screen and (-webkit-min-device-pixel-ratio: 1.5), screen and (min-resolution: 144dpi), screen and (min-resolution: 144dppx) {
+    .nbp-goods-info dl.nbp-goods-count dd strong b.r{background-image: url(../images/nbp-goods-countr-x2.jpg);}
+    .nbp-goods-info dl.nbp-goods-count dd strong b.p{background-image: url(../images/nbp-goods-countp-x2.jpg);}
+}
+
+
+
+
+
+
+
+
+
+
+

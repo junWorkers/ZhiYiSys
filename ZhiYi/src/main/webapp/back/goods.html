@@ -1,0 +1,286 @@
+<table id="goods_info" data-options="fit:true"></table>
+<script>
+		
+		var obj=$("#goods_goodstype");
+		var opt="";
+		$.post("../gtypeServlet",{op:"getAllGoodsType"},function(data){
+			$.each(data.rows,function(index,item){
+				opt="<option value='"+item.tid+"'>"+item.tname+"</option>";
+				obj.append($(opt));
+			});
+			
+		},"json");
+	
+	$(function(){	
+		var datagrid;
+		var editRow=undefined;
+		var op;
+		var flag;
+		datagrid=$('#goods_info').datagrid({
+			url:'../goodsServlet',
+			queryParams:{op:"getPageGoodsInfo"},
+			fitColumns:true,
+			striped:true,
+			loadMsg:"数据加载中...",
+			pagination:true,
+			rownumbers:true,
+			sortName:'gid',
+			sortOrder:'asc',
+			remoteSort:false,
+			columns:[[
+				  		{field:'gid',title:'商城商品编号',width:100,align:'center',checkbox:true},
+				  		{field:'gids',title:'商城商品编号',width:100,align:'center',sortable:true},
+				  		{field:'gname',title:'商城商品名称',width:100,align:'center',sortable:true},
+				  		{field:'tname',title:'所属序列名称',width:100,align:'center',sortable:true},
+				  		{field:'price',title:'商城商品价格',width:100,align:'center',sortable:true},
+				  		{field:'gnum',title:'商城商品库存',width:100,align:'center',sortable:true},
+				  		{field:'gposition',title:'商城位置显示',width:100,align:'center',sortable:true},
+				  		{field:'_do',title:'操作',width:100,align:'center',
+				  		     formatter:function(value,rowData,index){
+				  		        return '<img src="../easyui/icons/search.png"/><a class="icon-search1 icon-padding" href="javascript:showgoodsDetail(\''+rowData.gid+'\')">详细</a>';
+				  		     }
+				  		}
+			]],
+		toolbar: [{
+			text:"添加",
+			iconCls: 'icon-add',
+			handler: function(){
+				
+				$("#win1").dialog("open");
+				$("#add1").css("display","inline-block");
+				$("#edit1").css("display","none");
+
+				$("#goods_gname").val('');
+				$("#goods_price").val('');
+				$("#goods_gnum").val('');
+				$("#goods_descibe").val('');
+				$("#goods_gposition").val('');
+				$("#goods_pic").val('');
+				$("#goods_pic_show").html('');
+			}
+		},{
+			text:"修改",
+			iconCls: 'icon-edit',
+			handler: function(){
+				
+				var  rows=datagrid.datagrid("getChecked")[0];
+				if(rows==undefined){
+					$.messager.show({
+						title:"温馨提示",
+						msg:"请选择您要修改的数据...",
+						timeout:2000,
+						showType:'slide'
+					});
+				}else{
+					$("#add1").css("display","none");
+					$("#edit1").css("display","inline-block");
+					
+					var  gid=datagrid.datagrid("getChecked")[0].gid;
+					$("#edit1").attr("href","javascript:updateGoods("+gid+")");
+					
+					$.post("../goodsServlet",{op:"findGoodsByGid",gid:gid},function(data){
+						var goodsInfo=data.rows;
+						
+						$("#goods_gname").val(goodsInfo.gname);
+						$("#goods_goodstype").find("option[text='"+goodsInfo.tname+"']").attr("selected",true);
+						$("#goods_price").val(goodsInfo.price);
+						$("#goods_gnum").val(goodsInfo.gnum);
+						$("#goods_descibe").val(goodsInfo.descible);
+						$("#goods_gposition").val(goodsInfo.gposition);
+						
+						var str="";
+						var pics=goodsInfo.gpath.split(",");
+						for(var i=0;i<pics.length;i++){
+							str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+						}
+						$("#goods_pic_show").html($(str));
+						
+					},"json");
+					$("#win1").dialog("open");
+				}
+			}
+		},{
+			text:"删除",
+			iconCls: 'icon-remove',
+			handler: function(){
+				//
+				var rows=datagrid.datagrid("getChecked");
+				if(rows.length<=0){   //
+					$.messager.show({
+						title:"友情提示",
+						msg:"请选择要删除的数据...",
+						timeout:2000,
+						showType:'slide'
+					});
+				}else{
+					$.messager.confirm('信息确认','您确定要删除选中的数据吗？',function(r){
+						if(r){
+							var gids="";
+							for(var i=0;i<rows.length-1;i++){
+								gpids+=rows[i].gid+",";
+							}
+							gids+=rows[i].gid;
+							
+							//将要删除aid发送到服务器
+							$.post("../goodsServlet",{op:"delgoods",gids:gids},function(data){
+								if(data==1){   //删除成功
+									$.messager.show({
+										title:"删除提示",
+										msg:"商城商品信息删除成功...",
+										timeout:2000,
+										showType:'slide'
+									});
+									datagrid.datagrid("reload");  //重新加载数据一次
+								}else{
+									$.messager.alert('失败提示','商城商品信息删除失败...','error');
+								}
+							});
+						}
+					});
+				}
+				
+			}
+		}]
+	});
+ });
+</script>
+<style>
+	.myinput{
+		width:200px;
+	}
+	
+	label{
+		padding-right:10px;
+	}
+	
+</style>
+<div id="win1" class="easyui-dialog" title="商城商品信息操作" style="width:600px;height:600px" data-options="iconCls:'icon-add',modal:true,closed:true">  
+    <div style="float:right;width:150px;margin-right:20px;margin-top:10px;">
+		<fieldset id="goods_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+    <form action="" style="padding:20px;float:left;">
+		<label>商城商品名称：</label><input type="text" name="gname" id="goods_gname" class="myinput"/><br /><br />
+		<label>所属序列名称：</label>
+		<select name="tid" id="goods_goodstype" style="width:180px;">
+					
+		</select><br /><br />
+		<label>商城商品价格：</label><input type="text" name="price" id="goods_price" class="myinput"/><br /><br />
+		<label>商城商品库存：</label><input type="text" name="gnum" id="goods_gnum" class="myinput"/><br /><br />
+		<label>商城商品描述：</label><br /><br />
+		<textarea type="text" name="descibe" id="goods_descibe" rows="10" cols="41"></textarea><br /><br />
+		<label>商城位置：</label><input type="text" name="gposition" id="goods_gposition" class="myinput"/><br /><br />
+		<label>图片路径：</label><input type="file" name="pic" id="goods_pic" onchange="previewMultipleImage(this,'goods_pic_show')"/><br /><br />
+		<div id="goods_info" style="margin-left:35%">
+			<a href="javascript:addgoodsInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="add1" style="display:inline-block">添加</a>
+			<a href="javascript:updateGoods(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edit1">修改</a>
+		</div>
+	</form>
+</div> 	
+<div id="win2" class="easyui-dialog" title="详细信息" style="width:500px;height:320px" data-options="modal:true,closed:true">  
+	 <div style="float:right;width:150px;margin-right:10px;margin-top:55px;">
+		<fieldset id="goods_pic_show_info">
+			<legend>商城商品图片显示</legend>
+		</fieldset>
+	</div>
+	<form action="" style="padding:20px;float:left;">
+		<label>商城商品描述：</label><br /><br />
+		<textarea type="text" name="descibe" id="goods_descibe_show" rows="10" cols="41" readonly="readonly"></textarea><br /><br />
+	</form>
+</div>
+<script>
+function showgoodsDetail(gid){
+	$("#win2").dialog("open");
+	$.post("../goodsServlet",{op:"findgoodsByGid",gid:gid},function(data){
+		var goods=data.rows;
+		$("#goods_descibe_show").val(goods.descible);
+		var str="";
+		
+		var pics=goods.gpath.split(",");
+		for(var i=0;i<pics.length;i++){
+			str+="<img src='../"+pics[i]+"' width='100px' height='100px'>&nbsp;";
+		}
+		$("#goods_pic_show_info").html($(str));
+	},"json");
+}
+	function addgoodsInfo(){
+		var gname=$("#goods_gname").val();
+		var price=$("#goods_price").val();
+		var gnum=$("#goods_gnum").val();
+		var tid=$("#goods_goodstype").val();
+		var descibe=$("#goods_descibe").val();
+		var gposition=$("#goods_gposition").val();
+		$.ajaxFileUpload({
+			url:"../goodsServlet?op=addgoods",
+			secureuri:false,
+			fileElementId:"goods_pic",
+			dataType:"json",
+			data:{gname:gname,price:price,gnum:gnum,tid:tid,descibe:descibe,gposition:gposition},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"商城商品信息添加成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win1").dialog("close");
+					$("#goods_info").datagrid("reload");
+					$("#goods_gname").val('');
+					$("#goods_price").val('');
+					$("#goods_gnum").val('');
+					$("#goods_descibe").val('');
+					$("#goods_gposition").val('');
+					$("#goods_pic").val('');
+					$("#goods_pic_show").html('');
+					
+				}else{
+					$.messager.alert("失败提示","商城商品信息添加失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","商城商品信息添加有误...\n"+e,"error");
+			}
+		});
+	}
+	function updateGoods(gid){
+		var gname=$("#goods_gname").val();
+		var price=$("#goods_price").val();
+		var gnum=$("#goods_gnum").val();
+		var tid=$("#goods_goodstype").val();
+		var descibe=$("#goods_descibe").val();
+		var gposition=$("#goods_gposition").val();
+		$.ajaxFileUpload({
+			url:"../goodsServlet?op=updateGoods&gid="+gid,
+			secureuri:false,
+			fileElementId:"goods_pic",
+			dataType:"json",
+			data:{gname:gname,price:price,gnum:gnum,tid:tid,descibe:descibe,gposition:gposition},
+			success:function(data,status){
+				if(parseInt($.trim(data))==1){   //
+					$.messager.show({
+						title:"成功提示",
+						msg:"商品信息修改成功...",
+						timeout:2000,
+						showType:'slide'
+					});
+					$("#win1").dialog("close");
+					$("#goods_info").datagrid("reload");
+					$("#goods_gname").val('');
+					$("#goods_price").val('');
+					$("#goods_gnum").val('');
+					$("#goods_descibe").val('');
+					$("#goods_gposition").val('');
+					$("#goods_pic").val('');
+					$("#goods_pic_show").html('');
+				}else{
+					$.messager.alert("失败提示","商品信息修改失败...","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","商品信息修改有误...\n"+e,"error");
+			}
+		});
+	}
+</script>
