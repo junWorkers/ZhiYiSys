@@ -1,2 +1,5 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/remotes/origin/master
 eclipse.preferences.version=1
-encoding/<project>=UTF-8
+encoding//src/main/java/com/zhiyi/web/action/AdminAction.java=UTF-8

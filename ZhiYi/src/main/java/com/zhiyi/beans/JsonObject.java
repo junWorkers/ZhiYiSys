@@ -3,8 +3,6 @@ package com.zhiyi.beans;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-@Component("jsonObject")
 public class JsonObject<T> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int total;
