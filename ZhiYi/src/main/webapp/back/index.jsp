@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<tr style="padding-bottom: 0px;height: 20px;">
 						
 					</tr>
-	    			<a href="#"><font color="#FF0000" size="3">欢迎您：<span id="anameNeed">${loginManager.aname }</span></font></a>&nbsp;&nbsp;
+	    			<a href="#"><font color="#FF0000" size="3">欢迎您：<span id="anameNeed">${sessionScope.loginManager.aname }</span></font></a>&nbsp;&nbsp;
     		</c:if>
 						<a href="#" class="easyui-menubutton" data-options="menu:'#layout_north_kzmbMenu',iconCls:'icon-gears'">主题设置</a>
 						<a id="loginOut" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-exit',plain:true">退出系统</a>
@@ -204,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  		});
 		$('#loginOut').click(function() {
 			confirm('系统提示','您确定要退出本次登录吗?',function(){
-				location.href = 'login.html';
+				location.href = 'login.jsp';
 			});
 	    });
 		setInterval(function() {

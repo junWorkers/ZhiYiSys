@@ -8,15 +8,16 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
 	
-	<!-- 友好的报错提示 -->
-	<constant name="struts.devMode" value="true"/>
-	
 	 <!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
-
-	<package name="default" namespace="/" extends="struts-default">
-		<action name="hello">
-			<result>/index.jsp</result>
+	
+	 <!-- 后台管理 -->
+	<package name="backjson" namespace="/backjson" extends="json-default">
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result type="json">
+				<param name="root">jsonObject</param>
+				<param name="encoding">UTF-8</param>
+			</result>
 		</action>
 	</package>
 </struts>

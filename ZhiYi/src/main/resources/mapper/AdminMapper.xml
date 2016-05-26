@@ -5,4 +5,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
 <mapper namespace="com.zhiyi.mapper.AdminMapper">
 	
+	<!-- 查询总的条数 -->
+	<select id="getTotal" resultType="int">
+		select count(aid) from admin
+	</select>
+	
+	<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Admin">
+		select * from (
+			select a.*,rownum rn from (
+				select * from admin order by aid
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 插入管理员信息 -->
+	<insert id="addAdmin" parameterType="Admin">
+		insert into admin values(seq_admin_aid.nextval,#{aname},#{pwd},#{phone},#{status},null,null,null)
+	</insert>
+	
+	<!-- 删除管理员信息 -->
+	<delete id="delAdmin" parameterType="string">
+		delete from admin where aid=#{aid}
+	</delete>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateAdmin" parameterType="Admin">
+		update admin set aname=#{aname},pwd=#{pwd},phone=#{phone},status=#{status} where aid=#{aid}
+	</update>
+	
+	<!-- 查询是否存在该管理员 -->
+	<select id="findAdmin" parameterType="Admin" resultType="Admin">
+		select aid,aname,pwd from admin where aname=#{aname} and pwd=#{pwd} and status=1	
+	</select>
+	
 </mapper>

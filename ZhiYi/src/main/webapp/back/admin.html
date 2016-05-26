@@ -7,16 +7,21 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#admin_info').datagrid({
-			url:'../adminServlet',
-			queryParams:{op:"getPageAdminInfo"},
-			fitColumns:true,
-			striped:true,
-			loadMsg:"数据加载中...",
-			pagination:true,
-			rownumbers:true,
-			sortName:'aid',
-			sortOrder:'asc',
-			remoteSort:false,
+			url:'../backjson/admin_getPageAdminInfo.action',
+		    loadMsg:'努力展开中...',
+		    title:'管理员列表',
+		    iconCls:'icon-search',
+		    fitColumns:true,
+		    fit:true,
+		    striped:true,
+		    pagination:true,
+		    rownumbers:true,
+		    sortName:'aid',
+		    sortOrder:'asc',
+		    remoteSort:false,
+		    pageNumber:1,
+		    pageSize:5,
+		   	pageList:[5,10,20,30,40,50],
 		columns:[[
 		          {field:'aid',title:'管理员编号',width:100,align:'center',checkbox:true},
 		          {field:'aids',title:'管理员编号',width:100,align:'center',sortable:true},
@@ -60,6 +65,7 @@
 			handler: function(){
 				//
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var row=datagrid.datagrid("getChecked");
 				if(rows==undefined){
 					$.messager.show({
 						title:"温馨提示",
@@ -67,7 +73,10 @@
 						timeout:2000,
 						showType:'slide'
 					});
-				}else{
+				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
+				}
+				else{
 					op="updateAdminInfo";
 					flag="修改";
 					if(editRow!=undefined){  //说明有行正在被编辑，则还原当前的修改
@@ -107,8 +116,8 @@
 							aids+=rows[i].aid;
 							
 							//将要删除aid发送到服务器
-							$.post("../adminServlet",{op:"delAdminInfo",aids:aids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/admin_delAdminInfo.action",{aids:aids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"管理员信息删除成功...",
@@ -139,9 +148,8 @@
 				}else{
 					rows["op"]=op;
 					
-					$.post("../adminServlet",rows,function(data){
-						data=parseInt($.trim(data));
-						if(data==1){   //
+					$.post("../backjson/admin_"+rows["op"]+".action",rows,function(data){
+						if(data.result>0){   //
 							$.messager.show({
 								title:"成功提示",
 								msg:'管理员信息'+flag+'成功...',

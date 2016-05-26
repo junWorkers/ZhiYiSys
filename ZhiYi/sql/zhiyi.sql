@@ -16,7 +16,6 @@ drop sequence seq_admin_aid;
 create sequence seq_admin_aid start with 1001 increment by 1;
 select * from admin;
 ------------------------------------------------------------------------
-
 --会员表 
 create table users(
        usid int primary key,            --用户编号

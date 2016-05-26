@@ -93,9 +93,10 @@
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>oracle-driver</artifactId>
-			<version>11g</version>
+			<version>oracle11g</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<!-- 13.数据库连接池DBCP的包 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
