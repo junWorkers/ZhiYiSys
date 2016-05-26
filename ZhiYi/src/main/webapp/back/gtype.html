@@ -7,8 +7,8 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#gtype_info').datagrid({
-			url:'../gtypeServlet',
-			queryParams:{op:"getPageTypeInfo"},
+			url:'../backjson/gtype_getPageTypeInfo.action',
+			title:'商城序列信息列表',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
