@@ -40,14 +40,17 @@ create table users(
        available2  varchar2(30),
        available3  varchar2(30) 
 );
+create sequence seq_users_usid start with 2001 increment by 1;
+insert into users values(seq_users_usid.nextval,'什么鬼','aaa','李四','男','1999-10-10','湖南衡阳','湖南衡阳','傻逼一个','12345967889',null,'58966958512','15569683','1231231923','7859@qq.com','0',1,null,null,null);
+
+select * from users;
+drop table users;
+drop sequence seq_users_usid;
+
 update users set email='15617@qq.com'  where email='1561012827@qq.com';
 select usid,uname,pwd from users where (uname='什么鬼' or email='aa') and pwd='aaa'
-insert into users values(seq_users_usid.nextval,'什么鬼','aaa','李四','男','1999-10-10','湖南衡阳','湖南衡阳','傻逼一个','12345967889',null,'58966958512','15569683','1231231923','7859@qq.com','0',1,null,null,null);
-drop table users;
 select * from users where (uname='什么鬼' or email='什么鬼') and pwd='aaa'
-select * from users;
-create sequence seq_users_usid start with 2001 increment by 1;
-drop sequence seq_users_usid;
+
 --------------------------------------------------------------------
 --商城首页序列表
 create table gtype(
@@ -60,12 +63,13 @@ create table gtype(
        available2  varchar2(30),
        available3 varchar2(30)
 );
+create sequence seq_gtype_tid start with 3001 increment by 1;
+
 insert into gtype values(seq_gtype_tid.nextval,'Z序列','Z9序列/Z7序列',null,1,null,null,null);
 insert into gtype values(seq_gtype_tid.nextval,'Z序列','X序列',null,2,null,null,null);
 drop table gtype;
-select * from gtype;
-create sequence seq_gtype_tid start with 3001 increment by 1;
 drop sequence seq_gtype_tid;
+select * from gtype;
 ---------------------------------------------------------------------
 --商城商品信息表
 create table goods(
@@ -83,12 +87,13 @@ create table goods(
   available2  varchar2(30),
   available3 varchar2(30)
 );
+create sequence seq_goods_gid start with 4001 increment by 1;
+insert into goods values(seq_goods_gid.nextval,'nubiya Z9',3001,'3333',10,null,null,2,1,null,null,null);
+select * from goods;
+
+drop sequence seq_goods_gid;
 drop table goods;
 delete from goods where gid=4047
-select * from goods;
-insert into goods values(seq_goods_gid.nextval,'nubiya Z9',3001,'3333',10,null,null,2,1,null,null,null);
-create sequence seq_goods_gid start with 4001 increment by 1;
-drop sequence seq_goods_gid;
 ----------------------------------------------------------------------
 --商品详细表
 create table goodsInfo(
@@ -105,13 +110,14 @@ create table goodsInfo(
 	   available2  varchar2(30),
 	   available3 varchar2(30)
 );
-select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=4022 and giattribute='概述' union select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=4022 and giattribute='设计'
-insert into goodsInfo values(seq_goodsInfo_iid.nextval,4027,'1','1','应用','../uploadPath/shipi.mp4',5,1,null,null,null);
-drop table goodsInfo;
-select * from goodsInfo;
-drop sequence seq_goodsInfo_iid;
 create sequence seq_goodsInfo_iid start with 5001 increment by 1;
+insert into goodsInfo values(seq_goodsInfo_iid.nextval,4027,'1','1','应用','../uploadPath/shipi.mp4',5,1,null,null,null);
+select * from goodsInfo;
+
 drop sequence seq_goodsInfo_iid;
+drop table goodsInfo;
+select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=4022 and giattribute='概述' union select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=4022 and giattribute='设计'
+
 ------------------------------------------------------------------------
 --商品参数表
 create table goodsPar(
@@ -128,13 +134,14 @@ create table goodsPar(
 	available2  varchar2(30), 
 	available3 varchar2(30)
 );
-select gp.gpid,gs.price from goodsPar gp,goods gs where gp.gid=4001 and gp.color='黑色' and gp.gid=gs.gid
-drop table goodsPar;
+create sequence seq_goodsPar_gpid start with 6001 increment by 1;
 insert into goodsPar values(seq_goodsPar_gpid.nextval,4001,'白色','精英版',null,null,1,1,null,null,null);
 select * from goodsPar;	
+
 drop sequence seq_goodsPar_gpid;
-create sequence seq_goodsPar_gpid start with 6001 increment by 1;
-drop sequence seq_goodsPar_gpid;
+drop table goodsPar;
+select gp.gpid,gs.price from goodsPar gp,goods gs where gp.gid=4001 and gp.color='黑色' and gp.gid=gs.gid
+
 ------------------------------------------------------------------------
 --意外宝
 create table safe(
@@ -147,10 +154,11 @@ create table safe(
     available2  varchar2(30),
     available3 varchar2(30)
 );
-drop table safe;
-select * from safe;
-drop sequence seq_safe_ssid;
 create sequence seq_safe_ssid start with 1001 increment by 1;
+select * from safe;
+
+drop sequence seq_safe_ssid;
+drop table safe;
 ---------------------------------------------------------------------------
 --应用表
 create table app(
@@ -163,10 +171,12 @@ create table app(
       available2  varchar2(30),
       available3 varchar2(30)
 );
-drop table app;
-select * from app;
-drop sequence seq_app_apid;
 create sequence seq_app_apid start with 1001 increment by 1;
+select * from app;
+
+drop sequence seq_app_apid;
+drop table app;
+
 -----------------------------------------------------------------------------
 --订单表
 create table orders(
@@ -187,6 +197,7 @@ create table orders(
 	 available2  varchar2(30),
      available3 varchar2(30)
 );
+create sequence seq_order_osid start with 1001 increment by 1;
 
 insert into orders values(seq_order_osid.nextval,2001,'张三',6001,null,to_date('2013-03-30','yyyy-mm-dd'),to_date('2013-03-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
 insert into orders values(seq_order_osid.nextval,2001,'张三',6002,null,to_date('2013-03-30','yyyy-mm-dd'),to_date('2013-03-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
@@ -198,24 +209,15 @@ insert into orders values(seq_order_osid.nextval,2001,'张三',6061,null,to_date
 insert into orders values(seq_order_osid.nextval,2001,'张三',6001,null,to_date('2013-02-16','yyyy-mm-dd'),to_date('2015-06-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
 insert into orders values(seq_order_osid.nextval,2003,'张三',6021,null,to_date('2013-08-16','yyyy-mm-dd'),to_date('2015-08-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
 insert into orders values(seq_order_osid.nextval,2003,'张三',6021,null,to_date('2013-08-16','yyyy-mm-dd'),to_date('2015-08-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
+insert into orders values(seq_order_osid.nextval,2001,'张三',6001,null,to_date('2013-03-30','yyyy-mm-dd'),to_date('2013-03-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
+select * from orders;
 
+drop table orders; 
+drop sequence seq_order_osid;
 select sum(count(distinct gpid)) from orders group by gpid,xdate
-
 select uname,gname,color,gversion,sum(onum) num,xdate from (select uname,gname,color,gversion,onum,xdate from users,orderInfo,orders,goodsPar,goods
  where orders.usid=users.usid and orderInfo.gpid=goodsPar.gpid and orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid and 
 	goods.gid=goodsPar.gid and orderInfo.osid=orders.osid) group by uname,gname,color,gversion,xdate order by sum(onum) desc ;
-	
-drop table orders; 
-
-
-drop table orders;
-
-select * from orders;
-drop sequence seq_order_osid;
-create sequence seq_order_osid start with 1001 increment by 1;
-
-insert into orders values(seq_order_osid.nextval,2001,'张三',6001,null,to_date('2013-03-30','yyyy-mm-dd'),to_date('2013-03-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
-
 select gs.gname,os.osid,os.sname,oi.money from goods gs,goodsPar gp,orders os,orderInfo oi where os.osid=oi.osid and gp.gpid=os.gpid and gs.gid=gp.gid and os.status=1;
 ------------------------------------------------------------------------------
 --订单详细表
@@ -235,6 +237,7 @@ create table orderInfo(
 	 available2  varchar2(30),
 	 available3 varchar2(30)		
 );
+create sequence seq_orderInfo_oiid start with 1001 increment by 1;
 
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1001,6001,50,0,0,null,null,1,null,null,null);
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1002,6002,50,0,0,null,null,1,null,null,null);
@@ -246,14 +249,11 @@ insert into orderInfo values(seq_orderInfo_oiid.nextval,1022,6061,100,0,0,null,n
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1023,6021,100,0,0,null,null,1,null,null,null);
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1024,6021,600,0,0,null,null,1,null,null,null);
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1024,6021,600,0,0,null,null,1,null,null,null);
-
-
-
-drop table orderInfo;
-select * from orderInfo;
-drop sequence seq_orderInfo_oiid;
-create sequence seq_orderInfo_oiid start with 1001 increment by 1;
 insert into orderInfo values(seq_orderInfo_oiid.nextval,1021,6001,50,0,0,null,null,1,null,null,null);
+
+select * from orderInfo;
+drop table orderInfo;
+drop sequence seq_orderInfo_oiid;
 ------------------------------------------------------------------------------
 --退货表
 create table back(
@@ -274,14 +274,13 @@ create table back(
         available2  varchar2(30),
         available3 varchar2(30)
 );
-drop table back;
-select * from back;
-drop sequence seq_back_bid;
 create sequence seq_back_bid start with 1001 increment by 1;
+select * from back;
+
+drop table back;
+drop sequence seq_back_bid;
 --------------------------------------------------------------------------------
 --体验店
-
-
 create table exstore(
 		eid   int primary key,       --编号
        province varchar2(20),   --省份
@@ -295,11 +294,11 @@ create table exstore(
         available2  varchar2(30),
         available3 varchar2(30)
 );
-insert into admin values(seq_exstore_eid.nextval,'a','a','a','a','a','a','a',null,null,null)
-drop table exstore;
-select * from exstore;
-drop sequence seq_exstore_eid;
 create sequence seq_exstore_eid start with 1001 increment by 1;
+select * from exstore;
+
+drop table exstore;
+drop sequence seq_exstore_eid;
 --------------------------------------------------------------------------------
 --广告位表
 create table ad(
@@ -311,14 +310,14 @@ create table ad(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-select * from ad
+create sequence seq_ad_aid start with 1001 increment by 1;
 insert into ad values(seq_ad_aid.nextval,'首页大','随意',1,null,null,null);
 insert into ad values(seq_ad_aid.nextval,'首页小','随意',1,null,null,null);
 insert into ad values(seq_ad_aid.nextval,'商城大','随意',1,null,null,null);
+select * from ad
+
 drop table ad;
-select * from ad;
 drop sequence seq_ad_aid;
-create sequence seq_ad_aid start with 1001 increment by 1;
 --------------------------------------------------------------------------------
 --广告信息表
 create table admessage(
@@ -335,12 +334,13 @@ create table admessage(
     available2  varchar2(30),
     available3 varchar2(30)
 );
-select * from admessage where status1=1 order by weight desc
-drop table admessage;
+create sequence seq_admessage_amid start with 2001 increment by 1;
 insert into admessage values(seq_admessage_amid.nextval,1001,null,null,null,78,null,1,null,null,null);
 select * from admessage;
+
+drop table admessage;
 drop sequence seq_admessage_amid;
-create sequence seq_admessage_amid start with 2001 increment by 1;
+select * from admessage where status1=1 order by weight desc
 
 --------------------------------------------------------------------------------
 --收货人信息表
@@ -359,13 +359,15 @@ create table receive(
       available2  varchar2(30),
       available3 varchar2(30)   
 );
-drop table receive;
-select * from receive;
-select rid,rname,address,xaddress,phone from receive where status=1
-drop sequence seq_receive_rid;
 create sequence seq_receive_rid start with 1001 increment by 1;
-delete from receive where usid='2063';
 insert into receive values(seq_receive_rid.nextval,2063,'cc','湖南衡阳','yu',400988,18675894876,1121,1,null,null,null);
+select * from receive;
+
+drop table receive;
+drop sequence seq_receive_rid;
+delete from receive where usid='2063';
+select rid,rname,address,xaddress,phone from receive where status=1
+
 --------------------------------------------------------------------------
 --发货人信息表
 create table sender(
@@ -381,10 +383,11 @@ create table sender(
       available2  varchar2(30),
       available3 varchar2(30)   
 );
-drop table sender;
-select * from sender;
-drop sequence seq_sender_sid;
 create sequence seq_sender_sid start with 1001 increment by 1;
+select * from sender;
+
+drop table sender;
+drop sequence seq_sender_sid;
 ----------------------------------------------------------------------------
 --预约维修表
 create table maintain(
@@ -400,10 +403,11 @@ create table maintain(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table maintain;
-select * from maintain;
-drop sequence seq_maintain_mid;
 create sequence seq_maintain_mid start with 1001 increment by 1;
+select * from maintain;
+
+drop table maintain;
+drop sequence seq_maintain_mid;
 -----------------------------------------------------------------------------
 --服务表
 create table serive(
@@ -415,10 +419,11 @@ create table serive(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table serive;
-select * from serive;
-drop sequence seq_serive_sid;
 create sequence seq_serive_sid start with 1001 increment by 1;
+select * from serive;
+
+drop table serive;
+drop sequence seq_serive_sid;
 --------------------------------------------------------------------------------
 --售后网点表
 create table web(
@@ -431,10 +436,11 @@ create table web(
       available2  varchar2(30),
       available3 varchar2(30)  
 );
-drop table web;
-select * from web;
-drop sequence seq_web_wid;
 create sequence seq_web_wid start with 1001 increment by 1;
+select * from web;
+
+drop table web;
+drop sequence seq_web_wid;
 --------------------------------------------------------------------------------
 --发帖人信息表
 create table pinfo(
@@ -448,10 +454,11 @@ create table pinfo(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table pinfo;
-select * from pinfo;
-drop sequence seq_pinfo_pid;
 create sequence seq_pinfo_pid start with 1001 increment by 1;
+select * from pinfo;
+
+drop table pinfo;
+drop sequence seq_pinfo_pid;
 ----------------------------------------------------------------------------------
 --发帖表
 create table ppost(
@@ -471,10 +478,11 @@ create table ppost(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table ppost;
-select * from ppost;
-drop sequence seq_ppost_ppid;
 create sequence seq_ppost_ppid start with 1001 increment by 1;
+select * from ppost;
+
+drop table ppost;
+drop sequence seq_ppost_ppid;
 ----------------------------------------------------------------------------------
 --回帖信息表
 create table rpost(
@@ -489,10 +497,11 @@ create table rpost(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table rpost;
-select * from rpost;
-drop sequence seq_rpost_rid;
 create sequence seq_rpost_rid start with 1001 increment by 1;
+select * from rpost;
+
+drop table rpost;
+drop sequence seq_rpost_rid;
 --------------------------------------------------------------------------------------
 --版主信息表
 create table host(
@@ -505,10 +514,11 @@ create table host(
        available2  varchar2(30),
        available3 varchar2(30)  
 );
-drop table host;
-select * from host;
-drop sequence seq_host_pid;
 create sequence seq_host_pid start with 1001 increment by 1
+select * from host;
+
+drop table host;
+drop sequence seq_host_pid;
 --------------------------------------------------------------------------
 DROP TABLE "SCOTT"."USERSB";
 CREATE TABLE USERSB (
