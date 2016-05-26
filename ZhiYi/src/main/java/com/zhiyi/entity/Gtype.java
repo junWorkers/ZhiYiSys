@@ -20,9 +20,11 @@ public class Gtype implements Serializable {
 	public int getTids() {
 		return tid;
 	}
+
 	public void setTids(int tid) {
 		this.tid = tid;
 	}
+	
 	public void setTid(int tid) {
 		this.tid = tid;
 	}

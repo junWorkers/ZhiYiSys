@@ -5,8 +5,6 @@
 <base href="/ZhiYi/">
 <meta content="charset=utf-8">
 <body>
-	<h2>
-		<a href="back/login.jsp">点击进入指艺后台管理系统</a>
-	</h2>
+	<jsp:forward page="back/login.jsp" />
 </body>
 </html>

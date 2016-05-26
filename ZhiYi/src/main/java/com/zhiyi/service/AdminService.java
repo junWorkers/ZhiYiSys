@@ -2,6 +2,7 @@ package com.zhiyi.service;
 
 import java.util.List;
 
+import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Admin;
 
 public interface AdminService {
@@ -10,14 +11,14 @@ public interface AdminService {
 
 	List<Admin> find(String page, String rows);
 
-	int addAdmin(Admin admin);
+	JsonObject<Admin> addAdmin(Admin admin);
 	
-	int delAdminInfo(String aid);
+	JsonObject<Admin> delAdminInfo(String aid);
 
-	int updateAdminInfo(Admin admin);
+	JsonObject<Admin> updateAdminInfo(Admin admin);
 
-	int checkzccode(String code);
+	Admin login(Admin admin);
 
-	int login(Admin admin);
+	JsonObject<Admin> getPageAdminInfo(String page, String rows);
 
 }
