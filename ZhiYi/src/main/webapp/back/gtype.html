@@ -102,8 +102,8 @@
 							tids+=rows[i].tid;
 							
 							//将要删除aid发送到服务器
-							$.post("../gtypeServlet",{op:"delGtypeInfo",tids:tids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/gtype_delGtypeInfo.action",{tids:tids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"商城序列信息删除成功...",
@@ -168,7 +168,7 @@
     <form action="" style="padding:20px;float:left;">
 		<label>序列名称：</label><input type="text" name="tname" id="gtype_tname" class="myinput"/><br /><br />
 		<label>序列描述：</label><input type="text" name="tdescribe" id="gtype_tdescribe" class="myinput"/><br /><br />
-		<label>序列图片：</label><input type="file" name="pic" id="gtype_pic" onchange="previewMultipleImage(this,'gtype_pic_show')"/><br /><br />
+		<label>序列图片：</label><input type="file" name="uploadUtil.pic" id="gtype_pic" onchange="previewMultipleImage(this,'gtype_pic_show')"/><br /><br />
 		<div id="gtype_info" style="margin-left:35%">
 			<a href="javascript:addGtypeInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="adds" style="display:inline-block">添加</a>
 			<a href="javascript:updateGtypeInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edits">修改</a>
@@ -181,13 +181,13 @@
 		var tdescribe=$("#gtype_tdescribe").val();
 		
 		$.ajaxFileUpload({
-			url:"../gtypeServlet?op=addGtypeInfo",
+			url:"../backjson/gtype_addGtypeInfo.action",
 			secureuri:false,
 			fileElementId:"gtype_pic",
 			dataType:"json",
 			data:{tname:tname,tdescribe:tdescribe},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商城序列信息添加成功...",
@@ -200,7 +200,6 @@
 					$("#gtype_tdescribe").val('');
 					$("#gtype_pic").val('');
 					$("#gtype_pic_show").html('');
-					
 				}else{
 					$.messager.alert("失败提示","商城序列信息添加失败...","error");
 				}
