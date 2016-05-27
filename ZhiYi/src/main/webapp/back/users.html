@@ -7,16 +7,20 @@
 		var statusObj=[{sid:'男',sname:'男'},{sid:'女',sname:'女'}];
 		
 		datagrid=$('#users_info').datagrid({
-			url:'../usersServlet',
-			queryParams:{op:"getPageUsersInfo"},
+			url:'../backjson/users_getPageUsersInfo.action',
 			fitColumns:true,
 			striped:true,
+			title:'会员员列表',
+			iconCls:'icon-search',
 			loadMsg:"数据加载中...",
 			pagination:true,
 			rownumbers:true,
 			sortName:'usid',
 			sortOrder:'asc',
 			remoteSort:false,
+			pageNumber:1,
+			pageSize:5,
+			pageList:[5,10,20,30,40,50],
 		columns:[[
 		          {field:'usid',title:'会员编号',width:100,align:'center',checkbox:true},
 		          {field:'usids',title:'会员编号',width:100,align:'center',sortable:true},
@@ -159,7 +163,7 @@
 						}else{
 							rows["op"]=op;
 							
-							$.post("../usersServlet",rows,function(data){
+							$.post("../backjson/users_",rows["op"]+".action",rows,function(data){
 								data=parseInt($.trim(data));
 								if(data==1){   //
 									$.messager.show({
