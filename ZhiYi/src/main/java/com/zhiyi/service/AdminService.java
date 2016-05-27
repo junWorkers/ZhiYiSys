@@ -11,13 +11,11 @@ public interface AdminService {
 
 	List<Admin> find(String page, String rows);
 
-	int addAdmin(Admin admin);
+	JsonObject<Admin> addAdmin(Admin admin);
 	
-	int delAdminInfo(String aid);
+	JsonObject<Admin> delAdminInfo(String aid);
 
-	int updateAdminInfo(Admin admin);
-
-	int checkzccode(String code);
+	JsonObject<Admin> updateAdminInfo(Admin admin);
 
 	Admin login(Admin admin);
 

@@ -13,12 +13,22 @@
 	
 	 <!-- 后台管理 -->
 	<package name="backjson" namespace="/backjson" extends="json-default">
-		<global-allowed-methods></global-allowed-methods>
+		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo</global-allowed-methods>
+
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
 			</result>
+		
+		</action>
+	</package>
+	
+	<package name="default" namespace="/" extends="struts-default">
+	<global-allowed-methods>login</global-allowed-methods>
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="login">/front/index.jsp</result>
+			<result name="fail">login.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -5,6 +5,6 @@
 <base href="/ZhiYi/">
 <meta content="charset=utf-8">
 <body>
-	<jsp:forward page="front/index.jsp" />
+	<jsp:forward page="back/login.jsp" />
 </body>
 </html>
