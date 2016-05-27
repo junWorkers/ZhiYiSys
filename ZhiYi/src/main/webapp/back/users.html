@@ -163,9 +163,9 @@
 						}else{
 							rows["op"]=op;
 							
-							$.post("../backjson/users_",rows["op"]+".action",rows,function(data){
-								data=parseInt($.trim(data));
-								if(data==1){   //
+							$.post("../backjson/users_"+rows["op"]+".action",rows,function(data){
+								
+								if(data.result>0){   //
 									$.messager.show({
 										title:"成功提示",
 										msg:'会员信息'+flag+'成功...',
