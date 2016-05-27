@@ -2,7 +2,6 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
-
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
@@ -10,10 +9,11 @@
 	
 	 <!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
-	
 	 <!-- 后台管理 -->
+
 	<package name="backjson" namespace="/backjson" extends="json-default">
-		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo</global-allowed-methods>
+		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
+		getPageUsersInfo,addUsersInfo</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">

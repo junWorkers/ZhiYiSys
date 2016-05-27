@@ -17,4 +17,8 @@ public interface UsersMapper {
 	
 	Users login(Users user); //登录
 
+	int addUsers(Users users);
+
+
+
 }

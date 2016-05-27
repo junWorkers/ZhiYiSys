@@ -1,25 +1,24 @@
 package com.zhiyi.web.action;
 
+
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
-import com.zhiyi.entity.Admin;
 import com.zhiyi.entity.Users;
-import com.zhiyi.service.AdminService;
 import com.zhiyi.service.UsersService;
 @Controller("usersAction")
 public class UsersAction implements ModelDriven<Users>,SessionAware{
 	@Autowired
 	private UsersService usersService;
-	@SuppressWarnings("rawtypes")
-	private JsonObject jsonObject;
+	private JsonObject<Users> jsonObject;
 	private Users users;
 	private  String page;
 	private String rows;
@@ -40,11 +39,11 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
-	@SuppressWarnings("rawtypes")
-	public JsonObject getJsonObject() {
+	public JsonObject<Users> getJsonObject() {
 		return jsonObject;
 	}
+	
+
 	
 //	//登录的验证码验证
 //	public String checkzccode(){
@@ -59,19 +58,18 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 //		return "success";
 //	}
 
-	//分页查询管理员信息
-	@SuppressWarnings("unchecked")
+	//分页查询会员信息
+	
 	public String getPageUsersInfo(){
-		jsonObject.setTotal(usersService.getTotal());
-		jsonObject.setRows(usersService.find(page, rows));
+		jsonObject = usersService.getPageUsersInfo(page, rows);
 		return "success";
 	}
 
-//	//添加管理员信息
-//	public String addAdminInfo(){
-//		jsonObject.setResult(adminService.addAdmin(admin));
-//		return "success";
-//	}
+	//添加会员信息
+	public String addUsersInfo(){
+		jsonObject=usersService.addUsers(users);
+		return "success";
+	}
 //
 //	//删除管理员信息
 //	public String delAdminInfo(){
