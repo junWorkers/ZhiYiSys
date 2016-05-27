@@ -11,7 +11,8 @@
 	<constant name="struts.objectFactory " value="spring" />
 	 <!-- 后台管理 -->
 	<package name="backjson" namespace="/backjson" extends="json-default">
-		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,register</global-allowed-methods>
+		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
+		getPageUsersInfo,addUsersInfo</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>

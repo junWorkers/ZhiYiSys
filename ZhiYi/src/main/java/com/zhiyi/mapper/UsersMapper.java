@@ -16,4 +16,8 @@ public interface UsersMapper {
 
 
 
+	int addUsers(Users users);
+
+
+
 }
