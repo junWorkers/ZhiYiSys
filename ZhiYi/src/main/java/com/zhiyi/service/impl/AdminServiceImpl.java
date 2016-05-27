@@ -32,17 +32,20 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int addAdmin(Admin admin) {
+	public JsonObject<Admin> addAdmin(Admin admin) {
+		JsonObject<Admin> jsonObject = new JsonObject<Admin>();
 		int result = adminMapper.addAdmin(admin);
 		if (result > 0) {
-			return 1;
+			jsonObject.setResult(1);
 		} else {
-			return 0;
+			jsonObject.setResult(0);
 		}
+		return jsonObject;
 	}
 
 	@Override
-	public int delAdminInfo(String aids) {
+	public JsonObject<Admin> delAdminInfo(String aids) {
+		JsonObject<Admin> jsonObject = new JsonObject<Admin>();
 		int result = 0;
 		if (aids.indexOf(",") > 0) {
 			String aidss[] = aids.split(",");
@@ -54,31 +57,23 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		if (result > 0) {
-			return 1;
+			jsonObject.setResult(1);
 		} else {
-			return 0;
+			jsonObject.setResult(0);
 		}
+		return jsonObject;
 	}
 
 	@Override
-	public int updateAdminInfo(Admin admin) {
+	public JsonObject<Admin> updateAdminInfo(Admin admin) {
+		JsonObject<Admin> jsonObject = new JsonObject<Admin>();
 		int result = adminMapper.updateAdmin(admin);
 		if (result > 0) {
-			return 1;
+			jsonObject.setResult(1);
 		} else {
-			return 0;
+			jsonObject.setResult(0);
 		}
-	}
-
-	@Override
-	public int checkzccode(String code) {
-		String codes = (String) ActionContext.getContext().getSession()
-				.get("rand");
-		if (codes.equals(code.trim())) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return jsonObject;
 	}
 
 	@Override

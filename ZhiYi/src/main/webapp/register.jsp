@@ -1,7 +1,10 @@
-<!doctype html>
+<%@ page  contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html >
 <html>
 <head>
-<meta charset="utf-8">
+<base href="/ZhiYi/">
+<meta content="charset=utf-8">
 <title>用户注册——指术官方网站</title>
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="js/register.js"></script>
