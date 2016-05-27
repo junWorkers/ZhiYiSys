@@ -58,7 +58,7 @@
             <h2>如果您已拥有nubia帐户，则可<a href="login.html">在此点击登录</a></h2>
         </div>
         
-        <form>
+        <form action="Users_register.action" method="post">
           <div class="inner">
               <ul class="clearfix">
                   <li>用电子邮箱注册</li>
@@ -83,7 +83,7 @@
            <dl class="clearfixs" style="display:block;">
                 <dt>用户名：</dt>
                 <dd>
-                    &nbsp;&nbsp;&nbsp;<input type="text" class="required" name="name" id="name" placeholder="  用户名" onBlur="checkName()">
+                    &nbsp;&nbsp;&nbsp;<input type="text" class="required" name="pname" id="name" placeholder="  用户名" onBlur="checkName()">
                     <span class="error_tip" id="name_error_tag" style="font-size:12px"></span> 
 				    <span class="check_tips succ_tips" id="name_succ_tag">&nbsp;</span>
                 </dd>
@@ -103,7 +103,7 @@
            <dl class="clearfixs">
               <dt>设置密码：</dt>
               <dd>
-                  <input type="password" class="text req required" name="newPassword" id="newPassword" placeholder="  6-16个字符(数字、字母、符号至少包含两种)" onBlur="checkpwd()" />
+                  <input type="password" class="text req required" name="pwd" id="newPassword" placeholder="  6-16个字符(数字、字母、符号至少包含两种)" onBlur="checkpwd()" />
                   <span class="check_tips error_tip" id="pwd_error_tag" style="font-size:12px;"></span>
 			      <span class="check_tips succ_tips" id="pwd_succ_tag">&nbsp;</span> 	
               </dd>
@@ -128,8 +128,8 @@
                   <div id="theAgreementAdvice" class="hint clear"></div>
               </div>
               <div class="buttons">
-                  <input type="hidden" name="back_url" value="#">
-                  <a class="submit-btn" name="regButton" id="regButton" href="javascript:registerUserInfo()">提    交</a>
+                  <input type="submit" name="back_url" value="提    交">
+                  <!-- <a class="submit-btn" name="regButton" id="regButton" >提    交</a> -->
               </div>
           </div>
 	
