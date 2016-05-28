@@ -438,7 +438,7 @@ create table web(
 );
 create sequence seq_web_wid start with 1001 increment by 1;
 select * from web;
-
+select * from admessage where status1=1 and aid= 1002 order by weight desc
 drop table web;
 drop sequence seq_web_wid;
 --------------------------------------------------------------------------------

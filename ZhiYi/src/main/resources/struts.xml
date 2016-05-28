@@ -39,6 +39,18 @@
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
 			</result>
+
+		</action>
+	</package>
+	
+	<package name="default" namespace="/" extends="json-default">
+	<global-allowed-methods>login,findpic</global-allowed-methods>
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="login">/front/index.jsp</result>
+			<result name="fail">login.jsp</result>
+			<result name="findpic" type="json">
+				<param name="root">pics</param>
+			</result>
 		</action>
 	</package>
 </struts>
