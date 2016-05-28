@@ -15,7 +15,9 @@ public interface UsersService {
 
 	JsonObject<Users> addUsers(Users users);
 
-	int checkUserN(String pname);
+	Users checkUserN(String pname);
 	
 	Users login(Users users);
+
+	int RegistUsers(Users users);
 }

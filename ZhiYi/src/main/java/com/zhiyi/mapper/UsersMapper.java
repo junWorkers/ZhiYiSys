@@ -9,18 +9,14 @@ public interface UsersMapper {
 
 	int getTotal();
 
-
-
 	List<Users> find(Map<String, Object> params);
-
-
 
 	int addUsers(Users users);
 
 	Users login(Users users);
 
-	int checkUserN(String uname);
+	Users checkUserN(String uname);
 
-
+	int RegistUsers(Users users);
 
 }
