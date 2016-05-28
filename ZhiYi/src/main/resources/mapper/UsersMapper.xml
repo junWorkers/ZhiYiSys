@@ -29,5 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from users where uname=#{uname}
 	</select>
 	
+	<!--登录操作-->
+	<select id="login" parameterType="Users" resultType="Users">
+		select usid,uname,pwd from users where (uname=#{uname} or email=#{uname}) and pwd=#{pwd}
+	</select>
 	
 </mapper>

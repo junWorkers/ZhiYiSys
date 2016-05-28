@@ -17,10 +17,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="short icon" href="images/logomin.jpg" />         <!--小图标-->
 <script type="text/javascript">
 	$(function(){
-		$.post("adServlet",{op:'findpics'},function(data){
-		
-		});
-                                          
+		$.post("ad_findpic.action",function(data){
+			$("#showPic").append("<li><a href='"+data[0].alink+"'><img src='"+data[0].mpath+"' id='1'  style='display:block' /></a></li>");
+			for(var i = 1; i < data.length; i++)
+			{ 
+				var j=i+1;
+				$("#showPic").append("<li><a href='"+data[i].alink+"'><img src='"+data[i].mpath+"' id='"+j+"'  style='display:none'/></a></li>");
+			}
+		},'json');                                 
 	});
 </script>
 </head>
@@ -41,26 +45,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
                 <img class="img1" src="images/zhuci.jpg"/>
                 <ul class="fa-right">
-                	<c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：${currentAdminInfo}</a></li>
+                	<c:if test="${not empty sessionScope.users.uname}">
+                		   <li><a href="#">当前用户名：${sessionScope.users.uname}</a></li>
                 		   <li><a href="javascript:loginOut()">[注销]</a></li>
                 	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
+                	<c:if test="${empty sessionScope.users.uname}">
+                		<li><a href="register.jsp">注册</a></li>
+                    	<li><a href="login.jsp">登录</a></li>
                 	</c:if>
                 </ul>
             </div>
         </div>
         <!--图片轮播-->
     	<div id="fa-image">
-            <ul>
+            <ul id="showPic">
          
-                <li><a href="${ad1[0].alink}"><img src="${ad1[0].mpath }" id="1"  style="display:block"/></a></li>
+               <%--  <li><a href="${ad1[0].alink}"><img src="${ad1[0].mpath }" id="1"  style="display:block"/></a></li>
                 <li><a href="${ad1[1].alink}"><img src="${ad1[1].mpath }" id="2"  style="display:none"/></a></li>
                 <li><a href="${ad1[2].alink}"><img src="${ad1[2].mpath }" id="3"  style="display:none"/></a></li>
                 <li><a href="${ad1[3].alink}"><img src="${ad1[3].mpath }" id="4"  style="display:none"/></a></li>
-                <li><a href="${ad1[4].alink}"><img src="${ad1[4].mpath }" id="5"  style="display:none"/></a></li>
+                <li><a href="${ad1[4].alink}"><img src="${ad1[4].mpath }" id="5"  style="display:none"/></a></li> --%>
               
            </ul>
            <center>

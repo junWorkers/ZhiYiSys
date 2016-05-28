@@ -58,5 +58,9 @@ public class UsersServiceImpl implements UsersService {
 	public int checkUserN(String uname) {
 		return usersMapper.checkUserN(uname);
 	}
+	@Override
+	public Users login(Users users) {
+		return usersMapper.login(users);
+	}
 
 }

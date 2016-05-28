@@ -53,13 +53,13 @@ body {
 					<!-- 清除session中的数据 -->
 					<tr>
 						<td>用户名</td>
-						<td><input name="aname" type="text" id="uid"
+						<td><input name="aname" type="text" id="uid" value="qyb"
 							easyform="length:2-6;char-chinese;real-time;" message="输入用户名"
 							easytip="disappear:lost-focus;theme:blue;"></td>
 					</tr>
 					<tr>
 						<td>密码</td>
-						<td><input name="pwd" type="password" id="psw1"
+						<td><input name="pwd" type="password" id="psw1" value="yl"
 							easyform="length:6-16;" message="密码必须为6—16位"
 							easytip="disappear:lost-focus;theme:blue;"></td>
 					</tr>

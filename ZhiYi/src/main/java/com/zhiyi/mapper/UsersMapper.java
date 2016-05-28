@@ -17,7 +17,7 @@ public interface UsersMapper {
 
 	int addUsers(Users users);
 
-
+	Users login(Users users);
 
 	int checkUserN(String uname);
 
