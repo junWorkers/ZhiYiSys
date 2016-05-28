@@ -20,4 +20,12 @@ public interface UsersMapper {
 
 
 
+	int delUsers(String aids);
+
+
+
+	List<Users> findusersByUsid(int usid);
+
+
+
 }

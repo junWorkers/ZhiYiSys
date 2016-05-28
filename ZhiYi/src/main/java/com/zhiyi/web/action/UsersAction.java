@@ -1,5 +1,6 @@
 package com.zhiyi.web.action;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -63,12 +64,17 @@ public class UsersAction implements ModelDriven<Users>{
 		return "success";
 	}
 //
-//	//删除管理员信息
-//	public String delAdminInfo(){
-//		String aids=ServletActionContext.getRequest().getParameter("aids");
-//		jsonObject.setResult(adminService.delAdminInfo(aids));
-//		return "success";
-//	}
+	//删除管理员信息
+	public String delUsersInfo(){
+		String aids=ServletActionContext.getRequest().getParameter("usids");
+		jsonObject=usersService.delUsersInfo(aids);
+		return "success";
+	}
+	public String findusersByUsid(){
+		jsonObject=usersService.findusersByUsid(users.getUsid());
+		return "success";
+		
+	}
 //	
 //	//修改管理员信息
 //	public String updateAdminInfo(){
