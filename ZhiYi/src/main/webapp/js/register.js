@@ -30,9 +30,6 @@ function checkEmail(){
 		return true;
 	}
 }
-function checkName(){
-	
-}
 //密码设置
 function checkpwd(){
 	var reg=/(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{6,16}$/;
@@ -83,7 +80,7 @@ function checkrpwd(){
 function checkName(){	
 	var uname=$("#name").val();
 	if(uname!=null){
-		$.post("usersServlet?t="+new Date(),{op:"checkName",uname:uname},function(data){
+		$.post("../backjson/users_checkUserName.action?t="+new Date(),{uname:uname},function(data){
 			$.each(data.pname,function(index,item){
 				if(uname==item.pname){
 					document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;用户名已被占用，请重新输入';

@@ -2,7 +2,6 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
-
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
@@ -21,7 +20,7 @@
 		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
-			<param name="uploadUtil.savePath">../images</param>      <!-- 图片的保存路径 -->
+			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
 			<result type="json">
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
@@ -30,9 +29,11 @@
 		</package>
 	 
 	<package name="backjson" namespace="/backjson" extends="json-default">
+
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
 			getPageUsersInfo,addUsersInfo,
-			delGtypeInfo,findGtypeByTid</global-allowed-methods>
+			delGtypeInfo,findGtypeByTid,
+			checkUserName</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>

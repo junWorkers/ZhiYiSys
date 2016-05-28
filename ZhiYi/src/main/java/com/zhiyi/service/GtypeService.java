@@ -19,4 +19,6 @@ public interface GtypeService {
 
 	JsonObject<Gtype> findGtypeByTid(int tid);
 
+	JsonObject<Gtype> updateGtypeInfo(Gtype gtype);
+
 }

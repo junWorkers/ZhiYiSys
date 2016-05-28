@@ -98,7 +98,7 @@ public class UploadUtil {
 		for (int i = 0; i < pic.size(); i++) {
 			try {
 				String path = getRootPath().substring(0, getRootPath().lastIndexOf("/"));
-				String savePath = path + "/images"; // 设置文件保存目录
+				String savePath = path + "/uploadPath"; // 设置文件保存目录
 				File saveFile = new File(savePath);
 				if (!saveFile.exists()) {
 					saveFile.mkdirs();
@@ -108,7 +108,7 @@ public class UploadUtil {
 
 				String uploadFileName = timeStr + this.picFileName.get(i);
 
-				saveFileName += "../images/"+uploadFileName + ",";
+				saveFileName += "../uploadPath/"+uploadFileName + ",";
 
 				fos = new FileOutputStream(getSavePath() + "/" + uploadFileName);
 				fis = new FileInputStream(pic.get(i));

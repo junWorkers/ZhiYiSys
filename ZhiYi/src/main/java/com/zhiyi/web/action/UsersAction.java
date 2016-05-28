@@ -1,5 +1,6 @@
 package com.zhiyi.web.action;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -35,7 +36,12 @@ public class UsersAction implements ModelDriven<Users>{
 		return jsonObject;
 	}
 	
-
+	//注册时用户名的校验
+	public String checkUserName(){
+		String pname=ServletActionContext.getRequest().getParameter("uname");
+		System.out.println(pname);
+		return "success";
+	}
 	
 //	//登录的验证码验证
 //	public String checkzccode(){

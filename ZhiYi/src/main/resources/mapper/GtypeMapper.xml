@@ -32,4 +32,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findGtypeByTid" parameterType="int" resultType="Gtype">
 		select * from gtype where tid=#{tid}
 	</select>
+	
+	<!-- 修改 -->
+	<update id="updateGtypeInfo" parameterType="Gtype">
+		update gtype
+		<set>
+			<if test="tname!=null">
+				tname=#{tname},
+			</if>
+			<if test="tdescribe!=null">
+				tdescribe=#{tdescribe}, 
+			</if>
+			<if test="tpath!=null">
+				tpath=#{tpath} 
+			</if>
+		</set>
+			where tid=#{tid}
+	</update>
+	
 </mapper>

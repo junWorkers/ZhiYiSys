@@ -71,9 +71,15 @@ public class GtypeAction implements ModelDriven<Gtype>{
 	
 	//根据id查询对应的商品序列信息
 	public String findGtypeByTid(){
-		LogManager.getLogger().debug(gtype.getTid());
 		jsonObject=gtypeService.findGtypeByTid(gtype.getTid());
-		LogManager.getLogger().debug(jsonObject.toString());
+		return "success";
+	}
+	
+	//修改
+	public String updateGtypeInfo(){
+		gtype.setTpath(uploadUtil.upload());
+		LogManager.getLogger().debug(gtype);
+		jsonObject=gtypeService.updateGtypeInfo(gtype);
 		return "success";
 	}
 	

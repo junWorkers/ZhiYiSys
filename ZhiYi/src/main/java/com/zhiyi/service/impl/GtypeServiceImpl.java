@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zhiyi.beans.JsonObject;
-import com.zhiyi.entity.Admin;
 import com.zhiyi.entity.Gtype;
-import com.zhiyi.mapper.AdminMapper;
 import com.zhiyi.mapper.GtypeMapper;
 import com.zhiyi.service.GtypeService;
 @Service("gtypeService")
@@ -76,6 +74,18 @@ public class GtypeServiceImpl implements GtypeService {
 	public JsonObject<Gtype> findGtypeByTid(int tid) {
 		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
 		jsonObject.setRows(gtypeMapper.findGtypeByTid(tid));
+		return jsonObject;
+	}
+
+	@Override
+	public JsonObject<Gtype> updateGtypeInfo(Gtype gtype) {
+		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
+		int result = gtypeMapper.updateGtypeInfo(gtype);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
 		return jsonObject;
 	}
 }

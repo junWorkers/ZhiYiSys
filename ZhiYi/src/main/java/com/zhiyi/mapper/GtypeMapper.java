@@ -17,4 +17,6 @@ public interface GtypeMapper {
 
 	List<Gtype> findGtypeByTid(int tid);
 
+	int updateGtypeInfo(Gtype gtype);
+
 }

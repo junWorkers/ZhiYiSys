@@ -51,6 +51,7 @@
 			iconCls: 'icon-edit',
 			handler: function(){
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var row=datagrid.datagrid("getChecked");
 				if(rows==undefined){
 					$.messager.show({
 						title:"温馨提示",
@@ -58,6 +59,8 @@
 						timeout:2000,
 						showType:'slide'
 					});
+				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
 				}else{
 					$("#adds").css("display","none");
 					$("#edits").css("display","inline-block");
@@ -221,7 +224,7 @@
 			dataType:"json",
 			data:{tname:tname,tdescribe:tdescribe},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商城序列信息修改成功...",
