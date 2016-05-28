@@ -15,5 +15,6 @@ public interface UsersService {
 	JsonObject<Users> getPageUsersInfo(String page, String rows);
 
 	JsonObject<Users> addUsers(Users users);
-
+	
+	Users login(Users users);
 }

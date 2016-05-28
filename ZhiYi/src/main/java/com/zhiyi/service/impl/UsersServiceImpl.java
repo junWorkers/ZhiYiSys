@@ -54,4 +54,9 @@ public class UsersServiceImpl implements UsersService {
 		return jsonObject;
 	}
 
+	@Override
+	public Users login(Users users) {
+		return usersMapper.login(users);
+	}
+
 }
