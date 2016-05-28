@@ -7,7 +7,7 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#gtype_info').datagrid({
-			url:'../backjson/gtype_getPageTypeInfo.action',
+			url:'../backupload/gtype_getPageTypeInfo.action',
 			title:'商城序列信息列表',
 			fitColumns:true,
 			striped:true,
@@ -51,6 +51,7 @@
 			iconCls: 'icon-edit',
 			handler: function(){
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var row=datagrid.datagrid("getChecked");
 				if(rows==undefined){
 					$.messager.show({
 						title:"温馨提示",
@@ -58,6 +59,8 @@
 						timeout:2000,
 						showType:'slide'
 					});
+				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
 				}else{
 					$("#adds").css("display","none");
 					$("#edits").css("display","inline-block");
@@ -65,8 +68,8 @@
 					var  tid=datagrid.datagrid("getChecked")[0].tid;
 					$("#edits").attr("href","javascript:updateGtypeInfo("+tid+")");
 					
-					$.post("../gtypeServlet",{op:"findGtypeByTid",tid:tid},function(data){
-						var gtype=data.rows;
+					$.post("../backjson/gtype_findGtypeByTid",{tid:tid},function(data){
+						var gtype=data.rows[0];
 						$("#gtype_tname").val(gtype.tname);
 						$("#gtype_tdescribe").val(gtype.tdescribe);
 						var str="";
@@ -101,9 +104,9 @@
 							}
 							tids+=rows[i].tid;
 							
-							//将要删除aid发送到服务器
-							$.post("../gtypeServlet",{op:"delGtypeInfo",tids:tids},function(data){
-								if(data==1){   //删除成功
+							//将要删除tid发送到服务器
+							$.post("../backjson/gtype_delGtypeInfo.action",{tids:tids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"商城序列信息删除成功...",
@@ -159,7 +162,7 @@
 	});
 });
 </script>
-<div id="win" class="easyui-dialog" title="添加商城序列" style="width:600px;height:220px" data-options="iconCls:'icon-add',modal:true,closed:true">  
+<div id="win" class="easyui-dialog" title="商城序列信息操作" style="width:600px;height:240px" data-options="modal:true,closed:true">  
     <div style="float:right;width:150px;margin-right:20px;">
 		<fieldset id="gtype_pic_show">
 			<legend>图片预览</legend>
@@ -168,7 +171,7 @@
     <form action="" style="padding:20px;float:left;">
 		<label>序列名称：</label><input type="text" name="tname" id="gtype_tname" class="myinput"/><br /><br />
 		<label>序列描述：</label><input type="text" name="tdescribe" id="gtype_tdescribe" class="myinput"/><br /><br />
-		<label>序列图片：</label><input type="file" name="pic" id="gtype_pic" onchange="previewMultipleImage(this,'gtype_pic_show')"/><br /><br />
+		<label>序列图片：</label><input type="file" name="uploadUtil.pic" id="gtype_pic" onchange="previewMultipleImage(this,'gtype_pic_show')"/><br /><br />
 		<div id="gtype_info" style="margin-left:35%">
 			<a href="javascript:addGtypeInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="adds" style="display:inline-block">添加</a>
 			<a href="javascript:updateGtypeInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edits">修改</a>
@@ -181,13 +184,13 @@
 		var tdescribe=$("#gtype_tdescribe").val();
 		
 		$.ajaxFileUpload({
-			url:"../gtypeServlet?op=addGtypeInfo",
+			url:"../backupload/gtype_addGtypeInfo.action",
 			secureuri:false,
 			fileElementId:"gtype_pic",
 			dataType:"json",
 			data:{tname:tname,tdescribe:tdescribe},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商城序列信息添加成功...",
@@ -200,7 +203,6 @@
 					$("#gtype_tdescribe").val('');
 					$("#gtype_pic").val('');
 					$("#gtype_pic_show").html('');
-					
 				}else{
 					$.messager.alert("失败提示","商城序列信息添加失败...","error");
 				}
@@ -216,13 +218,13 @@
 		var tdescribe=$("#gtype_tdescribe").val();
 		
 		$.ajaxFileUpload({
-			url:"../gtypeServlet?op=updateGtypeInfo&tid="+tid,
+			url:"../backupload/gtype_updateGtypeInfo.action?tid="+tid,
 			secureuri:false,
 			fileElementId:"gtype_pic",
 			dataType:"json",
 			data:{tname:tname,tdescribe:tdescribe},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商城序列信息修改成功...",

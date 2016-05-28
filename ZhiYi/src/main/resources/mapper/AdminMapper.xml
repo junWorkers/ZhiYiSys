@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询总的条数 -->
 	<select id="getTotal" resultType="int">
-		select count(aid) from admin
+		select count(1) from admin
 	</select>
 	
 	<!-- 分页查询信息 -->
