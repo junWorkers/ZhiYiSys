@@ -1,6 +1,7 @@
 package com.zhiyi.web.action;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -56,19 +57,29 @@ public class GtypeAction implements ModelDriven<Gtype>{
 	
 	//添加商品序列信息
 	public String addGtypeInfo(){
-		LogManager.getLogger().debug(gtype.toString());
-		System.out.println();
-		LogManager.getLogger().debug(uploadUtil.toString());
-		
 		gtype.setTpath(uploadUtil.upload());
 		jsonObject=gtypeService.addGtypeInfo(gtype);
 		return "success";
 	}
 
+	//删除商城序列信息
+	public String delGtypeInfo(){
+		String tids=ServletActionContext.getRequest().getParameter("tids");
+		jsonObject=gtypeService.delGtypeInfo(tids);
+		return "success";
+	}
+	
+	//根据id查询对应的商品序列信息
+	public String findGtypeByTid(){
+		LogManager.getLogger().debug(gtype.getTid());
+		jsonObject=gtypeService.findGtypeByTid(gtype.getTid());
+		LogManager.getLogger().debug(jsonObject.toString());
+		return "success";
+	}
+	
 	@Override
 	public Gtype getModel() {
 		this.gtype=new Gtype();
 		return gtype;
 	}
-
 }

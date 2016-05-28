@@ -7,14 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询总的条数 -->
 	<select id="getTotal" resultType="int">
-		select count(1) from gtype
+		select count(1) from gtype where status=1
 	</select>
 	
 	<!-- 分页查询信息 -->
 	<select id="find" parameterType="map" resultType="Gtype">
 		select * from (
 			select a.*,rownum rn from (
-				select * from gtype order by tid
+				select * from gtype where status=1 order by tid
 			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
@@ -23,4 +23,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into gtype values(seq_gtype_tid.nextval,#{tname},#{tdescribe},#{tpath},1,null,null,null)
 	</insert>
 	
+	<!-- 删除商品序列信息 -->
+	<update id="delGtype" parameterType="string">
+		update gtype set status=0 where tid=#{tid}
+	</update>
+	
+	<!-- 根据编号查询 -->
+	<select id="findGtypeByTid" parameterType="int" resultType="Gtype">
+		select * from gtype where tid=#{tid}
+	</select>
 </mapper>

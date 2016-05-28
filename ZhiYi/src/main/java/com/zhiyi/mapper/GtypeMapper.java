@@ -13,4 +13,8 @@ public interface GtypeMapper {
 
 	int addGtype(Gtype gtype);
 
+	int delGtype(String tid);
+
+	List<Gtype> findGtypeByTid(int tid);
+
 }

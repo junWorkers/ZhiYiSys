@@ -50,4 +50,32 @@ public class GtypeServiceImpl implements GtypeService {
 		}
 		return jsonObject;
 	}
+
+	@Override
+	public JsonObject<Gtype> delGtypeInfo(String tids) {
+		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
+		int result = 0;
+		if (tids.indexOf(",") > 0) {
+			String tidss[] = tids.split(",");
+			for (int i = 0; i < tidss.length; i++) {
+				result = gtypeMapper.delGtype(tidss[i]);
+			}
+		} else {
+			result = gtypeMapper.delGtype(tids);
+		}
+
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+
+	@Override
+	public JsonObject<Gtype> findGtypeByTid(int tid) {
+		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
+		jsonObject.setRows(gtypeMapper.findGtypeByTid(tid));
+		return jsonObject;
+	}
 }

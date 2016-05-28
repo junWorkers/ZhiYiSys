@@ -15,4 +15,8 @@ public interface GtypeService {
 
 	JsonObject<Gtype> addGtypeInfo(Gtype gtype);
 
+	JsonObject<Gtype> delGtypeInfo(String tids);
+
+	JsonObject<Gtype> findGtypeByTid(int tid);
+
 }
