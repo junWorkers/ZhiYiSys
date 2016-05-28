@@ -11,7 +11,8 @@ public class GtypeAction implements ModelDriven<Gtype>{
 	private Gtype gtype;
 
 	
-
+	
+	
 	@Override
 	public Gtype getModel() {
 		this.gtype=new Gtype();

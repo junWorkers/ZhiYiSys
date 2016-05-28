@@ -35,11 +35,6 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-
-	public Users findInfo(Users users) {
-		return usersMapper.login(users);
-	}
-
 	public JsonObject<Users> getPageUsersInfo(String page, String rows) {
 		JsonObject<Users> jsonObject = new JsonObject<Users>();
 		jsonObject.setTotal(getTotal());
@@ -58,6 +53,5 @@ public class UsersServiceImpl implements UsersService {
 		}
 		return jsonObject;
 	}
-
 
 }

@@ -12,13 +12,8 @@ public interface UsersService {
 
 	List<Users> find(String page, String rows);
 
-	
-	Users findInfo(Users users); //登录
-
-
 	JsonObject<Users> getPageUsersInfo(String page, String rows);
 
 	JsonObject<Users> addUsers(Users users);
-
 
 }

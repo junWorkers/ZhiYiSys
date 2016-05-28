@@ -14,8 +14,7 @@ public interface UsersMapper {
 
 	List<Users> find(Map<String, Object> params);
 
-	
-	Users login(Users user); //登录
+
 
 	int addUsers(Users users);
 
