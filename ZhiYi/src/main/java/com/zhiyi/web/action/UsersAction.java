@@ -19,49 +19,61 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 	private Users users;
 	private  String page;
 	private String rows;
+	private Users usersType;
+	private int intType;
 	private Map<String, Object> session;
 
 	public String getPage() {
 		return page;
 	}
-
 	public void setPage(String page) {
 		this.page = page;
 	}
-
 	public String getRows() {
 		return rows;
 	}
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
 	public JsonObject<Users> getJsonObject() {
 		return jsonObject;
 	}
+	public Users getUsersType() {
+		return usersType;
+	}
+	public int getIntType() {
+		return intType;
+	}
+
 	
 	//注册时用户名的校验
 	public String checkUserName(){
-		String pname=ServletActionContext.getRequest().getParameter("uname");
-		System.out.println(pname);
-		return "success";
+		usersType=usersService.checkUserN(users.getUname());
+		return "UsersType";
 	}
-	
-//	//登录的验证码验证
-//	public String checkzccode(){
-//		String code=ServletActionContext.getRequest().getParameter("code");
-//		jsonObject.setResult(adminService.checkzccode(code));
-//		return "success";
-//	}
-//	
-//	//管理员登录
-//	public String managerLogin(){
-//		jsonObject.setResult(adminService.login(admin));
-//		return "success";
-//	}
+	//注册时验证码的校验
+	public String yanzheng(){
+		String yzm=ServletActionContext.getRequest().getParameter("yzm");
+		String yzms =(String) session.get("rand");
+		if(yzms.equals(yzm.trim())){
+			intType=1;
+		}else{
+			intType=0;
+		}
+		return "IntType";
+	}
+	//注册
+	public String register(){
+		System.out.println(users.getUname()+"=="+users.getEmail()+"=="+users.getPwd());
+		if(usersService.RegistUsers(users)>0){
+			intType=1;
+		}else{
+			intType=0;
+		}
+		return "IntType";
+	}
 
 	//分页查询会员信息
-	
 	public String getPageUsersInfo(){
 		jsonObject = usersService.getPageUsersInfo(page, rows);
 		return "success";
@@ -108,8 +120,4 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session=session;
 	}
-
-
-	
-
 }

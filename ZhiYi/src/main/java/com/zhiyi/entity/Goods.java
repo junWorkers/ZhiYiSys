@@ -50,6 +50,9 @@ public class Goods implements Serializable {
 	public void setGid(int gid) {
 		this.gid = gid;
 	}
+	public void setGids(int gid) {
+		this.gid = gid;
+	}
 	public String getGname() {
 		return gname;
 	}
@@ -142,6 +145,9 @@ public class Goods implements Serializable {
 	public void setIid(int iid) {
 		this.iid = iid;
 	}
+	public void setIids(int iid) {
+		this.iid = iid;
+	}
 	public String getGiname() {
 		return giname;
 	}
@@ -192,6 +198,9 @@ public class Goods implements Serializable {
 		return gpid;
 	}
 	public void setGpid(int gpid) {
+		this.gpid = gpid;
+	}
+	public void setGpids(int gpid) {
 		this.gpid = gpid;
 	}
 	public String getColor() {

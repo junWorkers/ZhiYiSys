@@ -83,6 +83,12 @@ public class GtypeAction implements ModelDriven<Gtype>{
 		return "success";
 	}
 	
+	//查找所有商品序列编号和名称
+	public String getAllGoodsType(){
+		jsonObject=gtypeService.getAllGoodsType();
+		return "success";
+	}
+	
 	@Override
 	public Gtype getModel() {
 		this.gtype=new Gtype();
