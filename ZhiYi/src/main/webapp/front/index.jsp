@@ -16,15 +16,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/index.css" rel="stylesheet" type="text/css">
 <link rel="short icon" href="images/logomin.jpg" />         <!--小图标-->
 <script type="text/javascript">
+	var j=0;
 	$(function(){
 		$.post("ad_findpic.action",function(data){
-			$("#showPic").append("<li><a href='"+data[0].alink+"'><img src='"+data[0].mpath+"' id='1'  style='display:block' /></a></li>");
-			for(var i = 1; i < data.length; i++)
-			{ 
-				var j=i+1;
-				$("#showPic").append("<li><a href='"+data[i].alink+"'><img src='"+data[i].mpath+"' id='"+j+"'  style='display:none'/></a></li>");
-			}
-		},'json');                                 
+			$.each(data,function(index,item){
+				console.info(item.aposition)
+				if(item.aposition=="首页大"){
+					j=j+1;
+					if(j==1){
+						$("#showPic").append("<li><a href='"+item.alink+"'><img src='"+item.mpath+"' id='"+j+"'  style='display:block'/></a></li>")
+					}else{
+						$("#showPic").append("<li><a href='"+item.alink+"'><img src='"+item.mpath+"' id='"+j+"'  style='display:none'/></a></li>");
+					}
+				}else if(item.aposition=="首页小"){
+					console.info(item.mpath)
+					$(".cl").append("<li class='nb-mp-i-1'><a target='_blank' href='"+item.alink+"'><i><img src='"+item.mpath+"'/></i> <h2>指艺</h2><p>美好的开始</p></a></li>")
+				}
+			});
+		},'json');
 	});
 </script>
 </head>
@@ -58,14 +67,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <!--图片轮播-->
     	<div id="fa-image">
+    	
             <ul id="showPic">
-         
-               <%--  <li><a href="${ad1[0].alink}"><img src="${ad1[0].mpath }" id="1"  style="display:block"/></a></li>
-                <li><a href="${ad1[1].alink}"><img src="${ad1[1].mpath }" id="2"  style="display:none"/></a></li>
-                <li><a href="${ad1[2].alink}"><img src="${ad1[2].mpath }" id="3"  style="display:none"/></a></li>
-                <li><a href="${ad1[3].alink}"><img src="${ad1[3].mpath }" id="4"  style="display:none"/></a></li>
-                <li><a href="${ad1[4].alink}"><img src="${ad1[4].mpath }" id="5"  style="display:none"/></a></li> --%>
-              
+              <%--  <li><a href="${sessionScope.pics[0].alink}"><img src="${sessionScope.pics[0].mpath }" id="1"  style="display:block"/></a></li>
+                <li><a href="${sessionScope.pics[1].alink}"><img src="${sessionScope.pics[1].mpath }" id="2"  style="display:none"/></a></li>
+                <li><a href="${sessionScope.pics[2].alink}"><img src="${sessionScope.pics[2].mpath }" id="3"  style="display:none"/></a></li>
+                <li><a href="${sessionScope.pics[3].alink}"><img src="${sessionScope.pics[3].mpath }" id="4"  style="display:none"/></a></li>
+                <li><a href="${sessionScope.pics[4].alink}"><img src="${sessionScope.pics[4].mpath }" id="5"  style="display:none"/></a></li>  --%>
            </ul>
            <center>
 	           <span id="a1">1</span>
@@ -79,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!--小图片展示-->
          <div class="nb-m-promos small">
                 <ul class="cl">
-                          <li class="nb-mp-i-1">
+                          <%-- <li class="nb-mp-i-1">
                             <a target="_blank" href="${ad2[0].alink}">
                                <i><img  src="${ad2[0].mpath }" ></i>
                                 <h2>指艺</h2>
@@ -108,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <h2>指艺</h2>
                                 <p>美好的开始</p>
                             </a>
-                        </li>
+                        </li> --%>
                       
                 </ul>
             </div>
