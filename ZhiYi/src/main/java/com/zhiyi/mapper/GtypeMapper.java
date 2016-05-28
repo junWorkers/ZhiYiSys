@@ -19,4 +19,6 @@ public interface GtypeMapper {
 
 	int updateGtypeInfo(Gtype gtype);
 
+	List<Gtype> getAllGoodsType();
+
 }

@@ -3,7 +3,7 @@
 		
 		var obj=$("#goods_goodstype");
 		var opt="";
-		$.post("../gtypeServlet",{op:"getAllGoodsType"},function(data){
+		$.post("../backjson/gtype_getAllGoodsType.action",function(data){
 			$.each(data.rows,function(index,item){
 				opt="<option value='"+item.tid+"'>"+item.tname+"</option>";
 				obj.append($(opt));
@@ -17,8 +17,7 @@
 		var op;
 		var flag;
 		datagrid=$('#goods_info').datagrid({
-			url:'../goodsServlet',
-			queryParams:{op:"getPageGoodsInfo"},
+			url:'../backupload/goods_getPageGoodsInfo.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
@@ -64,6 +63,7 @@
 			handler: function(){
 				
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var row=datagrid.datagrid("getChecked");
 				if(rows==undefined){
 					$.messager.show({
 						title:"温馨提示",
@@ -71,6 +71,8 @@
 						timeout:2000,
 						showType:'slide'
 					});
+				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
 				}else{
 					$("#add1").css("display","none");
 					$("#edit1").css("display","inline-block");
@@ -78,8 +80,8 @@
 					var  gid=datagrid.datagrid("getChecked")[0].gid;
 					$("#edit1").attr("href","javascript:updateGoods("+gid+")");
 					
-					$.post("../goodsServlet",{op:"findGoodsByGid",gid:gid},function(data){
-						var goodsInfo=data.rows;
+					$.post("../backjson/goods_findGoodsByGid.action",{gid:gid},function(data){
+						var goodsInfo=data.rows[0];
 						
 						$("#goods_gname").val(goodsInfo.gname);
 						$("#goods_goodstype").find("option[text='"+goodsInfo.tname+"']").attr("selected",true);
@@ -117,13 +119,13 @@
 						if(r){
 							var gids="";
 							for(var i=0;i<rows.length-1;i++){
-								gpids+=rows[i].gid+",";
+								gids+=rows[i].gid+",";
 							}
 							gids+=rows[i].gid;
 							
 							//将要删除aid发送到服务器
-							$.post("../goodsServlet",{op:"delgoods",gids:gids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/goods_delgoods.action",{gids:gids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"商城商品信息删除成功...",
@@ -154,7 +156,7 @@
 	}
 	
 </style>
-<div id="win1" class="easyui-dialog" title="商城商品信息操作" style="width:600px;height:600px" data-options="iconCls:'icon-add',modal:true,closed:true">  
+<div id="win1" class="easyui-dialog" title="商城商品信息操作" style="width:600px;height:600px" data-options="modal:true,closed:true">  
     <div style="float:right;width:150px;margin-right:20px;margin-top:10px;">
 		<fieldset id="goods_pic_show">
 			<legend>图片预览</legend>
@@ -169,16 +171,16 @@
 		<label>商城商品价格：</label><input type="text" name="price" id="goods_price" class="myinput"/><br /><br />
 		<label>商城商品库存：</label><input type="text" name="gnum" id="goods_gnum" class="myinput"/><br /><br />
 		<label>商城商品描述：</label><br /><br />
-		<textarea type="text" name="descibe" id="goods_descibe" rows="10" cols="41"></textarea><br /><br />
+		<textarea type="text" name="descible" id="goods_descibe" rows="10" cols="41"></textarea><br /><br />
 		<label>商城位置：</label><input type="text" name="gposition" id="goods_gposition" class="myinput"/><br /><br />
-		<label>图片路径：</label><input type="file" name="pic" id="goods_pic" onchange="previewMultipleImage(this,'goods_pic_show')"/><br /><br />
+		<label>图片路径：</label><input type="file" name="uploadUtil.pic" id="goods_pic" onchange="previewMultipleImage(this,'goods_pic_show')"/><br /><br />
 		<div id="goods_info" style="margin-left:35%">
 			<a href="javascript:addgoodsInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="add1" style="display:inline-block">添加</a>
 			<a href="javascript:updateGoods(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edit1">修改</a>
 		</div>
 	</form>
 </div> 	
-<div id="win2" class="easyui-dialog" title="详细信息" style="width:500px;height:320px" data-options="modal:true,closed:true">  
+<div id="win2" class="easyui-dialog" title="详细信息" style="width:600px;height:340px" data-options="modal:true,closed:true">  
 	 <div style="float:right;width:150px;margin-right:10px;margin-top:55px;">
 		<fieldset id="goods_pic_show_info">
 			<legend>商城商品图片显示</legend>
@@ -186,14 +188,14 @@
 	</div>
 	<form action="" style="padding:20px;float:left;">
 		<label>商城商品描述：</label><br /><br />
-		<textarea type="text" name="descibe" id="goods_descibe_show" rows="10" cols="41" readonly="readonly"></textarea><br /><br />
+		<textarea type="text" name="descible" id="goods_descibe_show" rows="10" cols="41" readonly="readonly"></textarea><br /><br />
 	</form>
 </div>
 <script>
 function showgoodsDetail(gid){
 	$("#win2").dialog("open");
-	$.post("../goodsServlet",{op:"findgoodsByGid",gid:gid},function(data){
-		var goods=data.rows;
+	$.post("../backjson/goods_findGoodsByGid.action",{gid:gid},function(data){
+		var goods=data.rows[0];
 		$("#goods_descibe_show").val(goods.descible);
 		var str="";
 		
@@ -209,16 +211,16 @@ function showgoodsDetail(gid){
 		var price=$("#goods_price").val();
 		var gnum=$("#goods_gnum").val();
 		var tid=$("#goods_goodstype").val();
-		var descibe=$("#goods_descibe").val();
+		var descible=$("#goods_descibe").val();
 		var gposition=$("#goods_gposition").val();
 		$.ajaxFileUpload({
-			url:"../goodsServlet?op=addgoods",
+			url:"../backupload/goods_addgoods.action",
 			secureuri:false,
 			fileElementId:"goods_pic",
 			dataType:"json",
-			data:{gname:gname,price:price,gnum:gnum,tid:tid,descibe:descibe,gposition:gposition},
+			data:{gname:gname,price:price,gnum:gnum,tid:tid,descible:descible,gposition:gposition},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商城商品信息添加成功...",
@@ -249,16 +251,16 @@ function showgoodsDetail(gid){
 		var price=$("#goods_price").val();
 		var gnum=$("#goods_gnum").val();
 		var tid=$("#goods_goodstype").val();
-		var descibe=$("#goods_descibe").val();
+		var descible=$("#goods_descibe").val();
 		var gposition=$("#goods_gposition").val();
 		$.ajaxFileUpload({
-			url:"../goodsServlet?op=updateGoods&gid="+gid,
+			url:"../backupload/goods_updateGoods?gid="+gid,
 			secureuri:false,
 			fileElementId:"goods_pic",
 			dataType:"json",
-			data:{gname:gname,price:price,gnum:gnum,tid:tid,descibe:descibe,gposition:gposition},
+			data:{gname:gname,price:price,gnum:gnum,tid:tid,descible:descible,gposition:gposition},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"商品信息修改成功...",

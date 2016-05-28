@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.zhiyi.mapper.GoodsMapper">
+	
+	<!-- 查询总的条数 -->
+	<select id="getTotal" resultType="int">
+		select count(1) from goods where status=1
+	</select>
+	
+	<select id="getGoodsInfoTotal" resultType="int">
+		select count(1) from goodsInfo where sataus1=1
+	</select>
+	
+	<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Goods">
+		select * from (
+			select a.*,rownum rn from (
+				select n.*,tname from goods n,gtype t
+				where n.tid=t.tid and n.status=1
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="findGoodsInfo" parameterType="map" resultType="Goods">
+		select * from (
+			select a.*,rownum rn from (
+				select n.*,gname from goods g,goodsInfo n
+				where n.gid=g.gid and sataus1=1
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+			)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<!--根据编号查询-->
+	<select id="findGoodsByGid" parameterType="int" resultType="Goods">
+		select * from goods where gid=#{gid}
+	</select>
+	
+	 <insert id="addGoodsInfo" parameterType="Goods">
+		insert into goods values(seq_goods_gid.nextval,#{gname},#{tid},#{price},#{gnum},#{descible},#{gpath},#{gposition},1,null,null,null)
+	</insert>
+	
+	
+	<!-- 删除商城商品信息 -->
+	<update id="delGoodsInfo" parameterType="string">
+		update goods set status=0 where gid=#{gid}
+	</update>
+	
+	<!--修改-->
+	<update id="updateGoodsInfo" parameterType="Goods">
+		update goods
+		<set>
+			<if test="gname!=null">
+				gname=#{gname},
+			</if>
+			<if test="tid!=null">
+				tid=#{tid}, 
+			</if>
+			<if test="price!=null">
+				price=#{price}, 
+			</if>
+			<if test="gnum!=null">
+				gnum=#{gnum}, 
+			</if>
+			<if test="descible!=null">
+				descible=#{descible}, 
+			</if>
+			<if test="gpath!=null">
+				gpath=#{gpath}, 
+			</if>
+			<if test="gposition!=null">
+				gposition=#{gposition}
+			</if>
+		</set>
+			where gid=#{gid}
+	</update> 
+	
+</mapper>

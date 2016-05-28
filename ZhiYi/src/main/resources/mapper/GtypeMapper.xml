@@ -50,4 +50,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where tid=#{tid}
 	</update>
 	
+	<!-- 查找所有商品序列编号和名称 -->
+	<select id="getAllGoodsType" resultType="Gtype">
+		select tid,tname from gtype where status=1
+	</select>
+	
 </mapper>

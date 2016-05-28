@@ -48,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
 		JsonObject<Admin> jsonObject = new JsonObject<Admin>();
 		int result = 0;
 		if (aids.indexOf(",") > 0) {
-			String aidss[] = aids.split(",");
+			String[] aidss = aids.split(",");
 			for (int i = 0; i < aidss.length; i++) {
 				result = adminMapper.delAdmin(aidss[i]);
 			}
