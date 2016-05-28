@@ -55,12 +55,17 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int checkUserN(String uname) {
+	public Users checkUserN(String uname) {
 		return usersMapper.checkUserN(uname);
 	}
 	@Override
 	public Users login(Users users) {
 		return usersMapper.login(users);
+	}
+
+	@Override
+	public int RegistUsers(Users users) {
+		return usersMapper.RegistUsers(users);
 	}
 
 }

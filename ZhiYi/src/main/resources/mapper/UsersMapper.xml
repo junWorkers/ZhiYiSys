@@ -24,10 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,#{sex},null,null,null,null,#{passport},null,null,#{phone},null,#{email},'0',1,null,null,null)
 	</insert>
 	
-	<!-- 查询总的条数 -->
-	<select id="checkUserN" resultType="int" parameterType="String">
+	<!-- 用户名校验 -->
+	<select id="checkUserN" resultType="Users" parameterType="String">
 		select * from users where uname=#{uname}
 	</select>
+	<!-- 注测用户 -->
+	<insert id="RegistUsers" parameterType="Users">
+		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
+	</insert>
 	
 	<!--登录操作-->
 	<select id="login" parameterType="Users" resultType="Users">
