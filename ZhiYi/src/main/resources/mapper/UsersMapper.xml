@@ -18,10 +18,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
-		<!-- 插入会员信息 -->
+		
+	<!-- 插入会员信息 -->
 	<insert id="addUsers" parameterType="Users">
 		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,#{sex},null,null,null,null,#{passport},null,null,#{phone},null,#{email},'0',1,null,null,null)
 	</insert>
 	
+	<!-- 用户名校验 -->
+	<select id="checkUserN" resultType="Users" parameterType="String">
+		select * from users where uname=#{uname}
+	</select>
+	<!-- 注测用户 -->
+	<insert id="RegistUsers" parameterType="Users">
+		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
+	</insert>
+	
+	<!--登录操作-->
+	<select id="login" parameterType="Users" resultType="Users">
+		select usid,uname,pwd from users where (uname=#{uname} or email=#{uname}) and pwd=#{pwd}
+	</select>
 	
 </mapper>
