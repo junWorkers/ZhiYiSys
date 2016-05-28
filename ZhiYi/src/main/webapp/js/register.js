@@ -80,7 +80,7 @@ function checkrpwd(){
 function checkName(){	
 	var uname=$("#name").val();
 	if(uname!=null){
-		$.post("../backjson/users_checkUserName.action?t="+new Date(),{uname:uname},function(data){
+		$.post("backjson/users_checkUserName.action",{uname:uname},function(data){
 			$.each(data.pname,function(index,item){
 				if(uname==item.pname){
 					document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;用户名已被占用，请重新输入';
@@ -119,10 +119,9 @@ function registerUserInfo(){
 	var s=$("#name_error_tag").html();
 	if(document.getElementById("agreement").checked){
 			if(pwd==rpwd && s=="&nbsp;&nbsp;此用户名可用"){
-				$.post("usersServlet?t="+new Date(),{op:"register",email:email,yzm:yzm,pwd:pwd,rpwd:rpwd,uname:uname},function(data){
+				$.post("backjson/users_register.action"+new Date(),{email:email,yzm:yzm,pwd:pwd,rpwd:rpwd,uname:uname},function(data){
 					data=parseInt($.trim(data));
 					if(data==1){
-						
 						alert("注册成功");
 						$("#name").val('');
 						$("#email").val('');
@@ -144,7 +143,7 @@ function registerUserInfo(){
 
 function checkYzm(){
 	var yzm=$("#mobile_captcha").val();
-	$.post("usersServlet?t="+new Date(),{op:"yanzheng",yzm:yzm},function(data){
+	$.post("backjson/users_yanzheng.action"+new Date(),{yzm:yzm},function(data){
 		data=parseInt($.trim(data));
 		if(data==1){
 			document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码正确';

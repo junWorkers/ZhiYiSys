@@ -18,10 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
-		<!-- 插入会员信息 -->
+		
+	<!-- 插入会员信息 -->
 	<insert id="addUsers" parameterType="Users">
 		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,#{sex},null,null,null,null,#{passport},null,null,#{phone},null,#{email},'0',1,null,null,null)
 	</insert>
+	
+	<!-- 查询总的条数 -->
+	<select id="checkUserN" resultType="int" parameterType="String">
+		select * from users where uname=#{uname}
+	</select>
 	
 	
 </mapper>

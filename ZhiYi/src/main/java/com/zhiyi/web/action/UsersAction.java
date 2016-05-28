@@ -1,6 +1,5 @@
 package com.zhiyi.web.action;
 
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -38,8 +37,8 @@ public class UsersAction implements ModelDriven<Users>{
 	
 	//注册时用户名的校验
 	public String checkUserName(){
-		String pname=ServletActionContext.getRequest().getParameter("uname");
-		System.out.println(pname);
+		System.out.println(users.getUname());
+		jsonObject.setResult(usersService.checkUserN(users.getUname()));
 		return "success";
 	}
 	
