@@ -87,9 +87,9 @@ public class GoodsAction implements ModelDriven<Goods>{
 		return "success";
 	}
 	
-	//
+	//查询所有商品名称
 	public String getAllGoods(){
-		
+		jsonObject=goodsService.getAllGoods();
 		return "success";
 	}
 	

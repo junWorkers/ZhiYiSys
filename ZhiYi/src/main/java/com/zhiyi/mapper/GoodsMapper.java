@@ -23,4 +23,6 @@ public interface GoodsMapper {
 
 	List<Goods> findGoodsInfo(Map<String, Object> params);
 
+	List<Goods> getAllGoods();
+
 }

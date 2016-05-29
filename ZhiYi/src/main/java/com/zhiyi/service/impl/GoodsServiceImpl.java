@@ -111,4 +111,11 @@ public class GoodsServiceImpl implements GoodsService {
 		return jsonObject;
 	}
 
+	@Override
+	public JsonObject<Goods> getAllGoods() {
+		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
+		jsonObject.setRows(goodsMapper.getAllGoods());
+		return jsonObject;
+	}
+
 }
