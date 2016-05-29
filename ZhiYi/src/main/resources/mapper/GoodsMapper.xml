@@ -76,10 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 			where gid=#{gid}
 	</update> 
-	
 	<!-- 查询所有商品名称 -->
 	<select id="getAllGoods" resultType="Goods">
 		select gid,gname from goods where status=1
 	</select>
-	
 </mapper>

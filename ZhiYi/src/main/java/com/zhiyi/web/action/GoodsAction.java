@@ -81,6 +81,7 @@ public class GoodsAction implements ModelDriven<Goods>{
 		return "success";
 	}
 	
+	
 	//分页查询商品详细信息
 	public String getPageGoodsInfoInfo(){
 		jsonObject =goodsService.getPageGoodsInfoInfo(page, rows);

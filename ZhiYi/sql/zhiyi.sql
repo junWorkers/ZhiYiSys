@@ -1,4 +1,4 @@
-
+--我是王和君
 --后台管理员表
 create table admin(
 	aid int primary key,   --管理员编号 

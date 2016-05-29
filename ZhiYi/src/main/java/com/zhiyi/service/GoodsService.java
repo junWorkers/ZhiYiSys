@@ -26,6 +26,6 @@ public interface GoodsService {
 	int getGoodsInfoTotal();
 
 	List<Goods> findGoodsInfo(String page, String rows);
-
+	
 	JsonObject<Goods> getAllGoods();
 }

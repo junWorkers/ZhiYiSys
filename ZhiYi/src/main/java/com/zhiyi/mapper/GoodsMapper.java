@@ -22,7 +22,6 @@ public interface GoodsMapper {
 	int getGoodsInfoTotal();
 
 	List<Goods> findGoodsInfo(Map<String, Object> params);
-
+	
 	List<Goods> getAllGoods();
-
 }
