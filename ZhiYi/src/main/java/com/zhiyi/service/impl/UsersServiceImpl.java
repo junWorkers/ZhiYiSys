@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 
 
+
+
 import com.zhiyi.beans.JsonObject;
+import com.zhiyi.entity.Admin;
+
 import com.zhiyi.entity.Users;
 import com.zhiyi.mapper.UsersMapper;
 import com.zhiyi.service.UsersService;
@@ -54,7 +58,39 @@ public class UsersServiceImpl implements UsersService {
 		return jsonObject;
 	}
 
+
+
 	@Override
+	public JsonObject<Users> delUsersInfo(String aids) {
+		JsonObject<Users> jsonObject = new JsonObject<Users>();
+		int result = 0;
+		if (aids.indexOf(",") > 0) {
+			String aidss[] = aids.split(",");
+			for (int i = 0; i < aidss.length; i++) {
+				result = usersMapper.delUsers(aidss[i]);
+			}
+		} else {
+			result = usersMapper.delUsers(aids);
+		}
+
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	
+	}
+
+	@Override
+	public JsonObject<Users> findusersByUsid(int usid) {
+		JsonObject<Users> jsonObject = new JsonObject<Users>();
+		jsonObject.setRows(usersMapper.findusersByUsid(usid));
+		return jsonObject;
+	}
+
+
+
 	public Users checkUserN(String uname) {
 		return usersMapper.checkUserN(uname);
 	}

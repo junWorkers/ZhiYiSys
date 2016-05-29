@@ -37,7 +37,7 @@
 	<package name="backjson" namespace="/backjson" extends="json-default">
 
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
-			getPageUsersInfo,addUsersInfo,delgoods,
+			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
 			checkUserName,findGoodsInfoByIid</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
