@@ -5,7 +5,7 @@
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="false" />
 	
 	 <!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
@@ -18,10 +18,14 @@
 	 <!-- 后台管理 -->
 	 <package name="back" namespace="/backupload" extends="json-default">
 		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo,
-		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo</global-allowed-methods>
+		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo,addgoodsInfo</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
 			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/gif,image/png,image/jpeg,image/jpg</param>
+			</interceptor-ref>
+    		<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result type="json">
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
@@ -35,7 +39,7 @@
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
 			getPageUsersInfo,addUsersInfo,delgoods,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
-			checkUserName</global-allowed-methods>
+			checkUserName,findGoodsInfoByIid</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>

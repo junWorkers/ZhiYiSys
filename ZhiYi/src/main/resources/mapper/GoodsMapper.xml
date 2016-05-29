@@ -38,10 +38,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from goods where gid=#{gid}
 	</select>
 	
+	<select id="findGoodsInfoByIid" parameterType="int" resultType="Goods">
+		select * from goodsInfo where iid=#{iid}
+	</select>
+	
 	 <insert id="addGoodsInfo" parameterType="Goods">
 		insert into goods values(seq_goods_gid.nextval,#{gname},#{tid},#{price},#{gnum},#{descible},#{gpath},#{gposition},1,null,null,null)
 	</insert>
 	
+	<insert id="addGoodsInfoInfo" parameterType="Goods">
+		insert into goodsInfo values(seq_goodsInfo_iid.nextval,#{gid},#{giname},#{gisketck},#{giattribute},#{gipath},#{giposition},1,null,null,null)
+	</insert>
 	
 	<!-- 删除商城商品信息 -->
 	<update id="delGoodsInfo" parameterType="string">

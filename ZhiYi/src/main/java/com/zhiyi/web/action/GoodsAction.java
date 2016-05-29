@@ -58,16 +58,15 @@ public class GoodsAction implements ModelDriven<Goods>{
 		jsonObject=goodsService.findGoodsByGid(goods.getGid());
 		return "success";
 	}
-
+	
 	//添加商城商品信息
 	public String addgoods(){
 		goods.setGpath(uploadUtil.upload());
-		System.out.println(goods);
 		jsonObject=goodsService.addGoodsInfo(goods);
 		return "success";
 	}
 
-	//删除商城序列信息
+	//删除商城商品信息
 	public String delgoods(){
 		String gids=ServletActionContext.getRequest().getParameter("gids");
 		jsonObject=goodsService.delGoodsInfo(gids);
@@ -78,13 +77,6 @@ public class GoodsAction implements ModelDriven<Goods>{
 	public String updateGoods(){
 		goods.setGpath(uploadUtil.upload());
 		jsonObject=goodsService.updateGoodsInfo(goods);
-		return "success";
-	}
-	
-	
-	//分页查询商品详细信息
-	public String getPageGoodsInfoInfo(){
-		jsonObject =goodsService.getPageGoodsInfoInfo(page, rows);
 		return "success";
 	}
 	
@@ -99,6 +91,4 @@ public class GoodsAction implements ModelDriven<Goods>{
 		this.goods=new Goods();
 		return goods;
 	}
-
-
 }

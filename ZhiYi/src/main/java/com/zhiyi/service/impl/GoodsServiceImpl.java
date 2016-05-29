@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Goods;
+import com.zhiyi.entity.GoodsInfo;
 import com.zhiyi.mapper.GoodsMapper;
 import com.zhiyi.service.GoodsService;
 
@@ -44,7 +45,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
-	public List<Goods> findGoodsInfo(String page, String rows){
+	public List<GoodsInfo> findGoodsInfo(String page, String rows){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("min", (Integer.parseInt(page) - 1) * Integer.parseInt(rows));
 		params.put("max", Integer.parseInt(page) * Integer.parseInt(rows));
@@ -55,6 +56,18 @@ public class GoodsServiceImpl implements GoodsService {
 	public JsonObject<Goods> addGoodsInfo(Goods goods) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
 		int result = goodsMapper.addGoodsInfo(goods);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
+	@Override
+	public JsonObject<GoodsInfo> addGoodsInfoInfo(GoodsInfo goods) {
+		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
+		int result = goodsMapper.addGoodsInfoInfo(goods);
 		if (result > 0) {
 			jsonObject.setResult(1);
 		} else {
@@ -102,10 +115,17 @@ public class GoodsServiceImpl implements GoodsService {
 		jsonObject.setRows(goodsMapper.findGoodsByGid(gid));
 		return jsonObject;
 	}
+	
+	@Override
+	public JsonObject<GoodsInfo> findGoodsInfoByIid(int iid) {
+		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
+		jsonObject.setRows(goodsMapper.findGoodsInfoByIid(iid));
+		return jsonObject;
+	}
 
 	@Override
-	public JsonObject<Goods> getPageGoodsInfoInfo(String page, String rows) {
-		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
+	public JsonObject<GoodsInfo> getPageGoodsInfoInfo(String page, String rows) {
+		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
 		jsonObject.setTotal(getGoodsInfoTotal());
 		jsonObject.setRows(findGoodsInfo(page, rows));
 		return jsonObject;
