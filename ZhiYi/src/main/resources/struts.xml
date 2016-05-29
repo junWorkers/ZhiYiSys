@@ -17,7 +17,8 @@
 	
 	 <!-- 后台管理 -->
 	 <package name="back" namespace="/backupload" extends="json-default">
-		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo</global-allowed-methods>
+		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo,
+		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
 			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
@@ -28,11 +29,12 @@
 		</action>
 		</package>
 	 
+	 <!-- 无图片操作的 -->
 	<package name="backjson" namespace="/backjson" extends="json-default">
 
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
-			getPageUsersInfo,addUsersInfo,delUsersInfo,findusersByUsid,
-			delGtypeInfo,findGtypeByTid,
+			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
+			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
 			checkUserName</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
@@ -45,10 +47,18 @@
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">
-	<global-allowed-methods>login,findpic</global-allowed-methods>
+	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>
+			<!-- Users类型的 -->
+			<result name="UsersType" type="json">
+				<param name="root">usersType</param>
+			</result>
+			<!-- Int类型的 -->
+			<result name="IntType" type="json">
+				<param name="root">intType</param>
+			</result>
 			<result name="findpic" type="json">
 				<param name="root">pics</param>
 			</result>

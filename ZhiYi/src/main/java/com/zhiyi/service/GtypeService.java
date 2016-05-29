@@ -21,4 +21,6 @@ public interface GtypeService {
 
 	JsonObject<Gtype> updateGtypeInfo(Gtype gtype);
 
+	JsonObject<Gtype> getAllGoodsType();
+
 }

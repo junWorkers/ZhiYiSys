@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Admin;
+
 import com.zhiyi.entity.Users;
 import com.zhiyi.mapper.UsersMapper;
 import com.zhiyi.service.UsersService;
@@ -57,8 +58,9 @@ public class UsersServiceImpl implements UsersService {
 		return jsonObject;
 	}
 
-	@Override
 
+
+	@Override
 	public JsonObject<Users> delUsersInfo(String aids) {
 		JsonObject<Users> jsonObject = new JsonObject<Users>();
 		int result = 0;
@@ -88,8 +90,18 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 
+
+	public Users checkUserN(String uname) {
+		return usersMapper.checkUserN(uname);
+	}
+	@Override
 	public Users login(Users users) {
 		return usersMapper.login(users);
+	}
+
+	@Override
+	public int RegistUsers(Users users) {
+		return usersMapper.RegistUsers(users);
 	}
 
 }

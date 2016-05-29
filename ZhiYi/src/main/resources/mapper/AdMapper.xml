@@ -5,6 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
 <mapper namespace="com.zhiyi.mapper.AdMapper">
 	<select id="showfndpic" resultType="Ad">
-		select * from admessage where status1=1 and aid= 1002 order by weight desc
+		select * from admessage am,ad a where status1=1 and am.aid=a.aid order by weight desc
 	</select>
 </mapper>

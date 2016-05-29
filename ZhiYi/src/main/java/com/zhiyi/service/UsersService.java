@@ -3,7 +3,6 @@ package com.zhiyi.service;
 import java.util.List;
 
 import com.zhiyi.beans.JsonObject;
-import com.zhiyi.entity.Admin;
 import com.zhiyi.entity.Users;
 
 public interface UsersService {
@@ -17,11 +16,21 @@ public interface UsersService {
 	JsonObject<Users> addUsers(Users users);
 
 
+
 	JsonObject<Users> delUsersInfo(String aids);
 
 	JsonObject<Users> findusersByUsid(int usid);
 
+
+
+	Users checkUserN(String pname);
+
 	
 	Users login(Users users);
+
+
+
+
+	int RegistUsers(Users users);
 
 }

@@ -21,39 +21,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <script>
-	
-	$(function(){
-		$.ajax({
-			type:"POST",
-			url:"gtypeServlet?d="+new Date(),
-			data:{op:'chaxunli'},
-			dataType:'JSON',
-			success:function(data){
-				if(parseInt($.trim(data.code))==1){
-					for(var i=0;i<data.rows.length;i++){
-						var item=data.rows[i];
-						var j=i+1;
-						hpstr="<h2 id='hs"+j+"'>"+item.tname+"</h2><p>"+item.tdescribe+"</p>";
-						document.getElementById("seri-info"+j).innerHTML=hpstr;
-					}
+
+
+$(function(){
+	var ssss=0;
+	var z=1;
+	$.ajax({
+		type:"POST",
+		url:"gtypeServlet?d="+new Date(),
+		data:{op:'chaxunli'},
+		dataType:'JSON',
+		success:function(data){
+			if(parseInt($.trim(data.code))==1){
+				for(var i=0;i<data.rows.length;i++){
+					var item=data.rows[i];
+					var j=i+1;
+					hpstr="<h2 id='hs"+j+"'>"+item.tname+"</h2><p>"+item.tdescribe+"</p>";
+					document.getElementById("seri-info"+j).innerHTML=hpstr;
+				}
+			}
+		}
+	});
+
+	$.post("ad_findpic.action",function(data){
+		$.each(data,function(index,item){
+			if(item.aposition=="商城大"){
+				ssss=ssss+1;
+				console.info(item.aposition)
+				if(ssss==1){
+					$(".bxslider").append("<li style='float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: block;' id='b"+ssss+"'><a href='"+item.alink+"' style=''><img src='"+item.mpath+"' height='360' width='950'></a></li>")
+				}else{
+					$(".bxslider").append("<li style='float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: none;' id='b"+ssss+"'><a href='"+item.alink+"' style=''><img src='"+item.mpath+"' height='360' width='950'></a></li>")
 				}
 			}
 		});
-		
+	},'json')
 	
-		$.post("goodsServlet",{op:'findpic'},function(data){
-		
-		});
-                                          
-	});
-	                                
+	
+})                                
                                 
 </script>
 
 
 </head>
 
-<body>
+<body onload="lunbo()">
     	<div id="fa-moblie">
 		<!---头部--->
 		<div id="fa-header">
@@ -283,13 +295,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             	
                                 <ul style="width: auto; position: relative;" class="bxslider">
                                 
-                                    <li style="float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: block;" id="b1">
+                                    <%-- <li style="float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: block;" id="b1">
                                         <a href="${ad33[0].alink}" style="">
                                         	<img src="${ad33[0].mpath }" height="360" width="950">
                                         </a>
                                     </li>
                                     
-                                    <li style="float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 50; display: none;" id="b2">
+                                    <li style="float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: none;" id="b2">
                                         <a href="${ad33[1].alink}" style="">
                                        	 	<img src="${ad33[1].mpath }" height="360" width="950">
                                         </a>
@@ -306,7 +318,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         	<img src="${ad33[3].mpath }" height="360" width="950">
                                        	</a>
                                     </li>
-                             
+                              --%>
                        		 	</ul>
                         	</div>
                             

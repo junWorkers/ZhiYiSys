@@ -54,7 +54,7 @@ public class GtypeServiceImpl implements GtypeService {
 		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
 		int result = 0;
 		if (tids.indexOf(",") > 0) {
-			String tidss[] = tids.split(",");
+			String[] tidss = tids.split(",");
 			for (int i = 0; i < tidss.length; i++) {
 				result = gtypeMapper.delGtype(tidss[i]);
 			}
@@ -86,6 +86,13 @@ public class GtypeServiceImpl implements GtypeService {
 		} else {
 			jsonObject.setResult(0);
 		}
+		return jsonObject;
+	}
+
+	@Override
+	public JsonObject<Gtype> getAllGoodsType() {
+		JsonObject<Gtype> jsonObject = new JsonObject<Gtype>();
+		jsonObject.setRows(gtypeMapper.getAllGoodsType());
 		return jsonObject;
 	}
 }
