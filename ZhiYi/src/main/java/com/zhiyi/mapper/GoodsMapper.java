@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.zhiyi.entity.Goods;
 import com.zhiyi.entity.GoodsInfo;
+import com.zhiyi.entity.GoodsPar;
 
 public interface GoodsMapper {
 
@@ -29,4 +30,12 @@ public interface GoodsMapper {
 	List<GoodsInfo> findGoodsInfoByIid(int iid);
 
 	int addGoodsInfoInfo(GoodsInfo goodsInfo);
+
+	int delGoodsInfoInfo(String iid);
+
+	int updateGoodsInfoInfo(GoodsInfo goodsInfo);
+
+	int getGoodsParTotal();
+
+	List<GoodsPar> findGoodsPar(Map<String, Object> params);
 }

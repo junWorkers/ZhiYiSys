@@ -7,15 +7,16 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.GoodsInfo;
+import com.zhiyi.entity.GoodsPar;
 import com.zhiyi.service.GoodsService;
 import com.zhiyi.util.UploadUtil;
-@Controller("goodsInfoAction")
-public class GoodsInfoAction implements ModelDriven<GoodsInfo>{
+@Controller("goodsParAction")
+public class GoodsParAction implements ModelDriven<GoodsPar>{
 	@Autowired
 	private GoodsService goodsService;
-	private JsonObject<GoodsInfo> jsonObject;
+	private JsonObject<GoodsPar> jsonObject;
 	private UploadUtil uploadUtil;
-	private GoodsInfo goodsInfo;
+	private GoodsPar goodsPar;
 	private  String page;
 	private String rows;
 
@@ -43,47 +44,47 @@ public class GoodsInfoAction implements ModelDriven<GoodsInfo>{
 		this.rows = rows;
 	}
 
-	public JsonObject<GoodsInfo> getJsonObject() {
+	public JsonObject<GoodsPar> getJsonObject() {
 		return jsonObject;
 	}
 	
-	//根据id查询对应的商品详细信息
-	public String findGoodsInfoByIid(){
-		jsonObject=goodsService.findGoodsInfoByIid(goodsInfo.getIid());
+	/*//根据id查询对应的商品详细信息
+	public String findGoodsParByGpid(){
+		jsonObject=goodsService.findGoodsParByGpid(goodsPar.getGpid());
 		return "success";
-	}
+	}*/
 	
 	//分页查询商品详细信息
-	public String getPageGoodsInfoInfo(){
-		jsonObject =goodsService.getPageGoodsInfoInfo(page, rows);
+	public String getPageGoodsParInfo(){
+		jsonObject =goodsService.getPageGoodsParInfo(page, rows);
 		return "success";
 	}
 	
-	//添加商品详细信息
-	public String addgoodsInfo(){
-		goodsInfo.setGipath(uploadUtil.upload());
-		jsonObject=goodsService.addGoodsInfoInfo(goodsInfo);
+	/*//添加商品详细信息
+	public String addgoodsParInfo(){
+		goodsPar.setGppath((uploadUtil.upload());
+		jsonObject=goodsService.addgoodsParInfo(goodsPar);
 		return "success";
 	}
 	
 	//删除商品详细信息
-	public String delgoodsInfo(){
-		String iids=ServletActionContext.getRequest().getParameter("iids");
-		jsonObject=goodsService.delgoodsInfoInfo(iids);
+	public String delgoodsParInfo(){
+		String gpids=ServletActionContext.getRequest().getParameter("gpids");
+		jsonObject=goodsService.delgoodsParInfo(gpids);
 		return "success";
 	}
 	
 	//修改商品详细信息
-	public String updateGoodsInfo(){
-		goodsInfo.setGipath(uploadUtil.upload());
-		jsonObject=goodsService.updateGoodsInfoInfo(goodsInfo);
+	public String updateGoodsParInfo(){
+		goodsPar.setGppath((uploadUtil.upload());
+		jsonObject=goodsService.updateGoodsParInfo(delgoodsParInfo);
 		return "success";
-	}
+	}*/
 	
 	@Override
-	public GoodsInfo getModel() {
-		this.goodsInfo=new GoodsInfo();
-		return goodsInfo;
+	public GoodsPar getModel() {
+		this.goodsPar=new GoodsPar();
+		return goodsPar;
 	}
 
 

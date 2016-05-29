@@ -16,7 +16,15 @@ public class GoodsInfo implements Serializable {
 	private String gipath;            //图片路径2
 	private int giposition;        //商品详细的位置
 	private int status1; 
-	          
+	private String gname;            //商品名称
+	       
+	
+	public String getGname() {
+		return gname;
+	}
+	public void setGname(String gname) {
+		this.gname = gname;
+	}
 	public int getGid() {
 		return gid;
 	}
@@ -119,6 +127,6 @@ public class GoodsInfo implements Serializable {
 		return "GoodsInfo [gid=" + gid + ", iid=" + iid + ", giname=" + giname
 				+ ", gisketck=" + gisketck + ", giattribute=" + giattribute
 				+ ", gipath=" + gipath + ", giposition=" + giposition
-				+ ", status1=" + status1 + "]";
+				+ ", status1=" + status1 + ", gname=" + gname + "]";
 	}
 }

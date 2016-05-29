@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Goods;
 import com.zhiyi.entity.GoodsInfo;
+import com.zhiyi.entity.GoodsPar;
 import com.zhiyi.mapper.GoodsMapper;
 import com.zhiyi.service.GoodsService;
 
@@ -37,6 +38,11 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
+	public int getGoodsParTotal(){
+		return goodsMapper.getGoodsParTotal();
+	}
+	
+	@Override
 	public List<Goods> find(String page, String rows) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("min", (Integer.parseInt(page) - 1) * Integer.parseInt(rows));
@@ -50,6 +56,14 @@ public class GoodsServiceImpl implements GoodsService {
 		params.put("min", (Integer.parseInt(page) - 1) * Integer.parseInt(rows));
 		params.put("max", Integer.parseInt(page) * Integer.parseInt(rows));
 		return goodsMapper.findGoodsInfo(params);
+	}
+	
+	@Override
+	public List<GoodsPar> findGoodsPar(String page, String rows){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("min", (Integer.parseInt(page) - 1) * Integer.parseInt(rows));
+		params.put("max", Integer.parseInt(page) * Integer.parseInt(rows));
+		return goodsMapper.findGoodsPar(params);
 	}
 	
 	@Override
@@ -96,7 +110,28 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		return jsonObject;
 	}
+	
+	@Override
+	public JsonObject<GoodsInfo> delgoodsInfoInfo(String iids) {
+		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
+		int result = 0;
+		if (iids.indexOf(",") > 0) {
+			String[] iidss= iids.split(",");
+			for (int i = 0; i < iidss.length; i++) {
+				result = goodsMapper.delGoodsInfoInfo(iidss[i]);
+			}
+		} else {
+			result = goodsMapper.delGoodsInfoInfo(iids);
+		}
 
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
 	@Override
 	public JsonObject<Goods> updateGoodsInfo(Goods goods) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
@@ -108,7 +143,19 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		return jsonObject;
 	}
-
+	
+	@Override
+	public JsonObject<GoodsInfo> updateGoodsInfoInfo(GoodsInfo goodsInfo) {
+		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
+		int result = goodsMapper.updateGoodsInfoInfo(goodsInfo);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
 	@Override
 	public JsonObject<Goods> findGoodsByGid(int gid) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
@@ -131,6 +178,13 @@ public class GoodsServiceImpl implements GoodsService {
 		return jsonObject;
 	}
 	
+	@Override
+	public JsonObject<GoodsPar> getPageGoodsParInfo(String page, String rows) {
+		JsonObject<GoodsPar> jsonObject = new JsonObject<GoodsPar>();
+		jsonObject.setTotal(getGoodsParTotal());
+		jsonObject.setRows(findGoodsPar(page, rows));
+		return jsonObject;
+	}
 	@Override
 	public JsonObject<Goods> getAllGoods() {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();

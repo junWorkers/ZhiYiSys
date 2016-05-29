@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(1) from goodsInfo where sataus1=1
 	</select>
 	
+	<select id="getGoodsParTotal" resultType="int">
+		select count(1) from goodsPar where sataus2=1
+	</select>
+	
 	<!-- 分页查询信息 -->
 	<select id="find" parameterType="map" resultType="Goods">
 		select * from (
@@ -24,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="findGoodsInfo" parameterType="map" resultType="Goods">
+	<select id="findGoodsInfo" parameterType="map" resultType="GoodsInfo">
 		select * from (
 			select a.*,rownum rn from (
 				select n.*,gname from goods g,goodsInfo n
@@ -33,12 +37,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
 	
+	<select id="findGoodsPar" parameterType="map" resultType="GoodsPar">
+		select * from (
+			select a.*,rownum rn from (
+				select n.*,gname from goods g,goodsPar n 
+				where n.gid=g.gid and sataus2=1
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+			
+	</select>
+	
 	<!--根据编号查询-->
 	<select id="findGoodsByGid" parameterType="int" resultType="Goods">
 		select * from goods where gid=#{gid}
 	</select>
 	
-	<select id="findGoodsInfoByIid" parameterType="int" resultType="Goods">
+	<select id="findGoodsInfoByIid" parameterType="int" resultType="GoodsInfo">
 		select * from goodsInfo where iid=#{iid}
 	</select>
 	
@@ -46,13 +60,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into goods values(seq_goods_gid.nextval,#{gname},#{tid},#{price},#{gnum},#{descible},#{gpath},#{gposition},1,null,null,null)
 	</insert>
 	
-	<insert id="addGoodsInfoInfo" parameterType="Goods">
+	<insert id="addGoodsInfoInfo" parameterType="GoodsInfo">
 		insert into goodsInfo values(seq_goodsInfo_iid.nextval,#{gid},#{giname},#{gisketck},#{giattribute},#{gipath},#{giposition},1,null,null,null)
 	</insert>
 	
 	<!-- 删除商城商品信息 -->
 	<update id="delGoodsInfo" parameterType="string">
 		update goods set status=0 where gid=#{gid}
+	</update>
+	
+	<update id="delGoodsInfoInfo" parameterType="string">
+		update goodsInfo set sataus1=0 where iid=#{iid}
 	</update>
 	
 	<!--修改-->
@@ -82,6 +100,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</set>
 			where gid=#{gid}
+	</update> 
+	
+	<update id="updateGoodsInfoInfo" parameterType="GoodsInfo">
+		update goodsInfo
+		<set>
+			<if test="giname!=null">
+				giname=#{giname},
+			</if>
+			<if test="gid!=null">
+				gid=#{gid}, 
+			</if>
+			<if test="gisketck!=null">
+				gisketck=#{gisketck}, 
+			</if>
+			<if test="giattribute!=null">
+				giattribute=#{giattribute}, 
+			</if>
+			<if test="gipath!=null">
+				gipath=#{gipath}, 
+			</if>
+			<if test="giposition!=null">
+				giposition=#{giposition}
+			</if>
+		</set>
+			where iid=#{iid}
 	</update> 
 	<!-- 查询所有商品名称 -->
 	<select id="getAllGoods" resultType="Goods">

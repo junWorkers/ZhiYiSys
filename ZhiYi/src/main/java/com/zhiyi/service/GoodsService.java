@@ -5,6 +5,7 @@ import java.util.List;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Goods;
 import com.zhiyi.entity.GoodsInfo;
+import com.zhiyi.entity.GoodsPar;
 
 public interface GoodsService {
 
@@ -33,4 +34,14 @@ public interface GoodsService {
 	JsonObject<GoodsInfo> findGoodsInfoByIid(int iid);
 
 	JsonObject<GoodsInfo> addGoodsInfoInfo(GoodsInfo goodsInfo);
+
+	JsonObject<GoodsInfo> delgoodsInfoInfo(String iids);
+
+	JsonObject<GoodsInfo> updateGoodsInfoInfo(GoodsInfo goodsInfo);
+
+	JsonObject<GoodsPar> getPageGoodsParInfo(String page, String rows);
+
+	int getGoodsParTotal();
+
+	List<GoodsPar> findGoodsPar(String page, String rows);
 }
