@@ -2,7 +2,6 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
-
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
@@ -11,14 +10,47 @@
 	 <!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
 	
+	 <!-- 允许上传的文件的最大字节数 -->
+	<constant name="struts.multipart.maxSize" value="20971520"></constant>
+	<!-- 缓存路径 -->
+	<constant name="struts.multipart.saveDir" value="/temp" />
+	
 	 <!-- 后台管理 -->
+	 <package name="back" namespace="/backupload" extends="json-default">
+		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo</global-allowed-methods>
+
+		<action name="*_*" class="{1}Action" method="{2}">
+			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
+			<result type="json">
+				<param name="root">jsonObject</param>
+				<param name="encoding">UTF-8</param>
+			</result>
+		</action>
+		</package>
+	 
 	<package name="backjson" namespace="/backjson" extends="json-default">
+
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
-		getPageUsersInfo,addUsersInfo,delUsersInfo,findusersByUsid</global-allowed-methods>
+			getPageUsersInfo,addUsersInfo,delUsersInfo,findusersByUsid,
+			delGtypeInfo,findGtypeByTid,
+			checkUserName</global-allowed-methods>
+
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
+			</result>
+
+		</action>
+	</package>
+	
+	<package name="default" namespace="/" extends="json-default">
+	<global-allowed-methods>login,findpic</global-allowed-methods>
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="login">/front/index.jsp</result>
+			<result name="fail">login.jsp</result>
+			<result name="findpic" type="json">
+				<param name="root">pics</param>
 			</result>
 		</action>
 	</package>

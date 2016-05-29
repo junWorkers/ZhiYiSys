@@ -1,6 +1,13 @@
 package com.zhiyi.web.action;
 
+
 import org.apache.struts2.ServletActionContext;
+
+import java.util.Map;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -9,13 +16,14 @@ import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Users;
 import com.zhiyi.service.UsersService;
 @Controller("usersAction")
-public class UsersAction implements ModelDriven<Users>{
+public class UsersAction implements ModelDriven<Users>,SessionAware{
 	@Autowired
 	private UsersService usersService;
 	private JsonObject<Users> jsonObject;
 	private Users users;
 	private  String page;
 	private String rows;
+	private Map<String, Object> session;
 
 	public String getPage() {
 		return page;
@@ -36,7 +44,12 @@ public class UsersAction implements ModelDriven<Users>{
 		return jsonObject;
 	}
 	
-
+	//注册时用户名的校验
+	public String checkUserName(){
+		String pname=ServletActionContext.getRequest().getParameter("uname");
+		System.out.println(pname);
+		return "success";
+	}
 	
 //	//登录的验证码验证
 //	public String checkzccode(){
@@ -82,11 +95,27 @@ public class UsersAction implements ModelDriven<Users>{
 //		jsonObject.setResult(adminService.updateAdminInfo(admin));
 //		return "success";
 //	}
+	
+	public String login(){
+		System.out.println("你说房贷首付犯得上发射点");
+		users=usersService.login(users);
+		if(users==null){
+			session.put("errorMsg","登录失败，用户名或密码错误");
+			return "fail";
+		}
+		session.put("users", users);
+		return "login";
+	}
 
 	@Override
 	public Users getModel() {
 		this.users =new Users();
 		return users;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 
 

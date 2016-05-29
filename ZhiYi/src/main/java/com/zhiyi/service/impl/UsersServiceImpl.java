@@ -58,6 +58,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
+
 	public JsonObject<Users> delUsersInfo(String aids) {
 		JsonObject<Users> jsonObject = new JsonObject<Users>();
 		int result = 0;
@@ -86,5 +87,9 @@ public class UsersServiceImpl implements UsersService {
 		return jsonObject;
 	}
 
+
+	public Users login(Users users) {
+		return usersMapper.login(users);
+	}
 
 }

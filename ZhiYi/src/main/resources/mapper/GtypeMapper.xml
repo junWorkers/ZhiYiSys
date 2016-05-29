@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.zhiyi.mapper.GtypeMapper">
+	
+	<!-- 查询总的条数 -->
+	<select id="getTotal" resultType="int">
+		select count(1) from gtype where status=1
+	</select>
+	
+	<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Gtype">
+		select * from (
+			select a.*,rownum rn from (
+				select * from gtype where status=1 order by tid
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<insert id="addGtype" parameterType="Gtype">
+		insert into gtype values(seq_gtype_tid.nextval,#{tname},#{tdescribe},#{tpath},1,null,null,null)
+	</insert>
+	
+	<!-- 删除商品序列信息 -->
+	<update id="delGtype" parameterType="string">
+		update gtype set status=0 where tid=#{tid}
+	</update>
+	
+	<!-- 根据编号查询 -->
+	<select id="findGtypeByTid" parameterType="int" resultType="Gtype">
+		select * from gtype where tid=#{tid}
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateGtypeInfo" parameterType="Gtype">
+		update gtype
+		<set>
+			<if test="tname!=null">
+				tname=#{tname},
+			</if>
+			<if test="tdescribe!=null">
+				tdescribe=#{tdescribe}, 
+			</if>
+			<if test="tpath!=null">
+				tpath=#{tpath} 
+			</if>
+		</set>
+			where tid=#{tid}
+	</update>
+	
+</mapper>
