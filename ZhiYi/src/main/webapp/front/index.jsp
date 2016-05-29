@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	$(function(){
 		$.post("ad_findpic.action",function(data){
-			$("#showPic").append("<li><a href='"+data[0].alink+"'><img src='"+data[0].mpath+"' id='1'  style='display:block' /></a></li>");
+			$("#showPic").append("<li><a href='"+data[0].alink+"'><img src='"+data[0].mpath+"' id='1'  style='display:block' alt='zzzzzzzzzzzzzzzzzzzzzz'/></a></li>");
 			for(var i = 1; i < data.length; i++)
 			{ 
 				var j=i+1;
@@ -45,11 +45,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </ul>
                 <img class="img1" src="images/zhuci.jpg"/>
                 <ul class="fa-right">
-                	<c:if test="${not empty sessionScope.users.uname}">
-                		   <li><a href="#">当前用户名：${sessionScope.users.uname}</a></li>
+                	<c:if test="${not empty users.uname}">
+                		   <li><a href="#">当前用户名：${users.uname}</a></li>
                 		   <li><a href="javascript:loginOut()">[注销]</a></li>
                 	</c:if>
-                	<c:if test="${empty sessionScope.users.uname}">
+                	<c:if test="${empty users.uname}">
                 		<li><a href="register.jsp">注册</a></li>
                     	<li><a href="login.jsp">登录</a></li>
                 	</c:if>

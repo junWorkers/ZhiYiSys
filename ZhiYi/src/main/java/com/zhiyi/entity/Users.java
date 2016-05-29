@@ -11,9 +11,9 @@ import com.zhiyi.util.MD5Encryption;
 @SuppressWarnings("serial")
 public class Users implements Serializable {
 	private int usid;           //会员编号
-	private String uname;       //用户名
-	private String pname;       //真实姓名
+	private String pname;       //用户名
 	private String pwd;         //密码
+	private String uname;       //真实姓名
 	private String sex;         //性别
 	private String birth;       //生日
 	private String birthplace;  //出生地

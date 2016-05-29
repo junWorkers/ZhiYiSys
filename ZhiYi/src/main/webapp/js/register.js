@@ -76,59 +76,28 @@ function checkrpwd(){
 		return true;
 	}
 }
-//用户名校验
+
 function checkName(){	
 	var uname=$("#name").val();
-	var flag;
-	if(uname!=null && uname!=""){
-		$.post("users_checkUserName.action",{uname:uname},function(data){
-			if(data==null){
-				document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;此用户名可用';
-				document.getElementById('name_error_tag').style.color='green';
-				flag=true;
-			}else{
-				document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;用户名已被占用，请重新输入';
-				document.getElementById('name_error_tag').style.color='red';
-				flag=false;
-			}
-		},"json");
+	if(uname!=null){
+		$.post("../backjson/users_checkUserName.action?t="+new Date(),{uname:uname},function(data){
+			$.each(data.pname,function(index,item){
+				if(uname==item.pname){
+					document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;用户名已被占用，请重新输入';
+					document.getElementById('name_error_tag').style.color='red';
+				}else{
+					document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;此用户名可用';
+					document.getElementById('name_error_tag').style.color='green';
+				}
+			});
+		},"json")
 	}else{
 		document.getElementById('name_error_tag').innerHTML='&nbsp;&nbsp;用户名不能为空，请重新输入';
 		document.getElementById('name_error_tag').style.color='red';
-		flag=false;
 	}
-	return flag;
-}
-//重新获取验证码
-function changeCode(){
-	$("#mobile_captchaImg").attr("src","valiCodeImg.jsp?t="+new Date());
+	
 }
 
-//验证码校验
-function checkYzm(){
-	var yzm=$("#mobile_captcha").val();
-	var flag2;
-	if(yzm!=null && yzm!=""){
-		$.post("users_yanzheng.action",{yzm:yzm},function(data){
-			data=parseInt($.trim(data));
-			if(data==1){
-				document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码正确';
-				document.getElementById('mobile_captcha_succ_tag').style.color='green';
-				flag2=true;
-			}else{
-				document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码错误，请重新输入';
-				document.getElementById('mobile_captcha_succ_tag').style.color='red';
-				flag2=false;
-			}
-		},"json");
-	}else{
-		document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码不能为空，请重新输入';
-		document.getElementById('mobile_captcha_succ_tag').style.color='red';
-		flag2= false;
-	}
-	return flag2;
-}
-//校验各个验证
 function check(){
 	if(checkEmail()==true&&checkpwd()==true&&checkrpwd()==true){
 		return true;
@@ -136,28 +105,30 @@ function check(){
 		return false;
 	}
 }
-//确认注册
+
+function changeCode(){
+	$("#mobile_captchaImg").attr("src","valiCodeImg.jsp?t="+new Date());
+}
+
 function registerUserInfo(){
 	var uname=$("#name").val();
 	var email=$("#email").val();
+	var yzm=$("#mobile_captcha").val();
 	var pwd=$("#newPassword").val();
-	var checkname=$("#name_error_tag").html();
-	var checkyzm=$("#mobile_captcha_succ_tag").html();
-	console.info(checkEmail());
-	console.info(checkpwd());
-	console.info(checkrpwd());
+	var rpwd=$("#repeatNewPassword").val();
+	var s=$("#name_error_tag").html();
 	if(document.getElementById("agreement").checked){
-			if(check()==true && checkname=="&nbsp;&nbsp;此用户名可用" && checkyzm=="&nbsp;&nbsp;验证码正确"){
-				$.post("users_register.action",{email:email,pwd:pwd,uname:uname},function(data){
+			if(pwd==rpwd && s=="&nbsp;&nbsp;此用户名可用"){
+				$.post("usersServlet?t="+new Date(),{op:"register",email:email,yzm:yzm,pwd:pwd,rpwd:rpwd,uname:uname},function(data){
 					data=parseInt($.trim(data));
 					if(data==1){
+						
 						alert("注册成功");
 						$("#name").val('');
 						$("#email").val('');
 						$("#mobile_captcha").val('');
 						$("#newPassword").val('');
 						$("#repeatNewPassword").val('');
-						window.location.href = "/ZhiYi/login.jsp";
 					}else{
 						alert("注册失败");
 					}
@@ -168,5 +139,19 @@ function registerUserInfo(){
 	}else{
 		alert("您必须同意协议才能注册...");
 	}
+	
 }
 
+function checkYzm(){
+	var yzm=$("#mobile_captcha").val();
+	$.post("usersServlet?t="+new Date(),{op:"yanzheng",yzm:yzm},function(data){
+		data=parseInt($.trim(data));
+		if(data==1){
+			document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码正确';
+			document.getElementById('mobile_captcha_succ_tag').style.color='green';
+		}else{
+			document.getElementById('mobile_captcha_succ_tag').innerHTML='&nbsp;&nbsp;验证码错误，请重新输入';
+			document.getElementById('mobile_captcha_succ_tag').style.color='red';
+		}
+	});
+}
