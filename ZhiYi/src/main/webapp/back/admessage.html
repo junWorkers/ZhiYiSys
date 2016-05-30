@@ -2,7 +2,7 @@
 <script>
 	var obj=$("#admessage_aposition");
 	var opt="";
-	$.post("../adServlet",{op:"getAllAd"},function(data){
+	$.post("../backjson/ad_getAllAd.action",function(data){
 		
 		$.each(data.rows,function(index,item){
 			opt="<option value='"+item.aid+"'>"+item.aposition+"</option>";
@@ -17,8 +17,8 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#admessage_info').datagrid({
-			url:'../adServlet',
-			queryParams:{op:"getPageAdmessageInfo"},
+			url:'../backjson/ad_getAllAd.action',
+			
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
