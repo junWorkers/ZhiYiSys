@@ -44,4 +44,12 @@ public interface GoodsService {
 	int getGoodsParTotal();
 
 	List<GoodsPar> findGoodsPar(String page, String rows);
+
+	JsonObject<GoodsPar> addgoodsParInfo(GoodsPar goodsPar);
+
+	JsonObject<GoodsPar> delgoodsParInfo(String gpids);
+
+	JsonObject<GoodsPar> findGoodsParByGpid(int gpid);
+
+	JsonObject<GoodsPar> updateGoodsParInfo(GoodsPar goodsPar);
 }

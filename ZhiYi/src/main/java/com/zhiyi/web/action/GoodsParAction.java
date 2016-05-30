@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
-import com.zhiyi.entity.GoodsInfo;
 import com.zhiyi.entity.GoodsPar;
 import com.zhiyi.service.GoodsService;
 import com.zhiyi.util.UploadUtil;
@@ -48,24 +47,25 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 		return jsonObject;
 	}
 	
-	/*//根据id查询对应的商品详细信息
+	//根据id查询对应的商品详细信息
 	public String findGoodsParByGpid(){
 		jsonObject=goodsService.findGoodsParByGpid(goodsPar.getGpid());
 		return "success";
-	}*/
+	}
 	
-	//分页查询商品详细信息
+	//分页查询商品参数信息
 	public String getPageGoodsParInfo(){
 		jsonObject =goodsService.getPageGoodsParInfo(page, rows);
 		return "success";
 	}
 	
-	/*//添加商品详细信息
-	public String addgoodsParInfo(){
-		goodsPar.setGppath((uploadUtil.upload());
+	//添加商品详细信息
+	public String addgoodsPar(){
+		goodsPar.setGppath(uploadUtil.upload());
 		jsonObject=goodsService.addgoodsParInfo(goodsPar);
 		return "success";
 	}
+	
 	
 	//删除商品详细信息
 	public String delgoodsParInfo(){
@@ -74,12 +74,14 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 		return "success";
 	}
 	
+	
 	//修改商品详细信息
 	public String updateGoodsParInfo(){
-		goodsPar.setGppath((uploadUtil.upload());
-		jsonObject=goodsService.updateGoodsParInfo(delgoodsParInfo);
+		System.out.println(uploadUtil);
+		goodsPar.setGppath(uploadUtil.upload());
+		jsonObject=goodsService.updateGoodsParInfo(goodsPar);
 		return "success";
-	}*/
+	}
 	
 	@Override
 	public GoodsPar getModel() {

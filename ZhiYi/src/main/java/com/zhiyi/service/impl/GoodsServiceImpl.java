@@ -89,7 +89,19 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		return jsonObject;
 	}
-
+	
+	@Override
+	public JsonObject<GoodsPar> addgoodsParInfo(GoodsPar goodsPar) {
+		JsonObject<GoodsPar> jsonObject = new JsonObject<GoodsPar>();
+		int result = goodsMapper.addgoodsParInfo(goodsPar);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
 	@Override
 	public JsonObject<Goods> delGoodsInfo(String gids) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
@@ -133,6 +145,27 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
+	public JsonObject<GoodsPar> delgoodsParInfo(String gpids) {
+		JsonObject<GoodsPar> jsonObject = new JsonObject<GoodsPar>();
+		int result = 0;
+		if (gpids.indexOf(",") > 0) {
+			String[] gpidss= gpids.split(",");
+			for (int i = 0; i < gpidss.length; i++) {
+				result = goodsMapper.delgoodsParInfo(gpidss[i]);
+			}
+		} else {
+			result = goodsMapper.delgoodsParInfo(gpids);
+		}
+
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
+	@Override
 	public JsonObject<Goods> updateGoodsInfo(Goods goods) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
 		int result = goodsMapper.updateGoodsInfo(goods);
@@ -157,6 +190,18 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
+	public JsonObject<GoodsPar> updateGoodsParInfo(GoodsPar goodsPar) {
+		JsonObject<GoodsPar> jsonObject = new JsonObject<GoodsPar>();
+		int result = goodsMapper.updateGoodsParInfo(goodsPar);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	
+	@Override
 	public JsonObject<Goods> findGoodsByGid(int gid) {
 		JsonObject<Goods> jsonObject = new JsonObject<Goods>();
 		jsonObject.setRows(goodsMapper.findGoodsByGid(gid));
@@ -169,7 +214,14 @@ public class GoodsServiceImpl implements GoodsService {
 		jsonObject.setRows(goodsMapper.findGoodsInfoByIid(iid));
 		return jsonObject;
 	}
-
+	
+	@Override
+	public JsonObject<GoodsPar> findGoodsParByGpid(int gpid) {
+		JsonObject<GoodsPar> jsonObject = new JsonObject<GoodsPar>();
+		jsonObject.setRows(goodsMapper.findGoodsParByGpid(gpid));
+		return jsonObject;
+	}
+	
 	@Override
 	public JsonObject<GoodsInfo> getPageGoodsInfoInfo(String page, String rows) {
 		JsonObject<GoodsInfo> jsonObject = new JsonObject<GoodsInfo>();
