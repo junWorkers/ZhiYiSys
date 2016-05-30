@@ -32,7 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="RegistUsers" parameterType="Users">
 		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
 	</insert>
-	
+		<!-- 删除会员信息 -->
+	<delete id="delUsers" parameterType="string">
+		delete from users where usid=#{usid}
+	</delete>
+	<!-- 详细信息 -->
+		<select id="findusersByUsid" resultType="Users">
+		select * from users where status=1 and usid=#{usid}
+	</select>
+
 	<!--登录操作-->
 	<select id="login" parameterType="Users" resultType="Users">
 		select usid,uname,pwd from users where (uname=#{uname} or email=#{uname}) and pwd=#{pwd}

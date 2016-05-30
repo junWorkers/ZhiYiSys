@@ -5,7 +5,7 @@
 <struts>
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="false" />
 	
 	 <!-- 把struts的action对象交给spring容器管理 -->
 	<constant name="struts.objectFactory " value="spring" />
@@ -17,10 +17,15 @@
 	
 	 <!-- 后台管理 -->
 	 <package name="back" namespace="/backupload" extends="json-default">
-		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo</global-allowed-methods>
-
+		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo,
+		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo,addgoodsInfo,
+		updateGoodsInfo,getPageGoodsParInfo</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/gif,image/png,image/jpeg,image/jpg</param>
+			</interceptor-ref>
+    		<interceptor-ref name="defaultStack"></interceptor-ref>
 			<result type="json">
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
@@ -28,12 +33,13 @@
 		</action>
 		</package>
 	 
+	 <!-- 无图片操作的 -->
 	<package name="backjson" namespace="/backjson" extends="json-default">
 
-		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
-			getPageUsersInfo,addUsersInfo,
-			delGtypeInfo,findGtypeByTid
-			</global-allowed-methods>
+		<global-allowed-methods>
+			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
+			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
+			checkUserName,findGoodsInfoByIid,delgoodsInfo</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>

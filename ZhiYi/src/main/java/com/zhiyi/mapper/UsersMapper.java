@@ -15,8 +15,16 @@ public interface UsersMapper {
 
 	Users login(Users users);
 
-	Users checkUserN(String uname);
+	int delUsers(String aids);
 
 	int RegistUsers(Users users);
+
+	List<Users> findusersByUsid(int usid);
+
+
+
+	Users checkUserN(String uname);
+
+
 
 }
