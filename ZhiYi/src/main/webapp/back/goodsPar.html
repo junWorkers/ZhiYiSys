@@ -72,7 +72,7 @@
 						var  gpid=datagrid.datagrid("getChecked")[0].gpid;
 						$("#edit3").attr("href","javascript:updateGoodsParInfo("+gpid+")");
 						
-						$.post("../backupload/goodsPar_findGoodsParByGpid.action",{gpid:gpid},function(data){
+						$.post("../backjson/goodsPar_findGoodsParByGpid.action",{gpid:gpid},function(data){
 							var goodsPar=data.rows[0];
 	  						$("#goodsPar_goodsPartype").find("option[text='"+goodsPar.gname+"']").attr("selected",true);
 							$("#goodsPar_color").val(goodsPar.color);
@@ -113,7 +113,7 @@
 								gpids+=rows[i].gpid;
 								
 								//将要删除gpid发送到服务器
-								$.post("../backupload/goodsPar_delgoodsParInfo.action",{gpids:gpids},function(data){
+								$.post("../backjson/goodsPar_delgoodsParInfo.action",{gpids:gpids},function(data){
 									if(data.result>0){   //删除成功
 										$.messager.show({
 											title:"删除提示",
