@@ -7,8 +7,7 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#exstore_info').datagrid({
-			url:'../exstoreServlet',
-			queryParams:{op:"getPageExstoreInfo"},
+			url:'../backjson/exstore_getPageExstoreInfo.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",

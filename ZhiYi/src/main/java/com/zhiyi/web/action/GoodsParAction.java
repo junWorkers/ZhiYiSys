@@ -47,7 +47,7 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 		return jsonObject;
 	}
 	
-	//根据id查询对应的商品详细信息
+	//根据id查询对应的商品参数信息
 	public String findGoodsParByGpid(){
 		jsonObject=goodsService.findGoodsParByGpid(goodsPar.getGpid());
 		return "success";
@@ -59,7 +59,7 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 		return "success";
 	}
 	
-	//添加商品详细信息
+	//添加商品参数信息
 	public String addgoodsPar(){
 		goodsPar.setGppath(uploadUtil.upload());
 		jsonObject=goodsService.addgoodsParInfo(goodsPar);
@@ -67,7 +67,7 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 	}
 	
 	
-	//删除商品详细信息
+	//删除商品参数信息
 	public String delgoodsParInfo(){
 		String gpids=ServletActionContext.getRequest().getParameter("gpids");
 		jsonObject=goodsService.delgoodsParInfo(gpids);
@@ -75,7 +75,7 @@ public class GoodsParAction implements ModelDriven<GoodsPar>{
 	}
 	
 	
-	//修改商品详细信息
+	//修改商品参数信息
 	public String updateGoodsParInfo(){
 		System.out.println(uploadUtil);
 		goodsPar.setGppath(uploadUtil.upload());
