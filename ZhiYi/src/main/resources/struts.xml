@@ -19,7 +19,7 @@
 	 <package name="back" namespace="/backupload" extends="json-default">
 		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo,
 		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo,addgoodsInfo,
-		updateGoodsInfo,getPageGoodsParInfo</global-allowed-methods>
+		updateGoodsInfo,getPageGoodsParInfo,addgoodsPar,updateGoodsParInfo</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
 			<interceptor-ref name="fileUpload">
@@ -39,7 +39,10 @@
 		<global-allowed-methods>
 			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
-			checkUserName,findGoodsInfoByIid,delgoodsInfo</global-allowed-methods>
+			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,updateExstoreInfo,
+			findGoodsParByGpid,getPageExstoreInfo,addExstoreInfo,delExstoreInfo,
+			getPageAdInfo,getAllAd</global-allowed-methods>
+
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
 				<param name="root">jsonObject</param>

@@ -7,4 +7,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="showfndpic" resultType="Ad">
 		select * from admessage am,ad a where status1=1 and am.aid=a.aid order by weight desc
 	</select>
+		<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Ad">
+		select * from (
+			select a.*,rownum rn from (
+				select * from ad where status in(1,0) order by aid
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+		<select id="getTotal" resultType="int">
+		select count(1) from ad where status in(1,0)
+	</select>
+		<select id="finds" parameterType="map" resultType="Ad">
+		select * from (
+			select a.*,rownum rn from (
+				select n.*,aposition from admessage n,ad where n.aid=ad.aid order by amid
+			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+		
+	</select>
 </mapper>

@@ -38,4 +38,12 @@ public interface GoodsMapper {
 	int getGoodsParTotal();
 
 	List<GoodsPar> findGoodsPar(Map<String, Object> params);
+
+	int addgoodsParInfo(GoodsPar goodsPar);
+
+	int delgoodsParInfo(String gpid);
+
+	List<GoodsPar> findGoodsParByGpid(int gpid);
+
+	int updateGoodsParInfo(GoodsPar goodsPar);
 }
