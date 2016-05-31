@@ -39,8 +39,8 @@
 		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
 			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
-			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,
-			findGoodsParByGpid,
+			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,updateExstoreInfo,
+			findGoodsParByGpid,getPageExstoreInfo,addExstoreInfo,delExstoreInfo,
 			getPageAdInfo,getAllAd</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">

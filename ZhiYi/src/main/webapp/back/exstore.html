@@ -62,6 +62,7 @@
 			handler: function(){
 				//
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var row=datagrid.datagrid("getChecked");
 				if(rows==undefined){
 					$.messager.show({
 						title:"温馨提示",
@@ -69,6 +70,8 @@
 						timeout:2000,
 						showType:'slide'
 					});
+				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
 				}else{
 					op="updateExstoreInfo";
 					flag="修改";
@@ -109,8 +112,8 @@
 							eids+=rows[i].eid;
 							
 							//将要删除aid发送到服务器
-							$.post("../exstoreServlet",{op:"delExstoreInfo",eids:eids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/exstore_delExstoreInfo.action",{eids:eids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"预约信息删除成功...",
@@ -141,9 +144,8 @@
 				}else{
 					rows["op"]=op;
 					
-					$.post("../exstoreServlet",rows,function(data){
-						data=parseInt($.trim(data));
-						if(data==1){   //
+					$.post("../backjson/exstore_"+rows["op"]+".action",rows,function(data){
+						if(data.result>0){   //
 							$.messager.show({
 								title:"成功提示",
 								msg:'预约信息'+flag+'成功...',

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.zhiyi.mapper.ExstoreMapper">
+	
+	<!-- 查询总的条数 -->
+	<select id="getTotal" resultType="int">
+		select count(1) from exstore where status in(1,0)
+	</select>
+	
+	<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Exstore">
+		select * from (
+			select a.*,rownum rn from (
+				select * from exstore where status in(1,0) order by eid
+			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	
+	<!-- 插入体验店信息 -->
+	<insert id="addExstoreInfo" parameterType="Exstore">
+		insert into exstore values(seq_exstore_eid.nextval,#{province},#{stname},#{address},#{phone},#{etime},#{pattern},#{status},null,null,null)
+	</insert>
+	
+	<!-- 删除体验店信息 -->
+	<delete id="delExstoreInfo" parameterType="string">
+		update exstore set status=-1 where eid=#{eid}
+	</delete>
+	
+	<!-- 修改体验店信息 -->
+	<update id="updateExstoreInfo" parameterType="Exstore">
+		update exstore set province=#{province},stname=#{stname},address=#{address},phone=#{phone},etime=#{etime},pattern=#{pattern},status=#{status} where eid=#{eid}
+	</update>
+	
+</mapper>

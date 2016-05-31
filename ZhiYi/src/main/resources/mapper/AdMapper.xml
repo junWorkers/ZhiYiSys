@@ -11,18 +11,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="find" parameterType="map" resultType="Ad">
 		select * from (
 			select a.*,rownum rn from (
-				select * from ad order by aid
+				select * from ad where status in(1,0) order by aid
 			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
 		<select id="getTotal" resultType="int">
-		select count(1) from ad
+		select count(1) from ad where status in(1,0)
 	</select>
 		<select id="finds" parameterType="map" resultType="Ad">
 		select * from (
 			select a.*,rownum rn from (
-				select * from admessage order by amid
+				select n.*,aposition from admessage n,ad where n.aid=ad.aid order by amid
 			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
+		
 	</select>
 </mapper>

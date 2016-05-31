@@ -4,6 +4,7 @@
 eclipse.preferences.version=1
 encoding//sql/zhiyi.sql=UTF-8
 encoding//src/main/java/com/zhiyi/web/action/AdminAction.java=UTF-8
+encoding//src/main/java/com/zhiyi/web/action/ExstoreAction.java=UTF-8
 encoding//src/main/webapp/back/ad.html=UTF-8
 encoding//src/main/webapp/back/admessage.html=UTF-8
 encoding//src/main/webapp/back/admin.html=UTF-8
