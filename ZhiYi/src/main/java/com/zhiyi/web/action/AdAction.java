@@ -7,32 +7,69 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.opensymphony.xwork2.ModelDriven;
+import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Ad;
+import com.zhiyi.entity.Admin;
 import com.zhiyi.service.AdService;
 
 @Controller("adAction")
-public class AdAction implements SessionAware {
+public class AdAction implements SessionAware,ModelDriven<Ad> {
 	@Autowired
 	private AdService adService;
+	private Ad ad;
+	private JsonObject<Ad> jsonObject;
 	private List<Ad> pics;
 	private Map<String, Object> session;
-
+	private  String page;
+	private String rows;
 	
 	public List<Ad> getPics() {
 		return pics;
 	}
 	public void setPics(List<Ad> pics) {
-		this.pics = pics;
+		this.pics=pics;
+	}
+	public String getPage() {
+		return page;
 	}
 
+	public void setPage(String page) {
+		this.page = page;
+	}
 
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+	public JsonObject<Ad> getJsonObject() {
+		return jsonObject;
+	}
 	public String findpic(){
 		pics=adService.shoufindpic();
 		session.put("pics",pics);
 		return "findpic";
 	}
+	//分页查询管理员信息
+	public String getPageAdInfo(){
+		jsonObject = adService.getPageAdInfo(page, rows);
+		return "success";
+	}
+	//分页查询管理员信息
+	public String getAllAd(){
+		jsonObject = adService.getPageAll(page, rows);
+		return "success";
+	}
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session=session;
+	}
+	@Override
+	public Ad getModel() {
+		this.ad=new Ad();
+		return ad;
 	}
 }

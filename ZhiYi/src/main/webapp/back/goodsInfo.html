@@ -2,7 +2,7 @@
 <script>
 	var obj=$("#goodsInfo_goodsInfotype");
 	var opt="";
-	$.post("../backjson/goods_getAllGoods",function(data){
+	$.post("../backjson/goods_getAllGoods.action",function(data){
 		
 		$.each(data.rows,function(index,item){
 			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
@@ -16,7 +16,7 @@
 		var op;
 		var flag;
 		datagrid=$('#goodsInfo_info').datagrid({
-			url:'../backupload/goods_getPageGoodsInfoInfo.action',
+			url:'../backupload/goodsInfo_getPageGoodsInfoInfo.action',
 			fitColumns:true,
 			striped:true,
 			loadMsg:"数据加载中...",
@@ -77,7 +77,7 @@
 					var  iid=datagrid.datagrid("getChecked")[0].iid;
 					$("#edit2").attr("href","javascript:updateGoodsInfo("+iid+")");
 					
-					$.post("../backjson/goods_findGoodsInfoByIid.action",{iid:iid},function(data){
+					$.post("../backjson/goodsInfo_findGoodsInfoByIid.action",{iid:iid},function(data){
 						var goodsInfo=data.rows[0];
 						
 						$("#goodsInfo_gname").val(goodsInfo.giname);
@@ -120,7 +120,7 @@
 							iids+=rows[i].iid;
 							
 							//将要删除aid发送到服务器
-							$.post("../backjson/goods_delgoodsInfo",{iids:iids},function(data){
+							$.post("../backjson/goodsInfo_delgoodsInfo",{iids:iids},function(data){
 								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
@@ -152,7 +152,7 @@
 	}
 	
 </style>
-<div id="win3" class="easyui-dialog" title="商品详细信息操作" style="width:600px;height:540px" data-options="modal:true,closed:true">  
+<div id="win3" class="easyui-dialog" title="商品详细信息操作" style="width:600px;height:560px" data-options="modal:true,closed:true">  
     <div style="float:right;width:150px;margin-right:20px;margin-top:10px;">
 		<fieldset id="goodsInfo_pic_show">
 			<legend>图片预览</legend>
@@ -164,7 +164,7 @@
 		<select name="gid" id="goodsInfo_goodsInfotype" style="width:180px;">
 				
 		</select><br /><br />
-		<label>属&nbsp;&nbsp;&nbsp;&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;值&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label><select name="giattribute" id="goodsInfo_giattribute" style="width:180px;">
+		<label>属&nbsp;&nbsp;&nbsp;&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;值&nbsp;&nbsp;&nbsp;：</label><select name="giattribute" id="goodsInfo_giattribute" style="width:180px;">
 				<option>概述</option>
 				<option>设计</option>
 				<option>拍照</option>
@@ -181,7 +181,7 @@
 		</div>
 	</form>
 </div>
-<div id="win4" class="easyui-dialog" title="详细信息" style="width:500px;height:320px" data-options="modal:true,closed:true">  
+<div id="win4" class="easyui-dialog" title="详细信息" style="width:600px;height:340px" data-options="modal:true,closed:true">  
 	 <div style="float:right;width:150px;margin-right:10px;margin-top:55px;">
 		<fieldset id="goodsInfo_pic_show_info">
 			<legend>商品图片显示</legend>
@@ -195,7 +195,7 @@
 <script>
 	function showgoodsInfoDetail(iid){
 		$("#win4").dialog("open");
-		$.post("../backjson/goods_findGoodsInfoByIid.action",{iid:iid},function(data){
+		$.post("../backjson/goodsInfo_findGoodsInfoByIid.action",{iid:iid},function(data){
 			var goodsInfo=data.rows[0];
 			$("#goodsInfo_descibe_show").val(goodsInfo.gisketck);
 			var str="";
@@ -215,7 +215,7 @@
 		var gisketck=$("#goodsInfo_descibe").val();
 		var giposition=$("#goodsInfo_gposition").val();
 		$.ajaxFileUpload({
-			url:"../backupload/goods_addgoodsInfo",
+			url:"../backupload/goodsInfo_addgoodsInfo.action",
 			secureuri:false,
 			fileElementId:"goodsInfo_pic",
 			dataType:"json",
@@ -252,7 +252,7 @@
 		var gisketck=$("#goodsInfo_descibe").val();
 		var giposition=$("#goodsInfo_gposition").val();
 		$.ajaxFileUpload({
-			url:"../backupload/goods_updateGoodsInfo?iid="+iid,
+			url:"../backupload/goodsInfo_updateGoodsInfo.action?iid="+iid,
 			secureuri:false,
 			fileElementId:"goodsInfo_pic",
 			dataType:"json",

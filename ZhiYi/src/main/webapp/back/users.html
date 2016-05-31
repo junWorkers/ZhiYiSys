@@ -18,9 +18,6 @@
 			sortName:'usid',
 			sortOrder:'asc',
 			remoteSort:false,
-			pageNumber:1,
-			pageSize:5,
-			pageList:[5,10,20,30,40,50],
 		columns:[[
 		          {field:'usid',title:'会员编号',width:100,align:'center',checkbox:true},
 		          {field:'usids',title:'会员编号',width:100,align:'center',sortable:true},
@@ -83,8 +80,8 @@
 		  					$("#edit").attr("href","javascript:updateusersInfo("+usid+")");
 		  					
 		  					var ue=UE.getEditor('editor');
-		  					$.post("../usersServlet",{op:"findusersByUsid",usid:usid},function(data){
-		  						var users=data.rows;
+		  					$.post("../backjson/users_findusersByUsid.action",{usid:usid},function(data){
+		  						var users=data.rows[0];
 		  						$("#users_uname").val(users.uname);
 		  						$("#users_pwd").val(users.pwd);
 		  						$("#users_pname").val(users.pname);
@@ -132,8 +129,8 @@
 									usids+=rows[i].usid;
 									
 									//将要删除usid发送到服务器
-									$.post("../usersServlet",{op:"delUsersInfo",usids:usids},function(data){
-										if(data==1){   //删除成功
+									$.post("../backjson/users_delUsersInfo.action",{usids:usids},function(data){
+										if(data.result>0){   //删除成功
 											$.messager.show({
 												title:"删除提示",
 												msg:"会员信息删除成功...",
@@ -208,7 +205,7 @@
 		margin-left:30%;
 	}
 </style>
-<div id="users_add_usersInfo" class="easyui-dialog" title="添加会员信息" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
+<div id="users_add_usersInfo" class="easyui-dialog" title="会员信息操作" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
 	<div style="float:right;width:380px;margin-right:20px;">
 		<fieldset id="users_pic_show">
 			<legend>图片预览</legend>
@@ -275,8 +272,8 @@
     
     function showusersDetail(usid){
 		$("#users_add_usersInfo_show").dialog("open");
-		$.post("../usersServlet",{op:"findusersByUsid",usid:usid},function(data){
-			var users=data.rows;
+		$.post("../backjson/users_findusersByUsid.action",{usid:usid},function(data){
+			var users=data.rows[0];
 				$("#users_uname_show").val(users.uname);
 				$("#users_pwd_show").val(users.pwd);
 				$("#users_pname_show").val(users.pname);
@@ -318,7 +315,7 @@
 		var intro=ue.getContent();
 		
 		$.ajaxFileUpload({
-			url:"../usersServlet?op=updateUsersInfo&usid="+usid,
+			url:"../backjson/users_updateUsersInfo.action&usid="+usid,
 			secureuri:false,
 			fileElementId:"users_pic",
 			dataType:"json",

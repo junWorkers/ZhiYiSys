@@ -318,7 +318,6 @@ select * from ad
 
 drop table ad;
 drop sequence seq_ad_aid;
-select * from admessage am,ad a where status1=1 and am.aid=a.aid order by weight desc
 --------------------------------------------------------------------------------
 --广告信息表
 create table admessage(

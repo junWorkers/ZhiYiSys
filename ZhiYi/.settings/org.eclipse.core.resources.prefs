@@ -1,9 +1,12 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/remotes/origin/master
 eclipse.preferences.version=1
-<<<<<<< HEAD
-encoding//src/main/java/com/zhiyi/web/action/AdminAction.java=UTF-8
-=======
 encoding//sql/zhiyi.sql=UTF-8
+encoding//src/main/java/com/zhiyi/web/action/AdminAction.java=UTF-8
+encoding//src/main/java/com/zhiyi/web/action/ExstoreAction.java=UTF-8
+encoding//src/main/webapp/back/ad.html=UTF-8
+encoding//src/main/webapp/back/admessage.html=UTF-8
 encoding//src/main/webapp/back/admin.html=UTF-8
 encoding//src/main/webapp/back/users.html=UTF-8
->>>>>>> refs/remotes/origin/master
 encoding/<project>=UTF-8
