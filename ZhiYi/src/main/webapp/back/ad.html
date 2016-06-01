@@ -38,7 +38,7 @@
 			iconCls: 'icon-add',
 			handler: function(){
 				flag="添加";
-				op="addAdInfo";    //当前的操作
+				op="addAd";    //当前的操作
 				//先判断有没有正在编辑的行
 				if(editRow!=undefined){
 					datagrid.datagrid("rejectChanges");   //说明有行正在被编辑，则还原当前的修改
@@ -66,7 +66,7 @@
 						showType:'slide'
 					});
 				}else{
-					op="updateadInfo";
+					op="updateAd";
 					flag="修改";
 					if(editRow!=undefined){  //说明有行正在被编辑，则还原当前的修改
 						datagrid.datagrid("rejectChanges");   //说明有行正在被编辑，则还原当前的修改
@@ -105,8 +105,8 @@
 							aids+=rows[i].aid;
 							
 							//将要删除aid发送到服务器
-							$.post("../adServlet",{op:"deladInfo",aids:aids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/ad_delAd.action",{aids:aids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"广告位信息删除成功...",
@@ -137,9 +137,9 @@
 				}else{
 					rows["op"]=op;
 					
-					$.post("../adServlet",rows,function(data){
-						data=parseInt($.trim(data));
-						if(data==1){   //
+					$.post("../backjson/ad_"+rows["op"]+".action",rows,function(data){
+						
+						if(data.result>0){   //
 							$.messager.show({
 								title:"成功提示",
 								msg:'广告位信息'+flag+'成功...',
