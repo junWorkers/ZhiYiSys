@@ -41,7 +41,11 @@
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
 			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,updateExstoreInfo,
 			findGoodsParByGpid,getPageExstoreInfo,addExstoreInfo,delExstoreInfo,
-			getPageAdInfo,getAllAd,delAd,addAd,updateAd,delAdmessage</global-allowed-methods>
+
+			getPageAdInfo,getAllAd,delAd,addAd,updateAd,delAdmessage,getPageOrderInfo,findGoodsInfoByInfo</global-allowed-methods>
+
+
+
 
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
