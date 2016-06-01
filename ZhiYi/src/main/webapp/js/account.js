@@ -1,6 +1,7 @@
 // JavaScript Document
 
 //设置滚动的标题栏
+
 {
 	var str='找回密码——指艺官方网站　';
 	function run(){		
@@ -11,51 +12,50 @@
 	//定时器
 	window.setInterval('run()','500');     //每隔0.2秒调用run()方法一次
 }
-//邮箱验证
-function checkEmail(){
-	var reg=/^\w+@\w+\.(com)|(cn)$/;
-	var email=document.getElementById('email').value;
-	if(email==''){
-		document.getElementById('email_error_tag').innerHTML="&nbsp;&nbsp;请输入邮箱地址";
-		document.getElementById('email_error_tag').style.color='red';
-		$("#email").val('');
-		return false;
-	}else if(!reg.test(email)){
-		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱地址格式错误';
-		document.getElementById('email_error_tag').style.color='red';
-		$("#email").val('');
-		return false;
-	}else{
-		$.post("usersServlet?d="+new Date(),{op:"checkEmail",email:email},function(data){
-			if(parseInt($.trim(data))==1){
-				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱格式符合';
-				document.getElementById('email_error_tag').style.color='green';
-				return true;
-			}else{
-				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;此邮箱未被注册';
-				document.getElementById('email_error_tag').style.color='red';
-				$("#email").val('');
-				return false;
-			}
-		});
+ 
+var InterValObj; //timer变量，控制时间
+var count = 5; //间隔函数，1秒执行
+var curCount;//当前剩余秒数
+
+function sendMessage() {
+	curCount = count;
+	//设置button效果，开始计时
+	$("#btnSendCode").attr("disabled", "true");
+	$("#btnSendCode").val("请在" + curCount + "秒内输入验证码");
+	InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+}
+//timer处理函数
+function SetRemainTime() {
+	if (curCount == 0) {                
+		window.clearInterval(InterValObj);//停止计时器
+		$("#btnSendCode").removeAttr("disabled");//启用按钮
+		$("#btnSendCode").val("重新发送验证码");
+	}
+	else {
+		curCount--;
+		$("#btnSendCode").val("请在" + curCount + "秒内输入验证码");
 	}
 }
 
+
+
 function changeVilidateCode(){
 	var email = $("#email").val();
-	
+	var countdown=60;
 	if(email==''){
 		alert("请先输入合格的邮箱...");
 	}else{
-		$.post("usersServlet?d="+new Date(),{op:"changeVilidateCode",email:email},function(data){
+		/*$.post("usersServlet?d="+new Date(),{op:"changeVilidateCode",email:email},function(data){
 			if(parseInt($.trim(data))==0){
 				alert("验证码获取失败，请重新获取...");
 			}else{
 				alert("验证码发送成功，注意查收...");
 			}
 		});
+		*/
 	}
 }
+
 
 //验证码
 function checkcaptcha(){

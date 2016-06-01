@@ -13,11 +13,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="js/account.js"></script>
+<script type="text/javascript" src="js/test.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <link href="css/account.css" rel="stylesheet" type="text/css">
 <link rel="short icon" href="images/logomin.jpg" />
 <!--小图标-->
-
+<!-- <script type="text/javascript"> 
+var countdown=60; 
+function settime(obj) { 
+    if (countdown == 0) { 
+        obj.removeAttribute("disabled");    
+        obj.value="免费获取验证码"; 
+        countdown = 60; 
+        return;
+    } else { 
+        obj.setAttribute("disabled", true); 
+        obj.value="重新发送(" + countdown + ")"; 
+        countdown--; 
+    } 
+setTimeout(function() { 
+    settime(obj) }
+    ,1000) 
+}
+</script> -->
 </head>
 
 <body>
@@ -94,7 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										class="text captchainput required" name="captcha"
 										placeholder="请输入邮箱接收的验证码" 
 										onBlur="checkcaptcha()">
-									<a href="javascript:changeVilidateCode()" title="点击刷新验证码"  id="hqcode">点击获取验证码</a>
+									<a href="javascript:changeVilidateCode(this)" title="点击刷新验证码"  id="hqcode">免费获取验证码</a>
+									<input type="button" id="btn" value="免费获取验证码" onclick="settime(this)"/>
 									<span class="check_tips error_tip" id="captcha_error_tag"
 										style="font-size:12px;"></span> <span
 										class="check_tips succ_tips" id="captcha_succ_tag">&nbsp;</span>
