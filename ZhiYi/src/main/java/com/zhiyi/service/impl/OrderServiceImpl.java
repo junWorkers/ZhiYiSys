@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> find(String gid, String kdate, String jdate,
 			String page, String rows) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		if(gid!=null && !"".equals(gid)){
+		if(gid!="0" && !"0".equals(gid)){
 			params.put("gid", gid);
 		}
 		if(kdate!=null && !"".equals(kdate)){
