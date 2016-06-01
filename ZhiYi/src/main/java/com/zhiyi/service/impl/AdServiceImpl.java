@@ -50,5 +50,68 @@ public class AdServiceImpl implements AdService {
 		params.put("max", Integer.parseInt(page) * Integer.parseInt(rows));
 		return adMapper.finds(params);
 	}
+	@Override
+	public JsonObject<Ad> delAd(String aids) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = 0;
+		if (aids.indexOf(",") > 0) {
+			String[] aidss = aids.split(",");
+			for (int i = 0; i < aidss.length; i++) {
+				result = adMapper.delAd(aidss[i]);
+			}
+		} else {
+			result = adMapper.delAd(aids);
+		}
+
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+		
+	}
+	@Override
+	public JsonObject<Ad> addAd(Ad ad) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = adMapper.addAd(ad);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> updateAd(Ad ad) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = adMapper.updateAd(ad);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> delAdmessage(String aids) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = 0;
+		if (aids.indexOf(",") > 0) {
+			String[] aidss = aids.split(",");
+			for (int i = 0; i < aidss.length; i++) {
+				result = adMapper.delAdmessage(aidss[i]);
+			}
+		} else {
+			result = adMapper.delAdmessage(aids);
+		}
+
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
 
 }

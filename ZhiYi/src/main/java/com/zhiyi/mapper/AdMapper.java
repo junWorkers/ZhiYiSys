@@ -13,4 +13,12 @@ public interface AdMapper {
 	List<Ad> find(Map<String, Object> params);
 
 	List<Ad> finds(Map<String, Object> params);
+
+	int delAd(String aid);
+
+	int addAd(Ad ad);
+
+	int updateAd(Ad ad);
+
+	int delAdmessage(String string);
 }

@@ -106,7 +106,6 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 //	}
 	
 	public String login(){
-		System.out.println("你说房贷首付犯得上发射点");
 		users=usersService.login(users);
 		if(users==null){
 			session.put("errorMsg","登录失败，用户名或密码错误");
