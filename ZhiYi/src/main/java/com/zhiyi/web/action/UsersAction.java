@@ -1,13 +1,10 @@
 package com.zhiyi.web.action;
 
 
-import org.apache.struts2.ServletActionContext;
-
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -49,7 +46,7 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 		return intType;
 	}
 
-	
+
 	//注册时用户名的校验
 	public String checkUserName(){
 		usersType=usersService.checkUserN(users.getUname());
@@ -68,7 +65,6 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 	}
 	//注册
 	public String register(){
-		System.out.println(users.getUname()+"=="+users.getEmail()+"=="+users.getPwd());
 		if(usersService.RegistUsers(users)>0){
 			intType=1;
 		}else{
@@ -88,7 +84,7 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 		jsonObject=usersService.addUsers(users);
 		return "success";
 	}
-//
+	//
 	//删除管理员信息
 	public String delUsersInfo(){
 		String aids=ServletActionContext.getRequest().getParameter("usids");
@@ -98,16 +94,16 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 	public String findusersByUsid(){
 		jsonObject=usersService.findusersByUsid(users.getUsid());
 		return "success";
-		
+
 	}
-//	
-//	//修改管理员信息
-//	public String updateAdminInfo(){
-//		LogManager.getLogger().debug(admin);
-//		jsonObject.setResult(adminService.updateAdminInfo(admin));
-//		return "success";
-//	}
-	
+	//	
+	//	//修改管理员信息
+	//	public String updateAdminInfo(){
+	//		LogManager.getLogger().debug(admin);
+	//		jsonObject.setResult(adminService.updateAdminInfo(admin));
+	//		return "success";
+	//	}
+
 	public String login(){
 		users=usersService.login(users);
 		if(users==null){

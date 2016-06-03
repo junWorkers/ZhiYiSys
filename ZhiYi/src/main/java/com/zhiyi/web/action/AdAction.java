@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Ad;
-import com.zhiyi.entity.Admin;
 import com.zhiyi.service.AdService;
+import com.zhiyi.util.UploadUtil;
 
 @Controller("adAction")
 public class AdAction implements SessionAware,ModelDriven<Ad> {
@@ -20,11 +20,19 @@ public class AdAction implements SessionAware,ModelDriven<Ad> {
 	private AdService adService;
 	private Ad ad;
 	private JsonObject<Ad> jsonObject;
+	private UploadUtil uploadUtil;
 	private List<Ad> pics;
 	private Map<String, Object> session;
 	private  String page;
 	private String rows;
 	
+	public UploadUtil getUploadUtil() {
+		return uploadUtil;
+	}
+
+	public void setUploadUtil(UploadUtil uploadUtil) {
+		this.uploadUtil = uploadUtil;
+	}
 	public List<Ad> getPics() {
 		return pics;
 	}
@@ -60,10 +68,16 @@ public class AdAction implements SessionAware,ModelDriven<Ad> {
 		return "success";
 	}
 	//分页查询管理员信息
-	public String getAllAd(){
+	public String getAllAdMessage(){
 		jsonObject = adService.getPageAll(page, rows);
 		return "success";
 	}
+	
+	public String getAllAd(){
+		jsonObject = adService.getAllAd();
+		return "success";
+	}
+	
 	//删除信息广告位
 	public String delAd(){
 		String aids=ServletActionContext.getRequest().getParameter("aids");
@@ -87,6 +101,24 @@ public class AdAction implements SessionAware,ModelDriven<Ad> {
 		jsonObject=adService.delAdmessage(aids);
 		return "success";
 	}
+	
+	public String addAdmessageInfo(){
+		ad.setMpath(uploadUtil.upload());
+		jsonObject=adService.addAdmessageInfo(ad);
+		return "success";
+	}
+	
+	public String findadmessageByAmid(){
+		jsonObject=adService.findadmessageByAmid(ad.getAmid());
+		return "success";
+	}
+	
+	public String updateAdmessageInfo(){
+		ad.setMpath(uploadUtil.upload());
+		jsonObject=adService.updateAdmessageInfo(ad);
+		return "success";
+	}
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session=session;

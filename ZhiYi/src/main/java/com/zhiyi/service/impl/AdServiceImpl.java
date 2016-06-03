@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Ad;
-import com.zhiyi.entity.Admin;
 import com.zhiyi.mapper.AdMapper;
 import com.zhiyi.service.AdService;
 @Service("adService")
@@ -37,10 +36,16 @@ public class AdServiceImpl implements AdService {
 	public int getTotal() {
 		return adMapper.getTotal();
 	}
+	
+	@Override
+	public int getTotals() {
+		return adMapper.getTotals();
+	}
+	
 	@Override
 	public JsonObject<Ad> getPageAll(String page, String rows) {
 		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
-		jsonObject.setTotal(getTotal());
+		jsonObject.setTotal(getTotals());
 		jsonObject.setRows(finds(page, rows));
 		return jsonObject;
 	}
@@ -106,6 +111,40 @@ public class AdServiceImpl implements AdService {
 			result = adMapper.delAdmessage(aids);
 		}
 
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> getAllAd() {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		jsonObject.setRows(adMapper.getAllAd());
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> addAdmessageInfo(Ad ad) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = adMapper.addAdmessageInfo(ad);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> findadmessageByAmid(int amid) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		jsonObject.setRows(adMapper.findadmessageByAmid(amid));
+		return jsonObject;
+	}
+	@Override
+	public JsonObject<Ad> updateAdmessageInfo(Ad ad) {
+		JsonObject<Ad> jsonObject = new JsonObject<Ad>();
+		int result = adMapper.updateAdmessageInfo(ad);
 		if (result > 0) {
 			jsonObject.setResult(1);
 		} else {

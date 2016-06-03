@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select sum(count(distinct gpid)) from orders group by gpid
 	</select>
 	
+	<select id="getTotal1" resultType="int">
+		select sum(count(distinct gpid)) from orders group by gpid,xdate
+	</select>
+	
 	<!-- 分页查询信息 -->
 	<select id="find" parameterType="map" resultType="Order">
 		select * from (
@@ -20,6 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid 
 						and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid 
 					) group by gname,color,gversion order by sum(onum) desc
+			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="finds" parameterType="map" resultType="Order">
+		select * from (
+			select a.*,rownum rn from (
+				select uname,gname,color,gversion,sum(onum) num,xdate from (
+					select uname,gname,color,gversion,onum,xdate from users,orderInfo,orders,
+						goodsPar,goods where orders.usid=users.usid and orderInfo.gpid=goodsPar.gpid and
+						orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid
+						and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid
+				) group by uname,gname,color,gversion,xdate order by sum(onum) desc
 			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
@@ -45,6 +62,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 								</if>
 						</where>
 					) group by gname,color,gversion order by sum(onum) desc
+			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="finds1" parameterType="map" resultType="Order">
+		select * from (
+			select a.*,rownum rn from (
+				select uname,gname,color,gversion,sum(onum) num,xdate from (
+					select uname,gname,color,gversion,onum,xdate from users,orderInfo,orders,
+						goodsPar,goods  
+						<where>
+							orders.usid=users.usid and orderInfo.gpid=goodsPar.gpid and
+							orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid
+							and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid
+								<if test="uname!=null">
+									and uname like #{uname}
+								</if>
+								<if test="kdate!=null">
+									and xdate between to_date(#{kdate},'yyyy-mm-dd')
+								</if>
+								<if test="jdate!=null">
+									and to_date(#{jdate},'yyyy-mm-dd')
+								</if>
+								<if test="gid!=null">
+									 and goods.gid=#{gid}
+								</if>
+						</where>
+					) group by uname,gname,color,gversion,xdate order by sum(onum) desc
 			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
