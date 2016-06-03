@@ -4,48 +4,104 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
 <mapper namespace="com.zhiyi.mapper.UsersMapper">
-	
+
 	<!-- 查询总的条数 -->
 	<select id="getTotal" resultType="int">
 		select count(usid) from users
+		where status=1
 	</select>
-	
+
 	<!-- 分页查询信息 -->
 	<select id="find" parameterType="map" resultType="Users">
 		select * from (
-			select a.*,rownum rn from (
-				select * from users order by usid
-			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
-		)b where rn>#{min,jdbcType=NUMERIC}
+		select a.*,rownum rn from (
+		select * from users where status=1 order by usid
+		)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where
+		rn>#{min,jdbcType=NUMERIC}
 	</select>
-		
+
 	<!-- 插入会员信息 -->
 	<insert id="addUsers" parameterType="Users">
-		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,#{sex},null,null,null,null,#{passport},null,null,#{phone},null,#{email},'0',1,null,null,null)
+		insert into users
+		values(seq_users_usid.nextval,#{uname},#{pwd},null,#{sex},null,null,null,null,#{passport},null,null,#{phone},null,#{email},'0',1,null,null,null)
 	</insert>
-	
+
 	<!-- 用户名校验 -->
 	<select id="checkUserN" resultType="Users" parameterType="String">
-		select * from users where uname=#{uname}
+		select
+		* from users where uname=#{uname}
 	</select>
 	<!-- 注测用户 -->
 	<insert id="RegistUsers" parameterType="Users">
-		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
+		insert into users
+		values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
 	</insert>
 
-		<!-- 删除会员信息 -->
+	<!-- 删除会员信息 -->
 	<delete id="delUsers" parameterType="string">
-		delete from users where usid=#{usid}
+		delete from users where
+		usid=#{usid}
 	</delete>
 	<!-- 详细信息 -->
-		<select id="findusersByUsid" resultType="Users">
-		select * from users where status=1 and usid=#{usid}
+	<select id="findusersByUsid" resultType="Users">
+		select * from users
+		where status=1 and usid=#{usid}
 	</select>
 
-	
-	<!--登录操作-->
+	<!--登录操作 -->
 	<select id="login" parameterType="Users" resultType="Users">
-		select usid,uname,pwd from users where (uname=#{uname} or email=#{uname}) and pwd=#{pwd}
+		select
+		usid,uname,pwd from users where (uname=#{uname} or email=#{uname}) and
+		pwd=#{pwd}
 	</select>
 	
+	<update id="updateUsersInfo" parameterType="Users">
+		 update users
+		<set>
+			<if test="uname!=null">
+				uname=#{uname},
+			</if>
+			<if test="pwd!=null">
+				pwd=#{pwd}, 
+			</if>
+			<if test="pname!=null">
+				pname=#{pname}, 
+			</if>
+			<if test="sex!=null">
+				sex=#{sex}, 
+			</if>
+			<if test="birth!=null">
+				birth=#{birth}, 
+			</if>
+			<if test="birthplace!=null">
+				birthplace=#{birthplace}, 
+			</if>
+			<if test="address!=null">
+				address=#{address},
+			</if>
+			<if test="intro!=null">
+				intro=#{intro},
+			</if>
+			<if test="passport!=null">
+				passport=#{passport},
+			</if>
+			<if test="pic!=null">
+				pic=#{pic},
+			</if>
+			<if test="tel!=null">
+				tel=#{tel},
+			</if>
+			<if test="phone!=null">
+				phone=#{phone},
+			</if>
+			<if test="qq!=null">
+				QQ=#{qq},
+			</if>
+			<if test="email!=null">
+				email=#{email}
+			</if>
+		</set>
+			where usid=#{usid}
+	</update>
 </mapper>
