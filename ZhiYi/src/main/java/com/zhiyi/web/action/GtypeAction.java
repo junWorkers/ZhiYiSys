@@ -1,5 +1,7 @@
 package com.zhiyi.web.action;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,15 @@ public class GtypeAction implements ModelDriven<Gtype>{
 	@Autowired
 	private GtypeService gtypeService;
 	private JsonObject<Gtype> jsonObject;
+	private List<Gtype> types;
 	private UploadUtil uploadUtil;
 	private Gtype gtype;
 	private  String page;
 	private String rows;
+
+	public List<Gtype> getTypes() {
+		return types;
+	}
 
 	public UploadUtil getUploadUtil() {
 		return uploadUtil;
@@ -87,6 +94,10 @@ public class GtypeAction implements ModelDriven<Gtype>{
 	public String getAllGoodsType(){
 		jsonObject=gtypeService.getAllGoodsType();
 		return "success";
+	}
+	public String findAllType(){
+		types=gtypeService.findTypes();
+		return "findTtpes";
 	}
 	
 	@Override

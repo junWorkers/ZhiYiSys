@@ -21,4 +21,6 @@ public interface GtypeMapper {
 
 	List<Gtype> getAllGoodsType();
 
+	List<Gtype> findAllGtype();
+
 }

@@ -28,17 +28,14 @@ $(function(){
 	var z=1;
 	$.ajax({
 		type:"POST",
-		url:"gtypeServlet?d="+new Date(),
-		data:{op:'chaxunli'},
+		url:"gtype_findAllType",
 		dataType:'JSON',
 		success:function(data){
-			if(parseInt($.trim(data.code))==1){
-				for(var i=0;i<data.rows.length;i++){
-					var item=data.rows[i];
-					var j=i+1;
-					hpstr="<h2 id='hs"+j+"'>"+item.tname+"</h2><p>"+item.tdescribe+"</p>";
-					document.getElementById("seri-info"+j).innerHTML=hpstr;
-				}
+			for(var i=0;i<data.length;i++){
+				var item=data[i];
+				var j=i+1;
+				hpstr="<h2 id='hs"+j+"'>"+item.tname+"</h2><p>"+item.tdescribe+"</p>";
+				document.getElementById("seri-info"+j).innerHTML=hpstr;
 			}
 		}
 	});
@@ -56,6 +53,7 @@ $(function(){
 			}
 		});
 	},'json')
+	
 	
 	
 })                                
@@ -88,13 +86,13 @@ $(function(){
 				</ul>
 				<img class="img1" src="images/zhuci.jpg" />
 				<ul class="fa-right">
-						<c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：${currentAdminInfo}</a></li>
+						<c:if test="${not empty sessionScope.users.uname}">
+                		   <li><a href="#">当前用户名：${sessionScope.users.uname}</a></li>
                 		   <li><a href="javascript:loginOut()">[注销]</a></li>
                 	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
+                	<c:if test="${empty sessionScope.users.uname}">
+                		<li><a href="register.jsp">注册</a></li>
+                    	<li><a href="login.jsp">登录</a></li>
                 	</c:if>
 				</ul>
 			</div>

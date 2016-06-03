@@ -11,6 +11,8 @@ create table admin(
     available3 varchar2(30)
 );
 drop table admin;
+select * from gtype
+select * from (select a.*,rownum rn from (select * from gtype where status=1 order by tid) a where 5>=rownum)b where rn>0
 insert into admin values(seq_admin_aid.nextval,'qyb','aaa','18274761960',1,null,null,null);
 drop sequence seq_admin_aid;
 create sequence seq_admin_aid start with 1001 increment by 1;

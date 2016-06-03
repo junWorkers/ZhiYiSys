@@ -23,4 +23,6 @@ public interface GtypeService {
 
 	JsonObject<Gtype> getAllGoodsType();
 
+	List<Gtype> findTypes();
+
 }

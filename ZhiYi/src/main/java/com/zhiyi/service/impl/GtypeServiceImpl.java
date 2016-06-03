@@ -95,4 +95,9 @@ public class GtypeServiceImpl implements GtypeService {
 		jsonObject.setRows(gtypeMapper.getAllGoodsType());
 		return jsonObject;
 	}
+
+	@Override
+	public List<Gtype> findTypes() {
+		return gtypeMapper.findAllGtype();
+	}
 }
