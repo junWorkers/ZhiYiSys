@@ -26,4 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)b where rn>#{min,jdbcType=NUMERIC}
 		
 	</select>
+		<!-- 删除信息 -->
+	<update id="delAd" parameterType="string">
+		update ad set status=-1 where aid=#{aid}
+	</update>
+		<!-- 插入信息 -->
+	<insert id="addAd" parameterType="Ad">
+		insert into ad values(seq_ad_aid.nextval,#{aposition},#{asize},#{status},null,null,null)
+	</insert>
+	
+		<!-- 修改信息 -->
+	<update id="updateAd" parameterType="Ad">
+		update ad set aposition=#{aposition},asize=#{asize},status=#{status} where aid=#{aid}
+	</update>
+			<!-- 删除信息 -->
+	<update id="delAdmessage" parameterType="string">
+		update admessage set status1=-1 where amid=#{amid}
+	</update>
 </mapper>

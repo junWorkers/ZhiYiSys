@@ -14,7 +14,7 @@
 $(function(){
 	var obj=$("#goods");
 	var opt="";
-	$.post("../goodsServlet",{op:"getAllGoodsName"},function(data){
+	$.post("../backjson/goods_getAllGoods.action",function(data){
 		
 		$.each(data.rows,function(index,item){
 			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
@@ -28,8 +28,7 @@ $(function(){
 	var flag;
 
 	$('#show_goods_info').datagrid({
-		url:'../orderServlet',
-		queryParams:{op:"getPageOrderInfo"},
+		url:'../backjson/order_getPageOrderInfo.action',
 		fitColumns:true,
 		striped:true,
 		loadMsg:"数据加载中...",
@@ -54,8 +53,8 @@ function findGoodsInfoByInfo(){
 	var kdate=$("#show_goods_ndate1").datebox('getValue');
 	var jdate=$("#show_goods_ndate2").datebox('getValue');
 	$('#show_goods_info').datagrid({
-		url:'../orderServlet',
-		queryParams:{op:"findGoodsInfoByInfo",gid:gid,kdate:kdate,jdate:jdate}
+		url:'../backjson/order_findGoodsInfoByInfo.action',
+		queryParams:{gid:gid,kdate:kdate,jdate:jdate}
 	});
 }
 </script>

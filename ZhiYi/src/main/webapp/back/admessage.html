@@ -127,8 +127,8 @@
 							amids+=rows[i].amid;
 							
 							//将要删除aid发送到服务器
-							$.post("../adServlet",{op:"delAdmessage",amids:amids},function(data){
-								if(data==1){   //删除成功
+							$.post("../backjson/ad_delAdmessage.action",{amids:amids},function(data){
+								if(data.result>0){   //删除成功
 									$.messager.show({
 										title:"删除提示",
 										msg:"广告信息删除成功...",

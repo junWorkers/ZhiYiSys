@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.zhiyi.mapper.OrderMapper">
+	
+	<!-- 查询总的条数 -->
+	<select id="getTotal" resultType="int">
+		select sum(count(distinct gpid)) from orders group by gpid
+	</select>
+	
+	<!-- 分页查询信息 -->
+	<select id="find" parameterType="map" resultType="Order">
+		select * from (
+			select a.*,rownum rn from (
+				select gname,color,gversion,sum(onum) num from (
+					select gname,color,gversion,onum,xdate from orderInfo,orders,
+						goodsPar,goods where orderInfo.gpid=goodsPar.gpid and 
+						orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid 
+						and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid 
+					) group by gname,color,gversion order by sum(onum) desc
+			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="find1" parameterType="map" resultType="Order">
+		select * from (
+			select a.*,rownum rn from (
+				select gname,color,gversion,sum(onum) num from (
+					select gname,color,gversion,onum,xdate from orderInfo,orders,
+						goodsPar,goods  
+						<where>
+							orderInfo.gpid=goodsPar.gpid and 
+							orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid 
+							and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid 
+								<if test="kdate!=null">
+									and xdate between to_date(#{kdate},'yyyy-mm-dd')
+								</if>
+								<if test="jdate!=null">
+									and to_date(#{jdate},'yyyy-mm-dd')
+								</if>
+								<if test="gid!=null">
+									 and goods.gid=#{gid}
+								</if>
+						</where>
+					) group by gname,color,gversion order by sum(onum) desc
+			) a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+</mapper>

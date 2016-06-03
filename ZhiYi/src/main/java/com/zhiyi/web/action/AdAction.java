@@ -3,6 +3,7 @@ package com.zhiyi.web.action;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,29 @@ public class AdAction implements SessionAware,ModelDriven<Ad> {
 	//分页查询管理员信息
 	public String getAllAd(){
 		jsonObject = adService.getPageAll(page, rows);
+		return "success";
+	}
+	//删除信息广告位
+	public String delAd(){
+		String aids=ServletActionContext.getRequest().getParameter("aids");
+		jsonObject=adService.delAd(aids);
+		return "success";
+	}
+	//添加信息
+	public String addAd(){
+		jsonObject=adService.addAd(ad);
+		return "success";
+	}
+	//修改信息
+	public String updateAd(){
+		jsonObject=adService.updateAd(ad);
+		return "success";
+	}
+	
+	//删除信息
+	public String delAdmessage(){
+		String aids=ServletActionContext.getRequest().getParameter("amids");
+		jsonObject=adService.delAdmessage(aids);
 		return "success";
 	}
 	@Override

@@ -15,7 +15,7 @@
 $(function(){
 	var obj=$("#good");
 	var opt="";
-	$.post("../goodsServlet",{op:"getAllGoodsName"},function(data){
+	$.post("../backjson/goods_getAllGoods.action",function(data){
 		$.each(data.rows,function(index,item){
 			opt="<option value='"+item.gid+"'>"+item.gname+"</option>";
 			obj.append($(opt));

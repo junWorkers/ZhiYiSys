@@ -221,6 +221,32 @@ select uname,gname,color,gversion,sum(onum) num,xdate from (select uname,gname,c
  where orders.usid=users.usid and orderInfo.gpid=goodsPar.gpid and orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid and 
 	goods.gid=goodsPar.gid and orderInfo.osid=orders.osid) group by uname,gname,color,gversion,xdate order by sum(onum) desc ;
 select gs.gname,os.osid,os.sname,oi.money from goods gs,goodsPar gp,orders os,orderInfo oi where os.osid=oi.osid and gp.gpid=os.gpid and gs.gid=gp.gid and os.status=1;
+
+select * from (
+	select a.*,rownum rn from (
+		select gname,color,gversion,sum(onum) num from (
+			select gname,color,gversion,onum,xdate from orderInfo,orders,
+				goodsPar,goods where orderInfo.gpid=goodsPar.gpid and
+				orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid
+				and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid
+				and xdate between to_date('2016-05-23','yyyy-mm-dd')
+					and to_date('2016-05-23','yyyy-mm-dd')
+					and goods.gid=4083
+		) group by gname,color,gversion order by sum(onum) desc    
+	) a where rownum<=10   
+)b where rn>0
+
+select * from (
+			select a.*,rownum rn from (
+				select gname,color,gversion,sum(onum) num from (
+					select gname,color,gversion,onum,xdate from orderInfo,orders,
+						goodsPar,goods where orderInfo.gpid=goodsPar.gpid and 
+						orderInfo.gpid=orders.gpid and orders.gpid=goodsPar.gpid 
+						and goods.gid=goodsPar.gid and orderInfo.osid=orders.osid 
+					) group by gname,color,gversion order by sum(onum) desc
+			) a where rownum<=10
+		)b where rn>0
+
 ------------------------------------------------------------------------------
 --订单详细表
 create table orderInfo(
