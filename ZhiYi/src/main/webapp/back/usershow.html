@@ -28,8 +28,7 @@ $(function(){
 	var flag;
 
 	$('#show_user_info').datagrid({
-		url:'../orderServlet',
-		queryParams:{op:"getPageUserInfo"},
+		url:'../backjson/order_getPageUserInfo.action',
 		fitColumns:true,
 		striped:true,
 		loadMsg:"数据加载中...",
@@ -57,8 +56,8 @@ function findUserInfoByInfo(){
 	var kdate=$("#show_goods_ndate1").datebox('getValue');
 	var jdate=$("#show_goods_ndate2").datebox('getValue');
 	$('#show_user_info').datagrid({
-		url:'../orderServlet',
-		queryParams:{op:"findUserInfoByInfo",uname:uname,gid:gid,kdate:kdate,jdate:jdate}
+		url:'../backjson/order_findUserInfoByInfo.action',
+		queryParams:{uname:uname,gid:gid,kdate:kdate,jdate:jdate}
 	});
 }
 </script>

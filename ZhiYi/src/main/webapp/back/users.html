@@ -205,7 +205,7 @@
 		margin-left:30%;
 	}
 </style>
-<div id="users_add_usersInfo" class="easyui-dialog" title="会员信息操作" data-options="fit:true,iconCls:'icon-add',resizable:true,modal:true,closed:true">
+<div id="users_add_usersInfo" class="easyui-dialog" title="修改会员信息" style="width:600px;height:560px" data-options="resizable:true,modal:true,closed:true">
 	<div style="float:right;width:380px;margin-right:20px;">
 		<fieldset id="users_pic_show">
 			<legend>图片预览</legend>
@@ -238,13 +238,13 @@
 	</form>
 </div>
 
-<div id="users_add_usersInfo_show" class="easyui-dialog" title="添加会员信息" data-options="fit:true,resizable:true,modal:true,closed:true">
-	<div style="float:right;width:380px;margin-right:20px;">
+<div id="users_add_usersInfo_show" class="easyui-dialog" title="会员详细信息" style="width:750px;height:620px" data-options="resizable:true,modal:true,closed:true">
+	<div style="float:right;width:200px;margin-right:20px;">
 		<fieldset id="users_pic_show_show">
-			<legend>图片预览</legend>
+			<legend>头像</legend>
 		</fieldset>
 	</div>
-	<form action="" style="padding:20px;float:left;">
+	<form action="" style="padding:10px;float:left;">
 		<label>用&nbsp;户&nbsp;名&nbsp;&nbsp;：</label><input type="text" name="uname" id="users_uname_show" class="myinput" readonly="readonly"/><br /><br />
 		<label>密&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="pwd" name="pwd" id="users_pwd_show" class="myinput" readonly="readonly"/><br /><br />
 		<label>真实姓名：</label><input type="text" name="pname" id="users_pname_show" class="myinput" readonly="readonly"/><br /><br />
@@ -252,7 +252,7 @@
 																		<option>男</option>
 																		<option>女</option>
 																  </select><br /><br />
-		<label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="pic" id="users_pic_show" readonly="readonly" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br />
+		<!-- <label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="pic" id="users_pic_show" readonly="readonly" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br /> -->
 		<label>生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="birth" id="users_birth_show" class="myinput" readonly="readonly"/><br /><br />
 		<label>出&nbsp;生&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="birthplace" id="users_birthplace_show" class="myinput" readonly="readonly"/><br /><br />
 		<label>居&nbsp;住&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="address" id="users_address_show" class="myinput" readonly="readonly"/><br /><br />
@@ -262,7 +262,7 @@
 		<label>Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="qq" id="users_qq_show" class="myinput" readonly="readonly"/><br /><br />
 		<label>email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="email" id="users_email_show" class="myinput" readonly="readonly"/><br /><br />		
 		<label>自我介绍：</label>
-		<div id="users_content_show" style="width:800px;height:400px;">
+		<div id="users_content_show" style="width:600px;height:100px;">
 			
 		</div><br/><br/>
 	</form>

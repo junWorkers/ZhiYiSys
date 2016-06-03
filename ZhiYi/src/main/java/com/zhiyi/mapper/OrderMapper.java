@@ -13,4 +13,10 @@ public interface OrderMapper {
 
 	List<Order> find1(Map<String, Object> params);
 
+	int getTotal1();
+
+	List<Order> finds(Map<String, Object> params);
+
+	List<Order> finds1(Map<String, Object> params);
+
 }

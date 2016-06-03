@@ -30,6 +30,8 @@ public interface UsersService {
 
 	int RegistUsers(Users users);
 
+	int CheckEamil(String email);
+
 
 
 }

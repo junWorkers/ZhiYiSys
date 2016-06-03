@@ -51,6 +51,21 @@ public class OrderAction implements ModelDriven<Order>{
 		return "success";
 	}
 	
+	public String findUserInfoByInfo(){
+		String uname=ServletActionContext.getRequest().getParameter("uname");
+		String gid=ServletActionContext.getRequest().getParameter("gid");
+		String kdate=ServletActionContext.getRequest().getParameter("kdate");
+		String jdate=ServletActionContext.getRequest().getParameter("jdate");
+		jsonObject = orderService.findUserInfoByInfo(uname,gid,kdate,jdate,page, rows);
+		return "success";
+	}
+	
+	//
+	public String getPageUserInfo(){
+		jsonObject = orderService.getPageUserInfo(page, rows);
+		return "success";
+	}
+	
 	@Override
 	public Order getModel() {
 		this.order=new Order();

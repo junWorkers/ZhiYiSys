@@ -11,6 +11,7 @@ public interface AdService {
 	JsonObject<Ad> getPageAdInfo(String page, String rows);
 
 	int getTotal();
+	int getTotals();
 
 	JsonObject<Ad> getPageAll(String page, String rows);
 
@@ -21,4 +22,12 @@ public interface AdService {
 	JsonObject<Ad> updateAd(Ad ad);
 
 	JsonObject<Ad> delAdmessage(String aids);
+
+	JsonObject<Ad> getAllAd();
+
+	JsonObject<Ad> addAdmessageInfo(Ad ad);
+
+	JsonObject<Ad> findadmessageByAmid(int amid);
+
+	JsonObject<Ad> updateAdmessageInfo(Ad ad);
 }

@@ -17,7 +17,7 @@
 		var flag;
 		var statusObj=[{sid:0,sname:'不可用'},{sid:1,sname:'可用'}];
 		datagrid=$('#admessage_info').datagrid({
-			url:'../backjson/ad_getAllAd.action',
+			url:'../backjson/ad_getAllAdMessage.action',
 			
 			fitColumns:true,
 			striped:true,
@@ -70,6 +70,7 @@
 			handler: function(){
 				
 				var  rows=datagrid.datagrid("getChecked")[0];
+				var  row=datagrid.datagrid("getChecked");
   				if(rows==undefined){
   					$.messager.show({
   						title:"温馨提示",
@@ -77,15 +78,17 @@
   						timeout:2000,
   						showType:'slide'
   					});
-  				}else{
+  				}else if(row.length>1){
+					$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
+				}else{
   					$("#win6").dialog("open");
   					$("#add4").css("display","none");
   					$("#edit4").css("display","inline-block");
   					var  amid=datagrid.datagrid("getChecked")[0].amid;
   					$("#edit4").attr("href","javascript:updateAdmessageInfo("+amid+")");
   					
-  					$.post("../adServlet",{op:"findadmessageByAmid",amid:amid},function(data){
-  						var admessage=data.rows;
+  					$.post("../backjson/ad_findadmessageByAmid.action",{amid:amid},function(data){
+  						var admessage=data.rows[0];
   						
   						$("#admessage_aposition").find("option[text='"+admessage.aposition+"']").attr("selected",true);
   						$("#admessage_sdate").datebox('setValue',admessage.sdate.substr(0,10));
@@ -179,7 +182,7 @@
 				<option value='1'>可用</option>
 				<option value='0'>不可用</option>
 		</select><br /><br />
-		<label>图片路径：</label><input type="file" name="pic" id="admessage_pic" onchange="previewMultipleImage(this,'admessage_pic_show')"/><br /><br />
+		<label>图片路径：</label><input type="file" name="uploadUtil.pic" id="admessage_pic" onchange="previewMultipleImage(this,'admessage_pic_show')"/><br /><br />
 		<div id="admessage_info" style="margin-left:35%">
 			<a href="javascript:addAdmessageInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="add4" style="display:inline-block">添加</a>
 			<a href="javascript:updateAdmessageInfo(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" style="display:none" id="edit4">修改</a>
@@ -197,13 +200,13 @@
 		var status1=$("#admessage_status1").val();
 		
 		$.ajaxFileUpload({
-			url:"../adServlet?op=addAdmessageInfo",
+			url:"../backupload/ad_addAdmessageInfo.action",
 			secureuri:false,
 			fileElementId:"admessage_pic",
 			dataType:"json",
 			data:{aid:aid,sdate:sdate,jdate:jdate,weight:weight,alink:alink,status1:status1},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"广告信息添加成功...",
@@ -240,13 +243,13 @@
 		var status1=$("#admessage_status1").val();
 		
 		$.ajaxFileUpload({
-			url:"../adServlet?op=updateAdmessageInfo&amid="+amid,
+			url:"../backupload/ad_updateAdmessageInfo.action?amid="+amid,
 			secureuri:false,
 			fileElementId:"admessage_pic",
 			dataType:"json",
 			data:{aid:aid,sdate:sdate,jdate:jdate,weight:weight,alink:alink,status1:status1},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"广告信息修改成功...",

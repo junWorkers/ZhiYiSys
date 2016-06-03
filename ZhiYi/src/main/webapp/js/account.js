@@ -1,16 +1,17 @@
 // JavaScript Document
 
 //设置滚动的标题栏
-
+var flag=false;
+var flag2=false;
 var countdown=60; 
 function settime(obj) { 
-	var email = $("#email").val();
-	if(email==''){
-		alert("请先输入合格的邮箱...");
-	}else{
-		$.post("email_UpdatePwd.action",{email:email},function(data){
+	if(flag){
+		$.post("email_SendYZM.action",{email:email},function(data){
 		},"json");
 		retime(obj);
+	}else{
+		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;此邮箱错误或未被注册';
+		document.getElementById('email_error_tag').style.color='red';
 	}
 }
 function retime(obj){
@@ -34,25 +35,22 @@ function checkEmail(){
 		document.getElementById('email_error_tag').innerHTML="&nbsp;&nbsp;请输入邮箱地址";
 		document.getElementById('email_error_tag').style.color='red';
 		$("#email").val('');
-		return false;
 	}else if(!reg.test(email)){
 		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱地址格式错误';
 		document.getElementById('email_error_tag').style.color='red';
-		$("#email").val('');
-		return false;
 	}else{
-		$.post("email_UpdatePwd.action",{email:email},function(data){
-			if(parseInt($.trim(data))==1){
-				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱格式符合';
+		$.post("email_CheckEmail.action",{email:email},function(data){
+			var data=$.trim(data);
+			console.info(data);
+			if(data==1){
+				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱正确';
 				document.getElementById('email_error_tag').style.color='green';
-				return true;
+				flag=true;
 			}else{
 				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;此邮箱未被注册';
 				document.getElementById('email_error_tag').style.color='red';
-				$("#email").val('');
-				return false;
 			}
-		});
+		},"json");
 	}
 }
 
@@ -62,29 +60,29 @@ function checkcaptcha(){
 	if(captcha==''){
 		document.getElementById('captcha_error_tag').innerHTML='&nbsp;&nbsp;验证码不能为空';
 		document.getElementById('captcha_error_tag').style.color='red';
-		return false;
 	}else{
 		var code = $("#captcha").val();
-		$.post("email_UpdatePwd.action",{code:code},function(data){
+		$.post("email_CheckPwd.action",{code:code},function(data){
 			if(parseInt($.trim(data))==1){
 				$("#captcha_error_tag").html("验证码正确...").css("color", "#0F0");
-				return true;
+				flag2=true;
 			}else{
 				$("#captcha_error_tag").html("验证码错误...").css("color", "#F00");
 				$("#captcha").val('');
 				return false;
 			}
-		});
+		},"json");
 	}
 }
 //跳转到更改密码页面
 function next(){
 	    var email = $("#email").val();
 	    var captcha=$("#captcha").val();
-	  
-	    if(email !=null && captcha !=null){
-	    	location.href = 'front/update1.jsp';
-	    }
+	  console.info(flag);
+	  console.info(flag2);
+//	    if(email !=null && captcha !=null){
+//	    	location.href = 'front/update1.jsp';
+//	    }
 }
 {
 	var str='找回密码——指艺官方网站　';

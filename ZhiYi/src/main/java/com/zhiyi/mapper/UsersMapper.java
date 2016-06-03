@@ -25,6 +25,8 @@ public interface UsersMapper {
 
 	Users checkUserN(String uname);
 
+	Users CheckEamil(String email);
+
 
 
 }

@@ -13,7 +13,6 @@ import com.zhiyi.util.StaticData;
 public class EmailServiceImpl implements EmailService{
 	@Autowired
 	private JavaMailSender javaMailSender;
-	//private HttpSession session;
 	@Override
 	public int sendYZM(String email) {
 		SimpleMailMessage  ssm=new SimpleMailMessage ();
@@ -27,6 +26,7 @@ public class EmailServiceImpl implements EmailService{
 		
 		try {
 			javaMailSender.send(ssm);
+			System.out.println(StaticData.UPWD_YZM);
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();

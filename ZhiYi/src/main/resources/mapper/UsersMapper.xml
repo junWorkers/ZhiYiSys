@@ -28,6 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkUserN" resultType="Users" parameterType="String">
 		select * from users where uname=#{uname}
 	</select>
+	<!-- 邮箱校验 -->
+	<select id="CheckEamil" resultType="Users" parameterType="String">
+		select * from users where email=#{email}
+	</select>
 	<!-- 注测用户 -->
 	<insert id="RegistUsers" parameterType="Users">
 		insert into users values(seq_users_usid.nextval,#{uname},#{pwd},null,null,null,null,null,null,null,null,null,null,null,#{email},'0',1,null,null,null)
