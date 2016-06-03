@@ -67,6 +67,7 @@
 		  			iconCls: 'icon-edit',
 		  			handler: function(){
 		  				var  rows=datagrid.datagrid("getChecked")[0];
+		  				var row=datagrid.datagrid("getChecked");
 		  				if(rows==undefined){
 		  					$.messager.show({
 		  						title:"温馨提示",
@@ -74,7 +75,9 @@
 		  						timeout:2000,
 		  						showType:'slide'
 		  					});
-		  				}else{
+		  				}else if(row.length>1){
+							$.messager.alert('温馨提示','同一时间只能操作一行数据...','info');
+						}else{
 		  					$("#users_add_usersInfo").dialog("open");
 		  					var  usid=datagrid.datagrid("getChecked")[0].usid;
 		  					$("#edit").attr("href","javascript:updateusersInfo("+usid+")");
@@ -205,8 +208,8 @@
 		margin-left:30%;
 	}
 </style>
-<div id="users_add_usersInfo" class="easyui-dialog" title="修改会员信息" style="width:600px;height:560px" data-options="resizable:true,modal:true,closed:true">
-	<div style="float:right;width:380px;margin-right:20px;">
+<div id="users_add_usersInfo" class="easyui-dialog" title="修改会员信息" style="width:850px;height:620px" data-options="resizable:true,modal:true,closed:true">
+	<div style="float:right;width:200px;margin-right:20px;">
 		<fieldset id="users_pic_show">
 			<legend>图片预览</legend>
 		</fieldset>
@@ -219,7 +222,7 @@
 																		<option>男</option>
 																		<option>女</option>
 																  </select><br /><br />
-		<label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="pic" id="users_pic" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br />
+		<label>头&nbsp;&nbsp;&nbsp;&nbsp;像&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="file" name="uploadUtil.pic" id="users_pic" multiple="multiple" onchange="previewMultipleImage(this,'users_pic_show')"/><br /><br />
 		<label>生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;：</label><input type="text" name="birth" id="users_birth" class="myinput"/><br /><br />
 		<label>出&nbsp;生&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="birthplace" id="users_birthplace" class="myinput"/><br /><br />
 		<label>居&nbsp;住&nbsp;地&nbsp;&nbsp;：</label><input type="text" name="address" id="users_address" class="myinput"/><br /><br />
@@ -315,14 +318,14 @@
 		var intro=ue.getContent();
 		
 		$.ajaxFileUpload({
-			url:"../backjson/users_updateUsersInfo.action&usid="+usid,
+			url:"../backupload/users_updateUsersInfo.action?usid="+usid,
 			secureuri:false,
 			fileElementId:"users_pic",
 			dataType:"json",
 			data:{uname:uname,pwd:pwd,pname:pname,sex:sex,birth:birth,birthplace:birthplace,
 				address:address,intro:intro,passport:passport,tel:tel,phone:phone,qq:qq,email:email},
 			success:function(data,status){
-				if(parseInt($.trim(data))==1){   //
+				if(data.result>0){   //
 					$.messager.show({
 						title:"成功提示",
 						msg:"会员信息修改成功...",

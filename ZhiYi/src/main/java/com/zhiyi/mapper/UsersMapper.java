@@ -21,12 +21,11 @@ public interface UsersMapper {
 
 	List<Users> findusersByUsid(int usid);
 
-
-
 	Users checkUserN(String uname);
 
 	Users CheckEamil(String email);
 
 
 
+	int updateUsersInfo(Users users);
 }

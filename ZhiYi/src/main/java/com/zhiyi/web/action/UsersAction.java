@@ -12,18 +12,26 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Users;
 import com.zhiyi.service.UsersService;
+import com.zhiyi.util.UploadUtil;
 @Controller("usersAction")
 public class UsersAction implements ModelDriven<Users>,SessionAware{
 	@Autowired
 	private UsersService usersService;
 	private JsonObject<Users> jsonObject;
+	private UploadUtil uploadUtil;
 	private Users users;
 	private  String page;
 	private String rows;
 	private Users usersType;
 	private int intType;
 	private Map<String, Object> session;
-
+	
+	public UploadUtil getUploadUtil() {
+		return uploadUtil;
+	}
+	public void setUploadUtil(UploadUtil uploadUtil) {
+		this.uploadUtil = uploadUtil;
+	}
 	public String getPage() {
 		return page;
 	}
@@ -85,7 +93,7 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 		return "success";
 	}
 	//
-	//删除管理员信息
+	//删除会员信息
 	public String delUsersInfo(){
 		String aids=ServletActionContext.getRequest().getParameter("usids");
 		jsonObject=usersService.delUsersInfo(aids);
@@ -96,13 +104,13 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 		return "success";
 
 	}
-	//	
-	//	//修改管理员信息
-	//	public String updateAdminInfo(){
-	//		LogManager.getLogger().debug(admin);
-	//		jsonObject.setResult(adminService.updateAdminInfo(admin));
-	//		return "success";
-	//	}
+		
+	//修改会员信息
+	public String updateUsersInfo(){
+		users.setPic(uploadUtil.upload());
+		jsonObject=usersService.updateUsersInfo(users);
+		return "success";
+	}
 
 	public String login(){
 		users=usersService.login(users);

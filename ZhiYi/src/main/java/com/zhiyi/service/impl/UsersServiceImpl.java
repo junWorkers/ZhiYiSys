@@ -101,5 +101,16 @@ public class UsersServiceImpl implements UsersService {
 		}
 		return 0;
 	}
+	@Override
+	public JsonObject<Users> updateUsersInfo(Users users) {
+		JsonObject<Users> jsonObject = new JsonObject<Users>();
+		int result = usersMapper.updateUsersInfo(users);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
+	}
 
 }
