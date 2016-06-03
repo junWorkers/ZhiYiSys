@@ -19,7 +19,8 @@
 	 <package name="back" namespace="/backupload" extends="json-default">
 		<global-allowed-methods>getPageTypeInfo,addGtypeInfo,updateGtypeInfo,
 		getPageGoodsInfo,addgoods,updateGoods,getPageGoodsInfoInfo,addgoodsInfo,
-		updateGoodsInfo,getPageGoodsParInfo,addgoodsPar,updateGoodsParInfo</global-allowed-methods>
+		updateGoodsInfo,getPageGoodsParInfo,addgoodsPar,updateGoodsParInfo,
+		addAdmessageInfo,updateAdmessageInfo</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<param name="uploadUtil.savePath">../uploadPath</param>      <!-- 图片的保存路径 -->
 			<interceptor-ref name="fileUpload">
@@ -40,12 +41,9 @@
 			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
 			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,updateExstoreInfo,
-			findGoodsParByGpid,getPageExstoreInfo,addExstoreInfo,delExstoreInfo,
-
-			getPageAdInfo,getAllAd,delAd,addAd,updateAd,delAdmessage,getPageOrderInfo,findGoodsInfoByInfo</global-allowed-methods>
-
-
-
+			findGoodsParByGpid,getPageExstoreInfo,addExstoreInfo,delExstoreInfo,getPageUserInfo,
+			getPageAdInfo,getAllAd,getAllAdMessage,delAd,addAd,updateAd,delAdmessage,getPageOrderInfo,findGoodsInfoByInfo,
+			findUserInfoByInfo,findadmessageByAmid</global-allowed-methods>
 
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result type="json">
@@ -57,7 +55,7 @@
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">
-	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,findAllType</global-allowed-methods>
+	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,findAllType,findContent</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>
@@ -74,6 +72,9 @@
 			</result>
 			<result name="findTtpes" type="json">
 				<param name="root">types</param>
+			</result>
+			<result name="findcontent" type="json">
+				<param name="root">youceGoods</param>
 			</result>
 		</action>
 	</package>

@@ -168,4 +168,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllGoods" resultType="Goods">
 		select gid,gname from goods where status=1
 	</select>
+	
+	<!-- 查询右侧商品信息-->
+	<select id="findContent" resultType="Goods">
+		select g.*,tname,t.tid from goods g,gtype t where g.tid=t.tid
+	</select>
 </mapper>

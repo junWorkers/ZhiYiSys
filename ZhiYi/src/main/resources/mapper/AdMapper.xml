@@ -4,43 +4,105 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
 <mapper namespace="com.zhiyi.mapper.AdMapper">
+
 	<select id="showfndpic" resultType="Ad">
-		select * from admessage am,ad a where status1=1 and am.aid=a.aid order by weight desc
+		select * from admessage am,ad
+		a where status1=1 and am.aid=a.aid order by weight desc
 	</select>
-		<!-- 分页查询信息 -->
+	
+	<!-- 分页查询信息 -->
 	<select id="find" parameterType="map" resultType="Ad">
 		select * from (
-			select a.*,rownum rn from (
-				select * from ad where status in(1,0) order by aid
-			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
-		)b where rn>#{min,jdbcType=NUMERIC}
+		select a.*,rownum rn from (
+		select * from ad where status in(1,0) order by aid
+		)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where
+		rn>#{min,jdbcType=NUMERIC}
 	</select>
-		<select id="getTotal" resultType="int">
-		select count(1) from ad where status in(1,0)
+	
+	<select id="getTotal" resultType="int">
+		select count(1) from ad where
+		status in(1,0)
 	</select>
-		<select id="finds" parameterType="map" resultType="Ad">
-		select * from (
-			select a.*,rownum rn from (
-				select n.*,aposition from admessage n,ad where n.aid=ad.aid order by amid
-			)a where rownum&lt;=#{max,jdbcType=NUMERIC}
-		)b where rn>#{min,jdbcType=NUMERIC}
-		
+
+	<select id="getTotals" resultType="int">
+		select count(1) from admessage
+		where status1 in(1,0)
 	</select>
-		<!-- 删除信息 -->
+
+	<select id="finds" parameterType="map" resultType="Ad">
+		select * from
+		(
+		select a.*,rownum rn from (
+		select n.*,aposition from admessage n,ad where n.aid=ad.aid and status1 in(1,0) order by amid
+		)a where rownum&lt;=#{max,jdbcType=NUMERIC}
+		)b where
+		rn>#{min,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 删除信息 -->
 	<update id="delAd" parameterType="string">
-		update ad set status=-1 where aid=#{aid}
+		update ad set status=-1 where
+		aid=#{aid}
 	</update>
-		<!-- 插入信息 -->
+	
+	<!-- 插入信息 -->
 	<insert id="addAd" parameterType="Ad">
-		insert into ad values(seq_ad_aid.nextval,#{aposition},#{asize},#{status},null,null,null)
+		insert into ad
+		values(seq_ad_aid.nextval,#{aposition},#{asize},#{status},null,null,null)
+	</insert>
+
+	<!-- 修改信息 -->
+	<update id="updateAd" parameterType="Ad">
+		update ad set
+		aposition=#{aposition},asize=#{asize},status=#{status} where
+		aid=#{aid}
+	</update>
+	
+	<!-- 删除信息 -->
+	<update id="delAdmessage" parameterType="string">
+		update admessage set
+		status1=-1 where amid=#{amid}
+	</update>
+	
+	<select id="getAllAd" resultType="Ad">
+		select aid,aposition from ad where status=1
+	</select>
+	
+	<insert id="addAdmessageInfo" parameterType="Ad">
+		insert into admessage values(seq_admessage_amid.nextval,#{aid},#{mpath},to_date(#{sdate},'yyyy-mm-dd'),to_date(#{jdate},'yyyy-mm-dd'),#{weight},#{alink},#{status1},null,null,null)
 	</insert>
 	
-		<!-- 修改信息 -->
-	<update id="updateAd" parameterType="Ad">
-		update ad set aposition=#{aposition},asize=#{asize},status=#{status} where aid=#{aid}
+	<select id="findadmessageByAmid" parameterType="int" resultType="Ad">
+		select n.*,aposition from admessage n,ad t where n.aid=t.aid and amid=#{amid}
+	</select>
+	
+	<update id="updateAdmessageInfo" parameterType="Ad">
+		update admessage
+		<set>
+			<if test="sdate!=null">
+				sdate=to_date(#{sdate},'yyyy-mm-dd'),
+			</if>
+			<if test="jdate!=null">
+				jdate=to_date(#{jdate},'yyyy-mm-dd'), 
+			</if>
+			<if test="alink!=null">
+				alink=#{alink}, 
+			</if>
+			<if test="mpath!=null">
+				mpath=#{mpath}, 
+			</if>
+			<if test="aid!=null">
+				aid=#{aid}, 
+			</if>
+			<if test="weight!=null">
+				weight=#{weight},
+			</if>
+			<if test="status1!=null">
+				status1=#{status1}
+			</if>
+		</set>
+			where amid=#{amid}
 	</update>
-			<!-- 删除信息 -->
-	<update id="delAdmessage" parameterType="string">
-		update admessage set status1=-1 where amid=#{amid}
-	</update>
+	
 </mapper>

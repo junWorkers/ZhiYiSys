@@ -18,4 +18,16 @@ public interface OrderService {
 	
 	List<Order> find(String gid, String kdate, String jdate,
 			String page, String rows);
+
+	JsonObject<Order> getPageUserInfo(String page, String rows);
+	
+	List<Order> find1(String page, String rows);
+	
+	int getTotal1();
+
+	JsonObject<Order> findUserInfoByInfo(String uname, String gid,
+			String kdate, String jdate, String page, String rows);
+	
+	List<Order> find1(String uname, String gid, String kdate,
+			String jdate, String page, String rows);
 }

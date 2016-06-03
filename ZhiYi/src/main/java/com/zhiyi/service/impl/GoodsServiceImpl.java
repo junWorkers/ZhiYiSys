@@ -243,4 +243,9 @@ public class GoodsServiceImpl implements GoodsService {
 		jsonObject.setRows(goodsMapper.getAllGoods());
 		return jsonObject;
 	}
+
+	@Override
+	public List<Goods> findContent() {
+		return goodsMapper.findContent();
+	}
 }

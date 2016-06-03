@@ -94,8 +94,10 @@ insert into goods values(seq_goods_gid.nextval,'nubiya Z9',3001,'3333',10,null,n
 select * from goods;
 
 drop sequence seq_goods_gid;
-drop table goods;
-delete from goods where gid=4047
+drop table goods;4067
+delete from goods where gid=4075
+update goods set gposition=14 where gposition=15
+select * from goods where gposition=14;
 ----------------------------------------------------------------------
 --商品详细表
 create table goodsInfo(

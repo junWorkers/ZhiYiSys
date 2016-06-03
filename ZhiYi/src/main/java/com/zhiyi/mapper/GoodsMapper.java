@@ -46,4 +46,6 @@ public interface GoodsMapper {
 	List<GoodsPar> findGoodsParByGpid(int gpid);
 
 	int updateGoodsParInfo(GoodsPar goodsPar);
+
+	List<Goods> findContent();
 }

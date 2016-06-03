@@ -22,9 +22,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
 
-
+var ssss=0;
+var jun=0;
 $(function(){
-	var ssss=0;
+	var mao=0;
+	var wang=0;
+	var he=0;
+	var de=0;
 	var z=1;
 	$.ajax({
 		type:"POST",
@@ -44,7 +48,6 @@ $(function(){
 		$.each(data,function(index,item){
 			if(item.aposition=="商城大"){
 				ssss=ssss+1;
-				console.info(item.aposition)
 				if(ssss==1){
 					$(".bxslider").append("<li style='float: none; list-style: outside none none; position: absolute; width: 950px; z-index: 0; display: block;' id='b"+ssss+"'><a href='"+item.alink+"' style=''><img src='"+item.mpath+"' height='360' width='950'></a></li>")
 				}else{
@@ -53,6 +56,57 @@ $(function(){
 			}
 		});
 	},'json')
+
+	$.post("goods_findContent",function(data){
+		$.each(data,function(index,item){
+			if(item.gposition==6){
+				$(".i-left").append("<div class='figure'><img src='"+item.firstPic+"' height='250' width='250'></div><div class='purchase-info'><h2>"+item.gname+"</h2><p>优惠价 ￥"+item.price+"</p><div class='split'><div class='purchase-btn'><a href='#' target='_blank'>进入购买</a></div></div></div>")
+			}else if(item.gposition==7){
+				$(".i-right").append("<div class='figure'><img src='"+item.firstPic+"' height='250' width='250'></div><div class='purchase-info'><h2>"+item.gname+"</h2><p>优惠价 ￥"+item.price+"</p><div class='split'><div class='purchase-btn'><a href='#' target='_blank'>进入购买</a></div></div></div>")
+			}else if(item.gposition==8){
+				jun=jun+1;
+				if(jun==1){
+					$(".dldldl").append("<dd style='display:block;' id='c"+jun+"'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.gpath+"' width='430' height='430'></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3>"+item.desStr+"<p class='price'>￥<span>"+item.price+"</span></p><div class='link'><a href='#'>立即购买</a><a href='#'>查看详情</a></div></div></dd>")
+				}else{
+					$(".dldldl").append("<dd style='display:none;' id='c"+jun+"'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.gpath+"' width='430' height='430'></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3>"+item.desStr+"<p class='price'>￥<span>"+item.price+"</span></p><div class='link'><a href='#'>立即购买</a><a href='#'>查看详情</a></div></div></dd>")
+				}
+				showpic();
+			}else if(item.gposition==9){
+				$("#gpositionss").append("<a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.firstPic+"' width='393' height='380'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><p class='fedex'></p><div class='link'><a href='#'>立即购买</a><a href='#'>查看详情</a></div></div>");
+			}else if(item.gposition==10){
+				
+				he=he+1;
+				if(he==1 || he==4){
+					$("#gposition10").append("<li class='clear-margin-left goods-hover-shows'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.firstPic+"' width='393' height='380'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><p class='fedex'></p><div class='link'><a href='#'>立即购买</a><a href='#'>查看详情</a></div></div></li>");
+				}else{
+					$("#gposition10").append("<li class='goods-hover-shows'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.firstPic+"' width='393' height='380'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><p class='fedex'></p><div class='link'><a href='#'>立即购买</a><a href='#'>查看详情</a></div></div></li>");
+				}
+			}else if(item.gposition==11){
+				wang=wang+1;
+				if(wang==1){
+					$("#gposition11").append("<li class='cl left-side' style='margin-bottom:10px'><div class='figure'><a href='#'><img src='"+item.gpath+"' width='270' height='270'></a></div><div class='goods-info'><h2>"+item.gname+"</h2><div class='goods-i-des'>"+item.desStr1+"</div><div class='goods-price'><span class='price-item'><sup>￥</sup><label>"+item.price+"</label></span></div><div class='link'><a href='#'>立即购买</a></div></div></li>")
+				}else{
+					$("#gposition11").append("<li class='right-side' style='margin-bottom:10px'><div class='figure'><a href='#'><img src='"+item.gpath+"' width='270' height='270'></a></div><div class='goods-info'><h2>"+item.gname+"</h2><div class='goods-i-des'>"+item.desStr1+"</div><div class='goods-price'><span class='price-item'><sup>￥</sup><label>"+item.price+"</label></span></div><div class='link'><a href='#'>立即购买</a></div></div></li>")
+				}
+			}else if(item.gposition==12){
+					$("#gposition12").append("<li><a href='#'><img src="+item.gpath+" width='150' height='80'><p>"+item.gname+"</p></a></li>")
+			}else if(item.gposition==13){
+				mao=mao+1;
+				if(mao==5){
+					$("#gposition13").append("<li class='ac-big goods-hover-shows'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.gpath+"' width='270' height='270'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><div class='link'><a href='#'>加入购物车</a><a href='#'>查看详情</a></div></div></li>")
+				}else{
+					$("#gposition13").append("<li class='ac"+mao+" goods-hover-shows'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img src='"+item.gpath+"' width='393' height='600'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><div class='link'><a href='#'>加入购物车</a><a href='#'>查看详情</a></div></div></li>")
+				}
+			}else if(item.gposition==14){
+				de=de+1;
+				if(de==1){
+					$("#gposition14").append("<li class='clear-margin-left goods-hover-shows' style='margin-bottom:10px'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img  src='"+item.gpath+"' width='270' height='270'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><div class='link'><a href='#'>加入购物车</a><a href='#'>查看详情</a></div></div></li>")
+				}else{
+					$("#gposition14").append("<li class='goods-hover-shows' style='margin-bottom:10px'><a href='#'><div class='nbc-pro-cont'><div class='figure'><img  src='"+item.gpath+"' width='270' height='270'></div><div class='price'><h2>"+item.gname+"</h2><span><sup>￥</sup><label>"+item.price+"</label></span></div></div></a><div class='nbc-pro-info'><h3 class='title'>"+item.gname+"</h3><p class='price'>￥<span>"+item.price+"</span></p><div class='quick-specs'>"+item.desStr1+"</div><div class='link'><a href='#'>加入购物车</a><a href='#'>查看详情</a></div></div></li>")
+				}
+			}
+		});
+	},'json'); 
 	
 	
 	
@@ -63,7 +117,7 @@ $(function(){
 
 </head>
 
-<body onload="lunbo()">
+<body>
     	<div id="fa-moblie">
 		<!---头部--->
 		<div id="fa-header">
@@ -104,7 +158,7 @@ $(function(){
                 <!--左侧产品序列-->
                     <div class="nb-ml-side">
                         <ul id="uls">
-                        <li class="nb-z-ico" data-top="0" onMouseOver="show(1)" onMouseOut="show(7)">
+                        <li class="nb-z-ico" data-top="0" onMouseOver="showzzz(1)" onMouseOut="showzzz(7)">
                                 <a class="cl" href="javascript:void(0)">
                                     <em class="nb-ico"></em>
                                     <b class="nb-ico"></b>
@@ -117,8 +171,8 @@ $(function(){
                                 <div style="display: none; top: -1px;" class="nb-mlside-menu cl" id="1">
 
       
-                               		<c:forEach items="${Allgoods}" var="item">
-                                	 	<c:if test="${item.tid eq types[0].tid}">
+                               		<c:forEach items="${sessionScope.Allgoods}" var="item">
+                                	 	<c:if test="${item.tid eq sessionScope.types[0].tid}">
                                 	 		<c:if test="${item.gposition eq 1}">
                                 		 		<a class="cl" href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div class="figure"><img src="${item.firstPic}" height="46" width="46"></div><p id="gname">${item.gname }</p><p id="gid" style='display:none'>${item.gid }</p></a>
                                 		 	</c:if>
@@ -155,7 +209,7 @@ $(function(){
                                 </div>
                               
                             </li>
-                            <li class="nb-x-ico" data-top="0" onMouseOver="show(2)" onMouseOut="show(7)">
+                            <li class="nb-x-ico" data-top="0" onMouseOver="showzzz(2)" onMouseOut="showzzz(7)">
                                <a class="cl" href="javascript:void(0)" >
                                     <em class="nb-ico"></em>
                                     <b class="nb-ico"></b>
@@ -166,9 +220,9 @@ $(function(){
                                 </a>
                                 
                                 <div style="display: none; top: -1px;" class="nb-mlside-menu cl" id="2">
-                                 <c:forEach items="${Allgoods}" var="item">
+                                 <c:forEach items="${sessionScope.Allgoods}" var="item">
                               
-                                	<c:if test="${item.tid eq types[1].tid}">
+                                	<c:if test="${item.tid eq sessionScope.types[1].tid}">
                                 		<c:if test="${item.gposition eq 1}">
                                 		 <a class="cl" href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div class="figure"><img src="${item.firstPic}" height="46" width="46"></div><p>${item.gname }</p></a>
                                 		 </c:if>
@@ -180,7 +234,7 @@ $(function(){
                                     </a>-->
                                 </div>
                             </li>
-                             <li class="nb-x-ico" data-top="0" onMouseOver="show(3)" onMouseOut="show(7)">
+                             <li class="nb-x-ico" data-top="0" onMouseOver="showzzz(3)" onMouseOut="showzzz(7)">
                                <a class="cl" href="javascript:void(0)" >
                                     <em class="nb-ico"></em>
                                     <b class="nb-ico"></b>
@@ -191,9 +245,9 @@ $(function(){
                                 </a>
                                 
                                 <div style="display: none; top: -1px;" class="nb-mlside-menu cl" id="3">
-                                 <c:forEach items="${Allgoods}" var="item">
+                                 <c:forEach items="${sessionScope.Allgoods}" var="item">
                               
-                                	<c:if test="${item.tid eq types[2].tid}">
+                                	<c:if test="${item.tid eq sessionScope.types[2].tid}">
                                 		<c:if test="${item.gposition eq 1}">
                                 		 <a class="cl" href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div class="figure"><img src="${item.firstPic}" height="46" width="46"></div><p>${item.gname }</p></a>
                                 	</c:if>
@@ -207,7 +261,7 @@ $(function(){
                                 
                                 
                             </li>
-                            <li class="nb-access-ico" data-top="-100" onMouseOver="show(4)" onMouseOut="show(7)">
+                            <li class="nb-access-ico" data-top="-100" onMouseOver="showzzz(4)" onMouseOut="showzzz(7)">
                                 <a class="cl" href="javascript:void(0)">
                                     <em class="nb-ico"></em>
                                     <b class="nb-ico"></b>
@@ -219,9 +273,9 @@ $(function(){
                                 
                                 <div style="display: none;" class="nb-mlside-menu cl" id="4">
                                 
-                                 <c:forEach items="${Allgoods}" var="item">
+                                 <c:forEach items="${sessionScope.Allgoods}" var="item">
                               
-                                	<c:if test="${item.tid eq types[3].tid}">
+                                	<c:if test="${item.tid eq sessionScope.types[3].tid}">
                                 			<c:if test="${item.gposition eq 1}">
                                 		 <a class="cl" href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div class="figure"><img src="${item.firstPic}" height="46" width="46"></div><p>${item.gname }</p></a>
                                 	</c:if>
@@ -250,7 +304,7 @@ $(function(){
                                 </div>
                                 
                             </li>
-                            <li class="nb-other-ico" data-top="-35" onMouseOver="show(5)" onMouseOut="show(7)">
+                            <li class="nb-other-ico" data-top="-35" onMouseOver="showzzz(5)" onMouseOut="showzzz(7)">
                                  <a class="cl" href="javascript:void(0)">
                                     <em class="nb-ico"></em>
                                     <b class="nb-ico"></b>
@@ -260,9 +314,9 @@ $(function(){
                                     </div>
                                 </a>
                                 <div style="display: none;" class="nb-mlside-menu cl" id="5">
-                                 <c:forEach items="${Allgoods}" var="item">
-                              
-                                	<c:if test="${item.tid eq types[4].tid}">
+                                 <c:forEach items="${sessionScope.Allgoods}" var="item">
+              					
+                                	<c:if test="${item.tid eq sessionScope.types[4].tid}">
                                 		<c:if test="${item.gposition eq 1}">
                                 		 <a class="cl" href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div class="figure"><img src="${item.firstPic}" height="46" width="46"></div><p>${item.gname }</p></a>
                                 	</c:if>
@@ -346,12 +400,10 @@ $(function(){
             <div class="cl nb-ml-newrelease">
             
                     <div class="nb-ml-nr-item i-left">
-                     	<c:forEach items="${Allgoods}" var="item">
-                               <c:if test="${item.gposition eq 6}">
-                                 <div class="figure"><img src="${item.firstPic}" height="250" width="250"></div><div class="purchase-info"><h2>${item.gname}</h2> <p>优惠价 ￥${item.price }</p>
-                                 <div class="split"><div class="purchase-btn"><a href="#" target="_blank">进入购买</a></div>  </div></div>
-                               </c:if>
-                        </c:forEach>
+                     	
+                                 <%-- <div class="figure"><img src="${item.firstPic}" height="250" width="250"></div><div class="purchase-info"><h2>${item.gname}</h2> <p>优惠价 ￥${item.price }</p>
+                                 <div class="split"><div class="purchase-btn"><a href="#" target="_blank">进入购买</a></div>  </div></div> --%>
+                          
                         <!--  <div class="figure"><img src="images/144608198775.jpg" height="250" width="250"></div>
                         <div class="purchase-info">
                             <h2>Z9 经典版</h2>
@@ -363,12 +415,12 @@ $(function(){
                     </div>
                     
                     <div class="nb-ml-nr-item i-right">
-                    <c:forEach items="${Allgoods}" var="item">
+                    <%-- <c:forEach items="${sessionScope.Allgoods}" var="item">
                                <c:if test="${item.gposition eq 7}">
                                  <div class="figure"><img src="${item.firstPic}" height="250" width="250"></div><div class="purchase-info"><h2>${item.gname}</h2> <p>优惠价 ￥${item.price }</p>
                                  <div class="split"><div class="purchase-btn"><a href="#" target="_blank">进入购买</a></div>  </div></div>
                                </c:if>
-                        </c:forEach>
+                        </c:forEach> --%>
                        <!--  <div class="figure"><img src="images/144591628866.jpg" height="250" width="250"></div>
                         <div class="purchase-info">
                             <h2>Z9 mini 全网通</h2>
@@ -393,9 +445,8 @@ $(function(){
                     <dd class="nbc-new-box">
                     	<ul class="cl">
                         	<li class="nbc-new-pro1">
-                            	<dl>
-                                    <dd style="display:block;" id="c1">
-                                    
+                            	<dl class="dldldl">
+                                <%--  <dd style="display:block;" id="c1">
                                       	<a href="#">
                                             <div class="nbc-pro-cont">
                                                 <div class="figure">
@@ -406,7 +457,7 @@ $(function(){
                                         <div class="nbc-pro-info">
                                             <h3 class="title">${Gcontent[0].gname}</h3>
                                             ${Gcontent[0].desStr}
-                                            <!-- <p class="sub-title" style="font-size:25px">无边框旗舰手机</p>
+                                             <p class="sub-title" style="font-size:25px">无边框旗舰手机</p>
                                             <div class="quick-specs">
                                                 <p>无边框设计</p>
                                                 <p>FiT边缘触控技术</p>
@@ -416,12 +467,12 @@ $(function(){
                                                 <p>5.2英寸1080P夏普高饱和度屏</p>
                                                 <p>1600万OIS光学防抖摄像头</p>
                                                 <p>4K录像+可视音场+HiFi</p>
-                                            </div> -->
+                                            </div> 
                                             <p class="price">￥<span>${Gcontent[0].price}</span></p>
                                             <div class="link">
                                                 <a href="#">立即购买</a>
                                                 <a href="#">查看详情</a></div>
-                                        </div>
+                                        </div> 
                                   
                         		
                                       </dd>
@@ -437,7 +488,7 @@ $(function(){
                                           <div class="nbc-pro-info">
                                               <h3 class="title">${Gcontent[1].gname}</h3>
                                                ${Gcontent[1].desStr}
-                                             <!--   <p class="sub-title" style="font-size:25px">无边框设计搭配皮质后盖</p>
+                                            <p class="sub-title" style="font-size:25px">无边框设计搭配皮质后盖</p>
                                               <div class="quick-specs">
                                                   <p> 无边框设计</p>
                                                   <p>皮质后盖</p>
@@ -447,7 +498,7 @@ $(function(){
                                                   <p>4G RAM+64G ROM，LPDDR4</p>
                                                   <p>5.2英寸1080P夏普高饱和度屏</p>
                                                   <p>1600万OIS光学防抖摄像头</p>
-                                              </div>-->
+                                              </div>
                                               <p class="price">￥<span>${Gcontent[1].price}</span></p>
                                               <div class="link">
                                                   <a href="#">立即购买</a>
@@ -465,7 +516,7 @@ $(function(){
                                           <div class="nbc-pro-info">
                                               <h3 class="title">${Gcontent[2].gname}</h3>
                                                ${Gcontent[2].desStr}
-                                              <!--  <p class="sub-title" style="font-size:25px">无边框旗舰手机</p>
+                                             <p class="sub-title" style="font-size:25px">无边框旗舰手机</p>
                                               <div class="quick-specs">
                                                   <p>无边框设计</p>
                                                   <p>FiT边缘触控技术</p>
@@ -475,7 +526,7 @@ $(function(){
                                                   <p>5.2英寸1080P夏普高饱和度屏</p>
                                                   <p>1600万OIS光学防抖摄像头</p>
                                                   <p>4K录像+可视音场+HiFi</p>
-                                              </div>-->
+                                              </div>
                                               <p class="price">￥<span>${Gcontent[2].price}</span></p>
                                               <div class="link">
                                                   <a href="#">立即购买</a>
@@ -493,7 +544,7 @@ $(function(){
                                           <div class="nbc-pro-info">
                                               <h3 class="title">${Gcontent[3].gname}</h3>
                                                ${Gcontent[3].desStr}
-                                              <!--  
+                                          
                                               <p class="sub-title" style="font-size:25px">全球首款4G+旗舰手机</p>
                                               <div class="quick-specs">
                                                   <p>电信4G+下载速度300Mbps</p>
@@ -504,13 +555,13 @@ $(function(){
                                                   <p>5.2英寸1080P夏普高饱和度屏</p>
                                                   <p>1600万OIS光学防抖摄像头</p>
                                                   <p>4K录像+可视音场+HiFi</p>
-                                              </div>-->
+                                              </div>
                                               <p class="price">￥<span>${Gcontent[3].price}</span></p>
                                               <div class="link">
                                                   <a href="#">立即购买</a>
                                                   <a href="#">查看详情</a></div>
                                           </div>
-                                      </dd>
+                                      </dd> --%>
                                 </dl> 
                                <!--<div class="sw-dot" id="sw-dot">
                                 	<a class="current" href="#" id="d1">
@@ -548,10 +599,11 @@ $(function(){
                             
                            
                         
-                             <li class="nbc-new-pro2 cl goods-hover-shows">
-                                    <a href="#">
+                             <li class="nbc-new-pro2 cl goods-hover-shows" id="gpositionss">
+                                    <%-- <a href="#">
                                      <c:forEach items="${Allgoods}" var="item">
                                			<c:if test="${item.gposition eq 9}">
+                               		
                                         <div class="nbc-pro-cont">
                                             <div class="figure">
                                                 <img src="${item.firstPic}" width="393" height="380"></div>
@@ -578,15 +630,15 @@ $(function(){
                                             <a href="#">查看详情</a></div>
                                     </div>
                                              </c:if>
-                        </c:forEach>
+                        </c:forEach> --%>
                                 </li>
                            </ul>
                          
                     </dd>
                     
                     <dd class="nbc-new1-box">
-                    	 <ul class="cl">
-                         <li class="clear-margin-left goods-hover-shows">
+                    	 <ul class="cl" id="gposition10">
+                        <%--  <li class="clear-margin-left goods-hover-shows">
                                     <a href="#">
                                         <div class="nbc-pro-cont">
                                             <div class="figure">
@@ -772,7 +824,7 @@ $(function(){
                                             <a href="#">立即购买</a>
                                             <a href="#">查看详情</a></div>
                                     </div>
-                                </li>
+                                </li> --%>
                            </ul>
                         </dd>
                 </dl>
@@ -783,8 +835,8 @@ $(function(){
                         <a href="#">查看更多套装 ></a>
                   </dt>
                   <dd>
-                      <ul class="cl">
-                       <c:forEach items="${Allgoods}" var="item">
+                      <ul class="cl" id="gposition11">
+                       		<%-- <c:forEach items="${Allgoods}" var="item">
                                			<c:if test="${item.gposition eq 11}">
                          <li class="cl left-side" style="margin-bottom:10px">
                               <div class="figure">
@@ -844,8 +896,8 @@ $(function(){
                               </div>
                               </c:if>
                         </c:forEach>
-                          </li>
-                        </ul>
+                          </li> --%>
+                       </ul>
                   </dd>
                 </dl>
                 	
@@ -855,8 +907,8 @@ $(function(){
                             <a href="#">查看更多产品 ></a>
                         </dt>
                         <dt class="sub-nav-bar">
-                            <ul class="cl">
-                                <li>
+                            <ul class="cl" id="gposition12">
+                                <%-- <li>
                                     <a href="#">
                                         <img src="${Gcontent2[0].gpath }" width="150" height="80">
                                         <p>${Gcontent2[0].gname }</p>
@@ -885,13 +937,13 @@ $(function(){
                                         <img src="${Gcontent2[4].gpath }" width="150" height="80">
                                         <p>${Gcontent2[4].gname }</p>
                                     </a>
-                                </li>
+                                </li> --%>
                             </ul>
                         </dt>
                         
                         <dd>
-                            <ul>
-                                <li class="ac1 goods-hover-shows">
+                            <ul id="gposition13">
+                                <%-- <li class="ac1 goods-hover-shows">
                                     <a href="#">
                                         <div class="nbc-pro-cont">
                                             <div class="figure">
@@ -1042,7 +1094,7 @@ $(function(){
                                             <a href="#">查看详情</a>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --%>
                             </ul>
                         </dd>
                 </dl>
@@ -1053,8 +1105,8 @@ $(function(){
                         <a href="#" target="_blank">查看全部产品 ></a>
                     </dt>
                     <dd>
-                        <ul class="cl">
-                        <li class="clear-margin-left goods-hover-shows" style="margin-bottom:10px">
+                        <ul class="cl" id="gposition14">
+                        <%-- <li class="clear-margin-left goods-hover-shows" style="margin-bottom:10px">
                               <a href="#">
                                     <div class="nbc-pro-cont">
                                         <div class="figure">
@@ -1134,7 +1186,7 @@ $(function(){
                                         <a href="#">加入购物车</a>
                                         <a href="#">查看详情</a></div>
                                 </div>
-                            </li>
+                            </li> --%>
                         </ul>
                     </dd>
                 </dl>

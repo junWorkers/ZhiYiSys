@@ -21,4 +21,14 @@ public interface AdMapper {
 	int updateAd(Ad ad);
 
 	int delAdmessage(String string);
+
+	int getTotals();
+
+	List<Ad> getAllAd();
+
+	int addAdmessageInfo(Ad ad);
+
+	List<Ad> findadmessageByAmid(int amid);
+
+	int updateAdmessageInfo(Ad ad);
 }
