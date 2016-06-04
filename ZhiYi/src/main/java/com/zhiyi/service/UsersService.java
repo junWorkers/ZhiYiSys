@@ -29,4 +29,6 @@ public interface UsersService {
 
 	JsonObject<Users> updateUsersInfo(Users users);
 
+	int updatepwdByEmail(Users users);
+
 }

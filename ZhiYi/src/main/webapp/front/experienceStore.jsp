@@ -22,45 +22,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-	<div id="fa-moblie">
-		<!-- --nubia wrap-- -->
-		<div id="fa-header">
-			<div id="fa-center">
-				<a class="fa-logo" href="front/index.jsp"><img
-					src="images/DSC_0030.png" />指艺</a>
-				<ul class="fa-centers">
-					<li class="first1"><a href="front/shoppingmall.jsp">商城</a></li>
-					<li><a href="front/parts.jsp">配件</a></li>
-					<li><a href="front/fa.jsp">应用</a></li>
-					<li><a href="front/shouhou.jsp">服务</a></li>
-					<li><a href="front/experienceStore.jsp">体验店</a></li>
-					<li class="last1"><a href="#">社区</a></li>
-				</ul>
-				<img class="img1" src="images/zhuci.jpg" />
-				<ul class="fa-right">
-					<c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：${currentAdminInfo}</a></li>
-                		   <li><a href="javascript:loginOut()">[注销]</a></li>
-                	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
-                	</c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<%@include file="header.jsp"%>
 	<div class="bg-store"></div>
 	<div class="map" id="map">
 		<script>
         	$('#map').load('jquery_chinaMap.html');
         </script>
 	</div>
-
-
-
 	<!--4个小活动-->
-	<div class="container" style="margin-top:30px;margin-bottom:60px">
+	<div class="container" style="margin-top: 30px; margin-bottom: 60px">
 		<div class="store">
 			<div class="store-news">
 				<ul class="st-list">
@@ -68,31 +38,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="dec">
 							<h1>最全面的咨询服务</h1>
 							<p>您可以获得关于nubia官方产品最全面的产品信息。无论是产品规格还是操作指导，甚至包括更深入的玩机技巧，nubia销售顾问都乐意为您耐心解答。</p>
-						</div>
-					</li>
+						</div></li>
 					<li><img src="images/store_news02.jpg" alt="">
 						<div class="dec">
 							<h1>深圳卫视采访nubia</h1>
 							<p>5.17世界电信日，深圳卫视第一现场／1时间前来采访nubia努比亚深圳旗舰店 。
 								电信日期间，nubia体验店开展了”一机在手，3G随心“的活动。</p>
-						</div>
-					</li>
+						</div></li>
 					<li><img src="images/store_news03.jpg" alt="">
 						<div class="dec">
 							<h1>母亲节进店有礼</h1>
 							<p>母亲节到来之际，nubia邀请30名牛仔向妈妈说爱，参与活动有机会得母亲节礼包！5月10日至11日，nubia全国体验店进店有礼，先到先得。</p>
-						</div>
-					</li>
+						</div></li>
 					<li><img src="images/store_news04.jpg" alt="">
 						<div class="dec">
 							<h1>体验店温馨提示</h1>
 							<p>南方地区近日多雨，nubia智能手机个性化的情景模式提醒功能，会根据当天天气情况提醒您，今天出门是否需要带雨伞。</p>
-						</div>
-					</li>
+						</div></li>
 				</ul>
 			</div>
 		</div>
-		<!--尾部-->
+	</div>
+	<!--尾部-->
 		<div id="nb-footer" style="background:#fff;">
 			<div class="nubia-copyright">
 				<div class="nubia-foot-nav">

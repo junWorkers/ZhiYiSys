@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/shouhou.css" rel="stylesheet" type="text/css"/>
 <link rel="short icon" href="images/logomin.jpg" />         <!--小图标-->
     <meta charset="utf-8"> 
-  
     <style>                
        body{ font: 12px/1.5 'Microsoft Yahei','Simsun'; }
         .main{margin:0 auto;margin-top:60px;margin-bottom:60px;background:#fff;}
@@ -26,41 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>          
 </head>
 <body>
-  <div id="fa-moblie">
-    	<!---头部--->
-    	<div id="fa-header">
-        	<div id="fa-center">
-                <a class="fa-logo" href="index.html"><img src="images/DSC_0030.png"/>指艺</a>
-                <ul class="fa-centers">
-                    <li class="first1"><a href="shoppingmall.html">商城</a></li>
-                    <li><a href="parts.html">配件</a></li>
-                    <li><a href="fa.html">应用</a></li>
-                    <li><a href="index.html">服务</a></li>
-                    <li><a href="#">体验店</a></li>
-                    <li class="last1"><a href="#">社区</a></li>
-                </ul>
-                <img class="img1" src="images/zhuci.jpg"/>
-                <ul class="fa-right">
-                   <c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：<span id="anameNeed">${currentAdminInfo}</span></a></li>
-                		   <li><a href="javascript:loginOut()">[注销]</a></li>
-                	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
-                	</c:if>
-                </ul>
-            </div>
-        </div>
-	
-
-	</div>
-		<div class="bg-services">
-			
-		</div>
-   	
-    
-    	<div class="suc_content changP nojsp pt30">
+    <%@include file="header.jsp" %>
+	<div class="bg-services"></div>
+    <div class="suc_content changP nojsp pt30">
 	<div class="suc_kuang">
 		<div class="hei_444">
 			<div class="info">
@@ -75,6 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="right" style="display:none;">
 			</div>
 			<form id="changePwdForm" method="post">
+				<input type="hidden" id="updateBYEmail" value="${sessionScope.email }"/>
 				<div class="changP_container">
 					<p class="account_tips">请重设您的帐户密码</p>
 						<dl class="clearfix1">
@@ -132,18 +100,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	function pwdUpdate1(){
-		var newpwd = $.trim($("#pwd").val());
+		var pwd = $.trim($("#pwd").val());
 		var pwdagain = $.trim($("#pwd_repeat").val());
-		
-		if(newpwd!="" && pwdagain!=""){
-			if (pwdagain == newpwd && newpwd != "" && newpwd != null) {
-		       
-				$.post("usersServlet?d="+new Date(),{op:"pwdUpdate1",newpwd:newpwd},function(data){
+		var email=$.trim($("#updateBYEmail").val());
+		console.info(email);
+		if(pwd!="" && pwdagain!=""){
+			if (pwdagain == pwd && pwd != "" && pwd != null) {
+				$.post("email_updateByEmail",{pwd:pwd,email:email},function(data){
 					if(parseInt($.trim(data))==1){
 						alert("修改成功，请重新登录");
-						location.href="login.html";
+						location.href="login.jsp";
 					}
-				});
+				},"json");
 		    }
 		}
 	}

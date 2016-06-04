@@ -26,35 +26,6 @@
 </head>
 
 <body>
-	<div id="fa-moblie">
-		<!-- --nubia wrap-- -->
-		<div id="fa-header">
-			<div id="fa-center">
-				<a class="fa-logo" href="front/index.jsp"><img
-					src="images/DSC_0030.png" />指艺</a>
-				<ul class="fa-centers">
-					<li class="first1"><a href="front/shoppingmall.jsp">商城</a></li>
-					<li><a href="front/parts.jsp">配件</a></li>
-					<li><a href="front/fa.jsp">应用</a></li>
-					<li><a href="front/shouhou.jsp">服务</a></li>
-					<li><a href="front/experienceStore.jsp">体验店</a></li>
-					<li class="last1"><a href="#">社区</a></li>
-				</ul>
-				<img class="img1" src="images/zhuci.jpg" />
-				<ul class="fa-right">
-					
-				<c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：${currentAdminInfo}</a></li>
-                		   <li><a href="javascript:loginOut()">[注销]</a></li>
-                	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
-                	</c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
 	<div class="bg-store"></div>
 
 	<div id="tiyan" class="experstore-layer cl" style="display: block;">

@@ -107,4 +107,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 			where usid=#{usid}
 	</update>
+	<!-- 通过邮箱修改密码 -->
+	<update id="updatepwdByEmail" parameterType="Users" >
+		update Users set pwd=#{pwd} where email=#{email}
+	</update>
 </mapper>
