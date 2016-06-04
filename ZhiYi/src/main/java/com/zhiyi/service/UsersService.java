@@ -25,6 +25,8 @@ public interface UsersService {
 
 	int RegistUsers(Users users);
 
+	int CheckEamil(String email);
+
 	JsonObject<Users> updateUsersInfo(Users users);
 
 }

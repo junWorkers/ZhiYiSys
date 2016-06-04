@@ -15,14 +15,17 @@ public interface UsersMapper {
 
 	Users login(Users users);
 
-
 	int delUsers(String aids);
+
+	int RegistUsers(Users users);
 
 	List<Users> findusersByUsid(int usid);
 
 	Users checkUserN(String uname);
 
-	int RegistUsers(Users users);
+	Users CheckEamil(String email);
+
+
 
 	int updateUsersInfo(Users users);
 }

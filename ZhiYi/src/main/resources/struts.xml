@@ -33,11 +33,9 @@
 			</result>
 		</action>
 		</package>
-	 
 	 <!-- 无图片操作的 -->
 	<package name="backjson" namespace="/backjson" extends="json-default">
-
-		<global-allowed-methods>checkzccode,managerLogin,getPageAdminInfo,addAdminInfo,delAdminInfo,updateAdminInfo,
+		<global-allowed-methods>
 			getPageUsersInfo,addUsersInfo,delgoods,delUsersInfo,findusersByUsid,
 			delGtypeInfo,findGtypeByTid,findGoodsByGid,getAllGoodsType,getAllGoods,
 			checkUserName,findGoodsInfoByIid,delgoodsInfo,delgoodsParInfo,updateExstoreInfo,
@@ -50,12 +48,11 @@
 				<param name="root">jsonObject</param>
 				<param name="encoding">UTF-8</param>
 			</result>
-
 		</action>
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">
-	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register</global-allowed-methods>
+	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,UpdatePwd,CheckPwd,SendYZM,CheckEmail</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>

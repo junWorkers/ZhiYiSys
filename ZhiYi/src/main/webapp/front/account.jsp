@@ -48,8 +48,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 		   <li><a href="javascript:loginOut()">[注销]</a></li>
                 	</c:if>
                 	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
+                		<li><a href="register.jsp">注册</a></li>
+                    	<li><a href="login.jsp">登录</a></li>
                 	</c:if>
 				</ul>
 			</div>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										class="text captchainput required" name="captcha"
 										placeholder="请输入邮箱接收的验证码" 
 										onBlur="checkcaptcha()">
-									<a href="javascript:changeVilidateCode()" title="点击刷新验证码"  id="hqcode">点击获取验证码</a>
+									<input type="button" id="btn" value="发送验证码" onclick="settime(this)"/>
 									<span class="check_tips error_tip" id="captcha_error_tag"
 										style="font-size:12px;"></span> <span
 										class="check_tips succ_tips" id="captcha_succ_tag">&nbsp;</span>

@@ -80,9 +80,7 @@ public class UsersServiceImpl implements UsersService {
 		jsonObject.setRows(usersMapper.findusersByUsid(usid));
 		return jsonObject;
 	}
-
-
-
+	@Override
 	public Users checkUserN(String uname) {
 		return usersMapper.checkUserN(uname);
 	}
@@ -96,6 +94,13 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.RegistUsers(users);
 	}
 
+	@Override
+	public int CheckEamil(String email) {
+		if(usersMapper.CheckEamil(email)!=null){
+			return 1;
+		}
+		return 0;
+	}
 	@Override
 	public JsonObject<Users> updateUsersInfo(Users users) {
 		JsonObject<Users> jsonObject = new JsonObject<Users>();

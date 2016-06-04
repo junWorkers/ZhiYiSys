@@ -43,4 +43,17 @@
 		
 	<!-- 2.配制事务关联 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.163.com"/>
+		<property name="username" value="18274759330@163.com"/>
+		<property name="password" value="amao1994"/>
+		<property name="defaultEncoding" value="utf-8"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop><!-- 验证 -->
+				<prop key="mail.smtp.timeout">20000</prop><!-- 超时时间 -->
+			</props>
+		</property>
+	</bean> 
 </beans>
