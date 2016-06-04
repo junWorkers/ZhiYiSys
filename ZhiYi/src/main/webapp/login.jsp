@@ -40,9 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</ul>
 			<img class="img1" src="images/zhuci.jpg" />
 			<ul class="fa-right">
-				<li><a href="register.html">注册</a>
+				<li><a href="register.jsp">注册</a>
 				</li>
-				<li><a href="login.html">登录</a>
+				<li><a href="login.jsp">登录</a>
 				</li>
 			</ul>
 		</div>

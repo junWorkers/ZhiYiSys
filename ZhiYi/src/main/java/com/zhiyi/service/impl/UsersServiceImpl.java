@@ -7,15 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
-
-
-
-
 import com.zhiyi.beans.JsonObject;
-import com.zhiyi.entity.Admin;
-
 import com.zhiyi.entity.Users;
 import com.zhiyi.mapper.UsersMapper;
 import com.zhiyi.service.UsersService;
@@ -88,9 +80,7 @@ public class UsersServiceImpl implements UsersService {
 		jsonObject.setRows(usersMapper.findusersByUsid(usid));
 		return jsonObject;
 	}
-
-
-
+	@Override
 	public Users checkUserN(String uname) {
 		return usersMapper.checkUserN(uname);
 	}
@@ -102,6 +92,25 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public int RegistUsers(Users users) {
 		return usersMapper.RegistUsers(users);
+	}
+
+	@Override
+	public int CheckEamil(String email) {
+		if(usersMapper.CheckEamil(email)!=null){
+			return 1;
+		}
+		return 0;
+	}
+	@Override
+	public JsonObject<Users> updateUsersInfo(Users users) {
+		JsonObject<Users> jsonObject = new JsonObject<Users>();
+		int result = usersMapper.updateUsersInfo(users);
+		if (result > 0) {
+			jsonObject.setResult(1);
+		} else {
+			jsonObject.setResult(0);
+		}
+		return jsonObject;
 	}
 
 }
