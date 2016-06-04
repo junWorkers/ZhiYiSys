@@ -21,7 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$(function(){
 		$.post("ad_findpic.action",function(data){
 			$.each(data,function(index,item){
-				console.info(item.aposition)
 				if(item.aposition=="首页大"){
 					j=j+1;
 					if(j==1){
@@ -35,6 +34,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		},'json');
+		
+		
+	 	$.post("goods_findContent",function(data){
+			
+		},'json'); 
+		 
 	});
 </script>
 </head>

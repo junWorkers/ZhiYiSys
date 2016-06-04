@@ -1,7 +1,11 @@
 package com.zhiyi.web.action;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -12,14 +16,20 @@ import com.zhiyi.service.GtypeService;
 import com.zhiyi.util.UploadUtil;
 
 @Controller("gtypeAction")
-public class GtypeAction implements ModelDriven<Gtype>{
+public class GtypeAction implements ModelDriven<Gtype>,SessionAware{
 	@Autowired
 	private GtypeService gtypeService;
 	private JsonObject<Gtype> jsonObject;
+	private List<Gtype> types;
 	private UploadUtil uploadUtil;
 	private Gtype gtype;
 	private  String page;
 	private String rows;
+	private Map<String, Object> session;
+
+	public List<Gtype> getTypes() {
+		return types;
+	}
 
 	public UploadUtil getUploadUtil() {
 		return uploadUtil;
@@ -88,10 +98,20 @@ public class GtypeAction implements ModelDriven<Gtype>{
 		jsonObject=gtypeService.getAllGoodsType();
 		return "success";
 	}
+	public String findAllType(){
+		types=gtypeService.findTypes();
+		session.put("types",types);
+		return "findTtpes";
+	}
 	
 	@Override
 	public Gtype getModel() {
 		this.gtype=new Gtype();
 		return gtype;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 }

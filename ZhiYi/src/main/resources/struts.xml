@@ -52,7 +52,9 @@
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">
-	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,UpdatePwd,CheckPwd,SendYZM,CheckEmail,updateByEmail</global-allowed-methods>
+
+	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,UpdatePwd,CheckPwd,SendYZM,CheckEmail,findAllType,findContent,updateByEmail</global-allowed-methods>
+
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>
@@ -66,6 +68,12 @@
 			</result>
 			<result name="findpic" type="json">
 				<param name="root">pics</param>
+			</result>
+			<result name="findTtpes" type="json">
+				<param name="root">types</param>
+			</result>
+			<result name="findcontent" type="json">
+				<param name="root">youceGoods</param>
 			</result>
 		</action>
 	</package>

@@ -52,4 +52,6 @@ public interface GoodsService {
 	JsonObject<GoodsPar> findGoodsParByGpid(int gpid);
 
 	JsonObject<GoodsPar> updateGoodsParInfo(GoodsPar goodsPar);
+
+	List<Goods>  findContent();
 }

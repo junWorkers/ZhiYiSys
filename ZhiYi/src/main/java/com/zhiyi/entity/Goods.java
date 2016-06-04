@@ -18,8 +18,7 @@ public class Goods implements Serializable {
 	private String gpath;            //图片路径1
 	private int gposition;           //商城位置显示
 	private int status;              //商品状态
-	
-	
+
 	
 	public int getGid() {
 		return gid;
@@ -76,14 +75,12 @@ public class Goods implements Serializable {
 	public void setGpath(String gpath) {
 		this.gpath = gpath;
 	}
-	
 	public String getFirstPic() {
 		if(gpath!=null && gpath.indexOf(",")>0){
 			return gpath.substring(0,gpath.indexOf(","));
 		}
 		return gpath;
 	}
-
 	public String getDesStr() {
 		if(descible!=null && descible.indexOf(",")>0){
 			String[] des=descible.split(",");
@@ -146,5 +143,6 @@ public class Goods implements Serializable {
 				+ ", descible=" + descible + ", gpath=" + gpath
 				+ ", gposition=" + gposition + ", status=" + status + "]";
 	}
+	
 	
 }

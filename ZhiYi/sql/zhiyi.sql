@@ -11,6 +11,8 @@ create table admin(
     available3 varchar2(30)
 );
 drop table admin;
+select * from gtype
+select * from (select a.*,rownum rn from (select * from gtype where status=1 order by tid) a where 5>=rownum)b where rn>0
 insert into admin values(seq_admin_aid.nextval,'qyb','aaa','18274761960',1,null,null,null);
 drop sequence seq_admin_aid;
 create sequence seq_admin_aid start with 1001 increment by 1;
@@ -92,8 +94,10 @@ insert into goods values(seq_goods_gid.nextval,'nubiya Z9',3001,'3333',10,null,n
 select * from goods;
 
 drop sequence seq_goods_gid;
-drop table goods;
-delete from goods where gid=4047
+drop table goods;4067
+delete from goods where gid=4075
+update goods set gposition=14 where gposition=15
+select * from goods where gposition=14;
 ----------------------------------------------------------------------
 --商品详细表
 create table goodsInfo(

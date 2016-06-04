@@ -54,5 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllGoodsType" resultType="Gtype">
 		select tid,tname from gtype where status=1
 	</select>
-	
+	<!--查询商品商品序列-->
+	<select id="findAllGtype" resultType="Gtype">
+		select * from (select a.*,rownum rn from (select * from gtype where status=1 order by tid) a where 5>=rownum)b where rn>0
+	</select>
 </mapper>

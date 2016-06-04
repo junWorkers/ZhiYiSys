@@ -1,14 +1,13 @@
 package com.zhiyi.entity;
 
 import java.io.Serializable;
-
-import java.util.Date;
 /**
  * 广告类
  * @author qyb
  *
  */
 public class Ad implements Serializable {
+	private static final long serialVersionUID = -328323352068470339L;
 	private int aid;                //广告位编号
 	private String aposition;       //广告位置
 	private String asize;           //广告大小

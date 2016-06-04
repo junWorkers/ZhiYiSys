@@ -59,6 +59,7 @@ public class AdAction implements SessionAware,ModelDriven<Ad> {
 	}
 	public String findpic(){
 		pics=adService.shoufindpic();
+		System.out.println(pics);
 		session.put("pics",pics);
 		return "findpic";
 	}

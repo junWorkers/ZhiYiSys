@@ -1,6 +1,10 @@
 package com.zhiyi.web.action;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -10,14 +14,24 @@ import com.zhiyi.entity.Goods;
 import com.zhiyi.service.GoodsService;
 import com.zhiyi.util.UploadUtil;
 @Controller("goodsAction")
-public class GoodsAction implements ModelDriven<Goods>{
+public class GoodsAction implements ModelDriven<Goods>,SessionAware{
 	@Autowired
 	private GoodsService goodsService;
 	private JsonObject<Goods> jsonObject;
 	private UploadUtil uploadUtil;
 	private Goods goods;
+	private List<Goods> youceGoods;
 	private  String page;
 	private String rows;
+	private Map<String, Object> session;
+
+	public List<Goods> getYouceGoods() {
+		return youceGoods;
+	}
+
+	public void setYouceGoods(List<Goods> youceGoods) {
+		this.youceGoods = youceGoods;
+	}
 
 	public UploadUtil getUploadUtil() {
 		return uploadUtil;
@@ -86,9 +100,21 @@ public class GoodsAction implements ModelDriven<Goods>{
 		return "success";
 	}
 	
+	public String findContent(){
+		youceGoods=goodsService.findContent();
+		System.out.println(youceGoods);
+		session.put("Allgoods", youceGoods);
+		return "findcontent";
+	}
+	
 	@Override
 	public Goods getModel() {
 		this.goods=new Goods();
 		return goods;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 }

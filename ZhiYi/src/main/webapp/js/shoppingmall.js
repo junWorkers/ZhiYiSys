@@ -13,7 +13,8 @@
 }
 
 //左侧板块
-function show(d){
+function showzzz(d){
+
 	for(var i=1;i<6;i++){
 		var ul=document.getElementById(d);
 		if(i==d){
@@ -58,6 +59,13 @@ function close(d){
 				}
 				myTime=window.setTimeout('shows()',2000);
 	}
+	
+	function showpic(){
+	
+		if(ssss==4 && jun==4){
+			lunbo();
+		}
+	}
 
 	function lunbo(){
 		
@@ -68,7 +76,9 @@ function close(d){
 		var gname=$("#gname").html();
 		console.info(gname);
 		window.localStorage.setItem('gname',gname);
-		
+
+
+
 		  shows();        //调用
 		  var sp =document.getElementById('bx-pager-item').getElementsByTagName('a');
 		  for(var i=0;i<sp.length;i++){
