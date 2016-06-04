@@ -1,8 +1,6 @@
 package com.zhiyi.entity;
 
 import java.io.Serializable;
-
-import com.zhiyi.beans.JsonObject;
 /**
  * 商城首页序列类
  * @author qyb

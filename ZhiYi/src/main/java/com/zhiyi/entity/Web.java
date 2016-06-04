@@ -7,6 +7,7 @@ import java.io.Serializable;
  *
  */
 public class Web implements Serializable {
+	private static final long serialVersionUID = -4965319082199886788L;
 	private int wid;             //网点编号
 	private String wname;        //网点名称
 	private String wpath;        //图片路径
