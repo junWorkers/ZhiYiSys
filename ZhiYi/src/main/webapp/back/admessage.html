@@ -90,13 +90,13 @@
   					$.post("../backjson/ad_findadmessageByAmid.action",{amid:amid},function(data){
   						var admessage=data.rows[0];
   						
-  						$("#admessage_aposition").find("option[text='"+admessage.aposition+"']").attr("selected",true);
+  						$("#admessage_aposition option[value='"+admessage.aid+"']").attr("selected", "selected");
   						$("#admessage_sdate").datebox('setValue',admessage.sdate.substr(0,10));
   						$("#admessage_jdate").datebox('setValue',admessage.jdate.substr(0,10));
   						
   						$("#admessage_weight").val(admessage.weight);
   						$("#admessage_alink").val(admessage.alink);
-  						$("#admessage_status1").find("option[text='"+admessage.status1+"']").attr("selected",true);
+  						$("#admessage_status1 option[value='"+admessage.status1+"']").attr("selected", "selected");
   						var str="";
   						var pics=admessage.mpath.split(",");
   						for(var i=0;i<pics.length;i++){

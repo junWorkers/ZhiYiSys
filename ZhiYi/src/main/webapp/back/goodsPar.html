@@ -74,8 +74,8 @@
 						
 						$.post("../backjson/goodsPar_findGoodsParByGpid.action",{gpid:gpid},function(data){
 							var goodsPar=data.rows[0];
-	  						$("#goodsPar_goodsPartype").find("option[text='"+goodsPar.gname+"']").attr("selected",true);
-							$("#goodsPar_color").val(goodsPar.color);
+	  						$("#goodsPar_goodsPartype option[value='"+goodsPar.gid+"']").attr("selected", "selected");
+	  						$("#goodsPar_color").val(goodsPar.color);
 							$("#goodsPar_gversion").val(goodsPar.gversion);
 							$("#goodsPar_meal").val(goodsPar.meal);
 							$("#goodsPar_gpposition").val(goodsPar.gpposition);
