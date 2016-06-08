@@ -21,4 +21,8 @@ public interface AdminService {
 
 	JsonObject<Admin> getPageAdminInfo(String page, String rows);
 
+	int updateAdminPwd(Admin admin);
+
+	int checkOldPwd(Admin admin);
+
 }

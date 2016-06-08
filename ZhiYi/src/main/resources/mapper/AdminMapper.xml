@@ -38,5 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAdmin" parameterType="Admin" resultType="Admin">
 		select aid,aname,pwd from admin where aname=#{aname} and pwd=#{pwd} and status=1	
 	</select>
+	<!-- 修改密码 -->
+	<update id="updateAdminPwd" parameterType="Admin">
+		update admin set pwd=#{pwd} where aname=#{aname}
+	</update>
 	
 </mapper>

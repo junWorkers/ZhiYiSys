@@ -19,28 +19,27 @@ public class AdminAction implements ModelDriven<Admin>, SessionAware{
 	private Admin admin;
 	private  String page;
 	private String rows;
+	private int intType;
 	private Map<String, Object> session;
 
 	public String getPage() {
 		return page;
 	}
-
 	public void setPage(String page) {
 		this.page = page;
 	}
-
 	public String getRows() {
 		return rows;
 	}
-
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
-
 	public JsonObject<Admin> getJsonObject() {
 		return jsonObject;
 	}
-	
+	public int getIntType() {
+		return intType;
+	}
 	//登录的验证码验证
 	public String checkzccode(){
 		String code=ServletActionContext.getRequest().getParameter("code");
@@ -86,6 +85,26 @@ public class AdminAction implements ModelDriven<Admin>, SessionAware{
 	public String updateAdminInfo(){
 		jsonObject=adminService.updateAdminInfo(admin);
 		return "success";
+	}
+	//修改管理员信息
+	public String updateAdminPwd(){
+		System.out.println("这是新密码"+admin.getAname()+"==="+admin.getPwd());
+		if(adminService.updateAdminPwd(admin)>0){
+			intType=1;
+		}else{
+			intType=0;
+		}
+		return "IntType";
+	}
+	//校验旧密码是否正确
+	public String checkOldPwd(){
+		System.out.println("这是旧密码"+admin.getAname()+"==="+admin.getPwd());
+		if(adminService.checkOldPwd(admin)>0){
+			intType=1;
+		}else{
+			intType=0;
+		}
+		return "IntType";
 	}
 	
 	@Override

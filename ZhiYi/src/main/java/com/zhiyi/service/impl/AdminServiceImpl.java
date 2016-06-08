@@ -87,4 +87,20 @@ public class AdminServiceImpl implements AdminService {
 		jsonObject.setRows(find(page, rows));
 		return jsonObject;
 	}
+
+	@Override
+	public int updateAdminPwd(Admin admin) {
+		System.out.println("进来了");
+		return adminMapper.updateAdminPwd(admin);
+	}
+
+	@Override
+	public int checkOldPwd(Admin admin) {
+		Admin ad=adminMapper.findAdmin(admin);
+		if(ad !=null && !"".equals(ad)){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 }
