@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
 String path = request.getContextPath();
@@ -40,149 +40,106 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});                                   
 	});
-	
-							
-								
-							
-							
-				
 </script>
 </head>
 
 <body>
+	<%@include file="header.jsp"%>
+	<div id="parts">
+		<ul>
+			<li id="parts-img1"><a href="#">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[0].gpath }" />
+						<p>${Gcontent2[0].gname }</p>
+					</div>
+			</a></li>
+			<li><a href="javascript:void(0)">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[1].gpath }" />
+						<p>${Gcontent2[1].gname }</p>
+					</div>
+			</a></li>
+			<li><a href="javascript:void(0)">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[3].gpath }" />
+						<p>${Gcontent2[3].gname }</p>
+					</div>
+			</a></li>
+			<li><a href="javascript:void(0)l">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[4].gpath }" />
+						<p>${Gcontent2[4].gname }</p>
+					</div>
+			</a></li>
+			<li><a href="javascript:void(0)">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[2].gpath }" />
+						<p>${Gcontent2[2].gname }</p>
+					</div>
+			</a></li>
+			<li><a href="javascript:void(0)">
+					<div height="80" width="150" class="figure">
+						<img src="${Gcontent2[5].gpath }" />
+						<p>${Gcontent2[5].gname }</p>
+					</div>
+			</a></li>
+		</ul>
+	</div>
 
-	<div id="fa-moblie">
-		<!---头部--->
-		<div id="fa-header">
-			<div id="fa-center">
-				<a class="fa-logo" href="front/index.jsp"><img
-					src="images/DSC_0030.png" />指艺</a>
-				<ul class="fa-centers">
-					<li class="first1"><a href="front/shoppingmall.jsp">商城</a>
-					</li>
-					<li><a href="front/parts.jsp">配件</a>
-					</li>
-					<li><a href="front/fa.jsp">应用</a>
-					</li>
-					<li><a href="front/shouhou.jsp">服务</a>
-					</li>
-					<li><a href="front/experienceStore.jsp">体验店</a>
-					</li>
-					<li class="last1"><a href="#">社区</a>
-					</li>
-				</ul>
-				<img class="img1" src="images/zhuci.jpg" />
-				<ul class="fa-right">
-					<c:if test="${not empty currentAdminInfo}">
-                		   <li><a href="#">当前用户名：${currentAdminInfo}</a></li>
-                		   <li><a href="javascript:loginOut()">[注销]</a></li>
-                	</c:if>
-                	<c:if test="${empty currentAdminInfo}">
-                		<li><a href="register.html">注册</a></li>
-                    	<li><a href="login.html">登录</a></li>
-                	</c:if>
-				</ul>
-			</div>
-		</div>
-
-		<div id="parts">
-			<ul>
-				<li id="parts-img1"><a href="#">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[0].gpath }" />
-							<p>${Gcontent2[0].gname }</p>
-						</div>
-				</a>
-				</li>
-				<li><a href="javascript:void(0)">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[1].gpath }" />
-							<p>${Gcontent2[1].gname }</p>
-						</div>
-				</a>
-				</li>
-				<li><a href="javascript:void(0)">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[3].gpath }" />
-							<p>${Gcontent2[3].gname }</p>
-						</div>
-				</a>
-				</li>
-				<li><a href="javascript:void(0)l">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[4].gpath }" />
-							<p>${Gcontent2[4].gname }</p>
-						</div>
-				</a>
-				</li>
-				<li><a href="javascript:void(0)">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[2].gpath }" />
-							<p>${Gcontent2[2].gname }</p>
-						</div>
-				</a>
-				</li>
-				<li><a href="javascript:void(0)">
-						<div height="80" width="150" class="figure">
-							<img src="${Gcontent2[5].gpath }" />
-							<p>${Gcontent2[5].gname }</p>
-						</div>
-				</a>
-				</li>
-			</ul>
-		</div>
-
-		<div id="big-img">
+	<div id="big-img">
 		<c:forEach items="${Allgoods}" var="item">
-                   <c:if test="${item.tname eq '配件'}">
-                               <c:if test="${item.gposition eq 2}">
-									<a href="goodsServlet?op=showGoodsBygid1&gid=${item.gid}"><img src="${item.gpath}" />	</a>
-								</c:if>
-					</c:if>
+			<c:if test="${item.tname eq '配件'}">
+				<c:if test="${item.gposition eq 2}">
+					<a href="goodsServlet?op=showGoodsBygid1&gid=${item.gid}"><img
+						src="${item.gpath}" /> </a>
+				</c:if>
+			</c:if>
 		</c:forEach>
-		</div>
+	</div>
 
-		<div id="goods">
-			<div id="g1">
-				<div id="g1a">
-					<c:forEach items="${Allgoods}" var="item">
-                         <c:if test="${item.gposition eq 16}">
-                              <a href="front/pizhibaohu.jsp">
-								<div class="big1">
+	<div id="goods">
+		<div id="g1">
+			<div id="g1a">
+				<c:forEach items="${Allgoods}" var="item">
+					<c:if test="${item.gposition eq 16}">
+						<a href="front/pizhibaohu.jsp">
+							<div class="big1">
 								<img src="${item.firstPic }" height="169px" width="420px" />
 							</div>
 
-						<div class="title">
-							<h2>${item.gname }</h2>
-							<p>${item.descible}</p>
-							<span>一探究竟</span>
-						</div> </a>
-                              </c:if>
-                       </c:forEach>
-				</div>
-
-				<div id="g1b">
-					 <c:forEach items="${Allgoods}" var="item">
-                         <c:if test="${item.gposition eq 17}">
-                            <a href="javascript:void(0)">
-						<div class="big2">
-							<img src="${item.firstPic }" />
-						</div>
-
-						<div class="title">
-							<h2>${item.gname }</h2>
-							<p>${item.descible}</p>
-							<span>一探究竟</span>
-						</div> </a>
-                              </c:if>
-                       </c:forEach>
-				</div>
+							<div class="title">
+								<h2>${item.gname }</h2>
+								<p>${item.descible}</p>
+								<span>一探究竟</span>
+							</div>
+						</a>
+					</c:if>
+				</c:forEach>
 			</div>
 
-		
+			<div id="g1b">
+				<c:forEach items="${Allgoods}" var="item">
+					<c:if test="${item.gposition eq 17}">
+						<a href="javascript:void(0)">
+							<div class="big2">
+								<img src="${item.firstPic }" />
+							</div>
 
-			<div id="fo_parts">
-				<ul id="fdsfsdfsd">
+							<div class="title">
+								<h2>${item.gname }</h2>
+								<p>${item.descible}</p>
+								<span>一探究竟</span>
+							</div>
+						</a>
+					</c:if>
+				</c:forEach>
+			</div>
+		</div>
+
+
+
+		<div id="fo_parts">
+			<ul id="fdsfsdfsd">
 				<!--  
 					<li class="column"><a href="javascript:void(0)">
 							<div class="figure">
@@ -428,147 +385,146 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<p>X6防指纹贴膜</p>
 						</a></li>-->
-				</ul>
-			
-			</div>
+			</ul>
 
 		</div>
 
-		<div id="foot">
-			<div id="fo_img">
-				<img src="images/ft-log.jpg" height="13" width="14">&gt; 全部配件
-			</div>
-			<div id="fo_dl">
-				<dl>
-					<dt>保护壳</dt>
-					<dd>
-						<a href="javascript:void(0)">Z9 防震保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">My 布拉格 防震保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9超薄保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 mini超薄保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 Max超薄保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 mini个性后盖</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 透明保护壳</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 mini透明保护壳</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z5S mini亮彩后盖</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z5 mini 粉彩后盖</a>
-					</dd>
-				</dl>
-				<dl>
-					<dt>皮套</dt>
-					<dd>
-						<a href="javascript:void(0)">My 布拉格 智能保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">My 布拉格 皮质保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9皮质保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 mini皮质保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 Max皮质保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7max 视窗保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 翻盖皮套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 智能保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 mini翻盖保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">X6翻盖智能保护套</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z5S 翻盖保护套</a>
-					</dd>
-				</dl>
-				<dl>
-					<dt>贴膜</dt>
-					<dd>
-						<a href="javascript:void(0)">Z9 mini 防指纹保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z9 Max 防指纹保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 防指纹保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 mini防指纹保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 Max磨砂保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z7 Max防指纹保护膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">X6防指纹贴膜</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">Z5S 防指纹膜</a>
-					</dd>
-				</dl>
-				<dl>
-					<dt>耳机</dt>
-					<dd>
-						<a href="javascript:void(0)">红魔耳机</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">新一代耳机</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">nubia高保真耳机</a>
-					</dd>
-				</dl>
-				<dl>
-					<dt>周边产品</dt>
-					<dd>
-						<a href="javascript:void(0)">nubia摄影三脚架</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">布拉格主题T恤</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">视界精选明信片（二）</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">nubia 炫彩自拍杆</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">nubia 炫彩移动电源</a>
-					</dd>
-					<dd>
-						<a href="javascript:void(0)">蓝牙找寻器</a>
-					</dd>
-				</dl>
-			</div>
+	</div>
+
+	<div id="foot">
+		<div id="fo_img">
+			<img src="images/ft-log.jpg" height="13" width="14">&gt; 全部配件
+		</div>
+		<div id="fo_dl">
+			<dl>
+				<dt>保护壳</dt>
+				<dd>
+					<a href="javascript:void(0)">Z9 防震保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">My 布拉格 防震保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9超薄保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 mini超薄保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 Max超薄保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 mini个性后盖</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 透明保护壳</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 mini透明保护壳</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z5S mini亮彩后盖</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z5 mini 粉彩后盖</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>皮套</dt>
+				<dd>
+					<a href="javascript:void(0)">My 布拉格 智能保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">My 布拉格 皮质保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9皮质保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 mini皮质保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 Max皮质保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7max 视窗保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 翻盖皮套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 智能保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 mini翻盖保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">X6翻盖智能保护套</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z5S 翻盖保护套</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>贴膜</dt>
+				<dd>
+					<a href="javascript:void(0)">Z9 mini 防指纹保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z9 Max 防指纹保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 防指纹保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 mini防指纹保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 Max磨砂保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z7 Max防指纹保护膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">X6防指纹贴膜</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">Z5S 防指纹膜</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>耳机</dt>
+				<dd>
+					<a href="javascript:void(0)">红魔耳机</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">新一代耳机</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">nubia高保真耳机</a>
+				</dd>
+			</dl>
+			<dl>
+				<dt>周边产品</dt>
+				<dd>
+					<a href="javascript:void(0)">nubia摄影三脚架</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">布拉格主题T恤</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">视界精选明信片（二）</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">nubia 炫彩自拍杆</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">nubia 炫彩移动电源</a>
+				</dd>
+				<dd>
+					<a href="javascript:void(0)">蓝牙找寻器</a>
+				</dd>
+			</dl>
 		</div>
 	</div>
 </body>

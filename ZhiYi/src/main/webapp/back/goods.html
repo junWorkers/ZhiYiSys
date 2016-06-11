@@ -84,7 +84,7 @@
 						var goodsInfo=data.rows[0];
 						
 						$("#goods_gname").val(goodsInfo.gname);
-						$("#goods_goodstype").find("option[text='"+goodsInfo.tname+"']").attr("selected",true);
+						$("#goods_goodstype option[value='"+goodsInfo.tid+"']").attr("selected", "selected");
 						$("#goods_price").val(goodsInfo.price);
 						$("#goods_gnum").val(goodsInfo.gnum);
 						$("#goods_descibe").val(goodsInfo.descible);

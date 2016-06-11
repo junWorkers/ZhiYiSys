@@ -19,4 +19,5 @@ public interface AdminMapper {
 
 	Admin findAdmin(Admin admin);
 
+	int updateAdminPwd(Admin admin);
 }

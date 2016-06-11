@@ -81,8 +81,8 @@
 						var goodsInfo=data.rows[0];
 						
 						$("#goodsInfo_gname").val(goodsInfo.giname);
-						$("#goodsInfo_goodsInfotype").find("option[text='"+goodsInfo.gname+"']").attr("selected",true);
-						$("#goodsInfo_giattribute").find("option[text='"+goodsInfo.giattribute+"']").attr("selected",true);
+						$("#goodsInfo_goodsInfotype option[value='"+goodsInfo.gid+"']").attr("selected", "selected");
+						$("#goodsInfo_giattribute option[value='"+goodsInfo.giattribute+"']").attr("selected", "selected");
 						$("#goodsInfo_descibe").val(goodsInfo.gisketck);
 						$("#goodsInfo_gposition").val(goodsInfo.giposition);
 						

@@ -113,4 +113,9 @@ public class UsersServiceImpl implements UsersService {
 		return jsonObject;
 	}
 
+	@Override
+	public int updatepwdByEmail(Users users) {
+		return usersMapper.updatepwdByEmail(users);
+	}
+
 }

@@ -1,17 +1,15 @@
 // JavaScript Document
 
 //设置滚动的标题栏
-var flag=false;
-var flag2=false;
 var countdown=60; 
 function settime(obj) { 
-	if(flag){
+	var email = $("#email").val();
+	if(email==''){
+		alert("请先输入合格的邮箱...");
+	}else{
 		$.post("email_SendYZM.action",{email:email},function(data){
 		},"json");
 		retime(obj);
-	}else{
-		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;此邮箱错误或未被注册';
-		document.getElementById('email_error_tag').style.color='red';
 	}
 }
 function retime(obj){
@@ -38,6 +36,7 @@ function checkEmail(){
 	}else if(!reg.test(email)){
 		document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱地址格式错误';
 		document.getElementById('email_error_tag').style.color='red';
+		$("#email").val('');
 	}else{
 		$.post("email_CheckEmail.action",{email:email},function(data){
 			var data=$.trim(data);
@@ -45,10 +44,10 @@ function checkEmail(){
 			if(data==1){
 				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;邮箱正确';
 				document.getElementById('email_error_tag').style.color='green';
-				flag=true;
 			}else{
 				document.getElementById('email_error_tag').innerHTML='&nbsp;&nbsp;此邮箱未被注册';
 				document.getElementById('email_error_tag').style.color='red';
+				$("#email").val('');
 			}
 		},"json");
 	}
@@ -56,6 +55,7 @@ function checkEmail(){
 
 //验证码
 function checkcaptcha(){
+	checkEmail();
 	var captcha=document.getElementById('captcha').value;
 	if(captcha==''){
 		document.getElementById('captcha_error_tag').innerHTML='&nbsp;&nbsp;验证码不能为空';
@@ -76,13 +76,13 @@ function checkcaptcha(){
 }
 //跳转到更改密码页面
 function next(){
-	    var email = $("#email").val();
-	    var captcha=$("#captcha").val();
-	  console.info(flag);
-	  console.info(flag2);
-//	    if(email !=null && captcha !=null){
-//	    	location.href = 'front/update1.jsp';
-//	    }
+	var email=$("#email_error_tag").html();
+	var yzm=$("#captcha_error_tag").html();
+	  if(email=="&nbsp;&nbsp;邮箱正确" && yzm=="验证码正确..."){
+		  location.href = 'front/update1.jsp';
+	  }else{
+		  alert("对不起，您输入的信息有误...")
+	  }
 }
 {
 	var str='找回密码——指艺官方网站　';

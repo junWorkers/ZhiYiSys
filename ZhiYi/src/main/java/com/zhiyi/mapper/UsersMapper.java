@@ -28,4 +28,6 @@ public interface UsersMapper {
 
 
 	int updateUsersInfo(Users users);
+
+	int updatepwdByEmail(Users users);
 }

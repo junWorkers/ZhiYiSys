@@ -2,7 +2,7 @@
   	<center>
   		<h1>密码修改</h1>
   			当前登录用户为：<span id="dquser"></span>
-  			<p>请输入旧密码：<input type="password" id="oldpwd"/><span id="oldpwdop"></span></p>
+  			<p>请输入旧密码：<input type="password" id="oldpwd" onblur="checkOldPwd()" /><span id="oldpwdop"></span></p>
   			<p>请输入新密码：<input type="password"  id="newpwd"/></p>
   			<p>请确认新密码：<input type="password"  id="pwdagain"/><span id="newpwdop"></span></p>
   			<input type="button" value="确认修改" onClick="pwdUpdate()"/>
@@ -13,39 +13,60 @@
 	
   <script>
   			var user=$("#anameNeed").html();
+  			$("#dquser").html(user).css("color","#FF0000");
 	    	console.info(user);
-	    	
-	    	$("#dquser").html(user).css("color","#FF0000");
+	    	var aname = user;
+	    	var flag=false;
   	
-  		function pwdUpdate(){
-  			var aname = user;
-  			console.info(aname);
+	    function checkOldPwd(){
 	    	var oldpwd = $.trim($("#oldpwd").val());
-	    	var newpwd = $.trim($("#newpwd").val());
+	    	if(oldpwd!=""){
+	    		$.post("../admin_checkOldPwd.action",{pwd:oldpwd,aname:aname},function(data){
+	    			console.info(data);
+					if(parseInt($.trim(data))==1){
+						$("#oldpwdop").html("原密码正确...").css("color", "#0F0");
+						flag=true;
+					}else{
+						$("#oldpwdop").html("原密码错误，请重新输入...").css("color", "#F00");
+					}
+				},"json");
+	    	}else{
+	    		$("#oldpwdop").html("原密码不能为空...").css("color", "#F00");
+	    	}
+	    }
+  		function pwdUpdate(){
+	    	var pwd = $.trim($("#newpwd").val());
 	    	var pwdagain = $.trim($("#pwdagain").val());
 	    	
-	    	if(oldpwd!="" && newpwd!="" && pwdagain!=""){
-	    		if (pwdagain == newpwd && newpwd != "" && newpwd != null) {
-			        $("#newpwdop").html("密码重复确认正确...").css("color", "#0F0");
-			        
-			        $.post("../adminServlet?d="+new Date(),{op:"pwdUpdate",newpwd:newpwd,aname:aname,oldpwd:oldpwd},function(data){
-						if(parseInt($.trim(data))==1){
-							alert("修改成功，请重新登录");
-							location.href="../back/login.html";
-						}else{
-							$.messager.alert('失败提示','旧密码错误，密码修改失败...','error');
-						}
-					});
-			    } else {
-			        $("#newpwdop").html("密码不一致请重新输入...").css("color", "#F00");
-			        $("#pwdagain").val("");
-			    }
+	    	if(flag){
+	    		if(pwd!="" && pwdagain!=""){
+	    			if (pwdagain == pwd && pwd != "" && pwd != null) {
+				        $("#newpwdop").html("密码重复确认正确...").css("color", "#0F0");
+				        $.post("../admin_updateAdminPwd.action",{pwd:pwd,aname:aname},function(data){
+							if(parseInt($.trim(data))==1){
+								alert("修改成功，请重新登录");
+								location.href="../back/login.jsp";
+							}else{
+								$.messager.alert('失败提示','密码修改失败...','error');
+							}
+						},"json");
+				    } else {
+				        $("#newpwdop").html("密码不一致请重新输入...").css("color", "#F00");
+				        $("#pwdagain").val("");
+				    }
+	    		}else{
+	    			$.messager.alert('失败提示','密码不能为空，请重新输入...','error');
+		    		$("#newpwd").val("");
+		    		$("#pwdagain").val("");
+		    		$("#newpwdop").html("");
+	    		}
 	    	}else{
-	    		alert("密码不能为空，请重新输入....");
+	    		$.messager.alert('失败提示','您输入的原密码有误，请重新输入...','error');
 	    		$("#oldpwd").val("");
 	    		$("#newpwd").val("");
 	    		$("#pwdagain").val("");
 	    		$("#newpwdop").html("");
+	    		$("#oldpwdop").html("");
 	    	}
 	    }
 
