@@ -68,17 +68,12 @@ function close(d){
 	}
 
 	function lunbo(){
-		
-		var gid=$("#gid").html();
+		/*var gid=$("#gid").html();
 		console.info(gid);
 	  	window.localStorage.setItem('gid',gid);
-
 		var gname=$("#gname").html();
 		console.info(gname);
-		window.localStorage.setItem('gname',gname);
-
-
-
+		window.localStorage.setItem('gname',gname);*/
 		  shows();        //调用
 		  var sp =document.getElementById('bx-pager-item').getElementsByTagName('a');
 		  for(var i=0;i<sp.length;i++){

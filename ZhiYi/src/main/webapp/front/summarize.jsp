@@ -36,14 +36,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					href="http://www.nubia.cn/nubiaz9mark" class="sub-logo-z9max1 fl"
 					style="margin-left: 15px; border-left: 1px solid #999; padding-left: 15px; color: #999">艺术改变生活</a>
 				<!--<a target="_blank" href="/book.php" class="fr btn-buy">立即预约</a>-->
-				<a target="_blank" href="front/productpackage.jsp"
+				<a target="_blank" href="goods_findjuti?gid=${goodsname.gid}"
 					class="fr btn-buy">立即购买</a>
 				<ul class="sub-menu clearfix fr" id="sub-menu">
 					<li class="active"><a href="#">概述</a></li>
 					<li><a href="front/devise.jsp">设计</a></li>
 					<li><a href="front/photograph.jsp">拍照</a></li>
 					<li><a href="front/technical.jsp">技术规格</a></li>
-					<li><a href="front/accident.jsp">意外宝</a></li>
 				</ul>
 			</div>
 		</div>
@@ -57,6 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="section summary01">
 									<div class="w1170">
 										<div class="desc">
+											<h1>￥${goodsname.price}</h1>
 											<h1>${item.giname }</h1>
 											<small class="SYHT">${item.gisketck }</small>
 										</div>

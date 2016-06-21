@@ -173,4 +173,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findContent" resultType="Goods">
 		select g.*,tname,t.tid from goods g,gtype t where g.tid=t.tid
 	</select>
+	
+	<select id="showGoodsByIds" parameterType="int" resultType="GoodsInfo">
+		select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=#{id} and giattribute in ('概述','设计','拍照','技术规格','配件')
+	</select>
+	
+	
+	<select id="findContentss" parameterType="int" resultType="Goods">
+		select gid,gname,price from goods where gid=#{id}
+	</select>
+	
+	<select id="findGoodsPars" parameterType="int" resultType="GoodsPar">
+		select * from goodsPar p where p.gid=#{id}
+	</select>
+	
+	<select id="findContent5" parameterType="map" resultType="Goods">
+		select gp.gpid,gs.price from goodsPar gp,goods gs where gp.gid=#{gid} and gp.color=#{color} and gp.gid=gs.gid
+	</select>
 </mapper>

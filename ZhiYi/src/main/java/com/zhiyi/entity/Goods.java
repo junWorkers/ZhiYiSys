@@ -18,8 +18,15 @@ public class Goods implements Serializable {
 	private String gpath;            //图片路径1
 	private int gposition;           //商城位置显示
 	private int status;              //商品状态
+	private int gpid;
 
 	
+	public int getGpid() {
+		return gpid;
+	}
+	public void setGpid(int gpid) {
+		this.gpid = gpid;
+	}
 	public int getGid() {
 		return gid;
 	}
@@ -141,8 +148,10 @@ public class Goods implements Serializable {
 		return "Goods [gid=" + gid + ", gname=" + gname + ", tid=" + tid
 				+ ", tname=" + tname + ", price=" + price + ", gnum=" + gnum
 				+ ", descible=" + descible + ", gpath=" + gpath
-				+ ", gposition=" + gposition + ", status=" + status + "]";
+				+ ", gposition=" + gposition + ", status=" + status + ", gpid="
+				+ gpid + "]";
 	}
+	
 	
 	
 }

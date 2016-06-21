@@ -248,4 +248,26 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<Goods> findContent() {
 		return goodsMapper.findContent();
 	}
+
+	@Override
+	public List<Goods> showGoodsById(int id) {
+		return goodsMapper.showGoodsByIds(id);
+	}
+
+	@Override
+	public Goods findContentsss(int gid) {
+		return goodsMapper.findContentss(gid);
+	}
+
+	@Override
+	public List<GoodsPar> findGoodsPars(int gid) {
+		return goodsMapper.findGoodsPars(gid);
+	}
+
+	@Override
+	public Goods findContent5(Map<String, Object> map) {
+		return goodsMapper.findContent5(map);
+	}
+
+	
 }

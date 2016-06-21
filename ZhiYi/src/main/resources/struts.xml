@@ -55,12 +55,14 @@
 	<package name="default" namespace="/" extends="json-default">
 
 	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,UpdatePwd,CheckPwd,
-	SendYZM,CheckEmail,findAllType,findContent,updateByEmail,updateAdminPwd,checkOldPwd
+	SendYZM,CheckEmail,findAllType,findContent,updateByEmail,updateAdminPwd,checkOldPwd,sgbid,findjuti,showGoodsGpid
 	</global-allowed-methods>
-
 		<action name="*_*" class="{1}Action" method="{2}">
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>
+			<result name="sgbid">/front/summarize.jsp</result>
+			<result name="findjuti">/front/productpackage.jsp</result>
+			<result name="showGoodsGpid">/front/shoppingCart.jsp</result>
 			<!-- Users类型的 -->
 			<result name="UsersType" type="json">
 				<param name="root">usersType</param>
@@ -79,5 +81,6 @@
 				<param name="root">youceGoods</param>
 			</result>
 		</action>
+		
 	</package>
 </struts>

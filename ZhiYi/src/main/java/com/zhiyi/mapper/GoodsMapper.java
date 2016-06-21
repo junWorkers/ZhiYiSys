@@ -48,4 +48,13 @@ public interface GoodsMapper {
 	int updateGoodsParInfo(GoodsPar goodsPar);
 
 	List<Goods> findContent();
+
+
+	List<Goods> showGoodsByIds(int id);
+
+	Goods findContentss(int gid);
+
+	List<GoodsPar> findGoodsPars(int gid);
+
+	Goods findContent5(Map<String, Object> map);
 }

@@ -32,15 +32,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-	<h2 class="step3-wrapper-h2">选择手机</h2>
+	<h2 class="step3-wrapper-h2">请确认订单</h2>
 	<input type="hidden" id="masterid">
 	<div class="step3-wrapper">
 		<div class="compose-menu clearfix_jj">
 			<ul class="clearfix_jj">
 				<li id="onlyphone" class="onlyphone packageitem current" sid="568">
-					<h3 id="taocan">仅手机</h3>
+					<h3 id="taocan">商品如下</h3>
 					<p>
-						<span>￥</span><a id="phoneprice">${gpid.price}</a>
+						<span>￥</span><a id="phoneprice">${goodsname.price}</a>
 					</p>
 				</li>
 			</ul>
