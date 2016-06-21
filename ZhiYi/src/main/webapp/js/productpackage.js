@@ -31,9 +31,9 @@ function choose(d){
 		
 	}
 }
- $(function(){
+/* $(function(){
 	 var gname=window.localStorage.getItem('gname');
 	$("#gname").html(gname);
- });
+ });*/
 
 

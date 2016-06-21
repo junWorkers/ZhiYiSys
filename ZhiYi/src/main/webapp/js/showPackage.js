@@ -28,11 +28,11 @@ $(function(){
 	window.localStorage.setItem('phoneprice',phoneprice);
 	var gpid=$("#gpid").text();
 	window.localStorage.setItem('gpid',gpid);
-	
-	$.post("goodsServlet?t="+new Date(),{op:"showGoodsGpid",gid:gid,color:color},function(data){
-
-	});
-	
+	/*$.post("goods_showGoodsGpid?t="+new Date(),{gid:gid,color:color},function(data){
+		console.info(data)
+		alert(data);
+		$("#phoneprice").html();
+	},'json');*/
 });
 
 function buy(){

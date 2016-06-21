@@ -37,13 +37,12 @@
 				href="#" class="sub-logo-z9max1 fl"
 				style="margin-left: 15px; border-left: 1px solid #999; padding-left: 15px; color: #999">艺术改变生活</a>
 			<!--<a target="_blank" href="/book.php" class="fr btn-buy">立即预约</a>-->
-			<a target="_blank" href="front/productpackage.jsp" class="fr btn-buy">立即购买</a>
+			<a target="_blank" href="goods_findjuti?gid=${goodsname.gid}" class="fr btn-buy">立即购买</a>
 			<ul class="sub-menu clearfix fr" id="sub-menu">
 				<li><a href="front/summarize.jsp">概述</a></li>
 				<li class="active"><a href="#">设计</a></li>
 				<li><a href="front/photograph.jsp">拍照</a></li>
 				<li><a href="front/technical.jsp">技术规格</a></li>
-				<li><a href="front/accident.jsp">意外宝</a></li>
 			</ul>
 		</div>
 	</div>

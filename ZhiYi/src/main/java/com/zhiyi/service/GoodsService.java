@@ -1,6 +1,7 @@
 package com.zhiyi.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Goods;
@@ -54,4 +55,12 @@ public interface GoodsService {
 	JsonObject<GoodsPar> updateGoodsParInfo(GoodsPar goodsPar);
 
 	List<Goods>  findContent();
+	
+	List<Goods> showGoodsById(int id);
+
+	Goods findContentsss(int gid);
+
+	List<GoodsPar> findGoodsPars(int gid);
+
+	Goods findContent5(Map<String, Object> map);
 }

@@ -23,6 +23,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
 
+function shishis(gname,gid){
+	alert("jun");
+	/* //var gid=$("#gid").html();
+	alert(gname+"  "+gid);
+  	window.localStorage.setItem('gid',gid);
+	//var gname=$("#gname").html();
+	console.info(gname+"  "+gid);
+	window.localStorage.setItem('gname',gname); */
+}
+
 var ssss=0;
 var jun=0;
 $(function(){
@@ -142,12 +152,13 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[0].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div
-												class="figure">
+											href="goods_sgbid?gid=${item.gid}" onclick="shishis(${item.gname},${item.gid})">
+											<div class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
 											<p id="gname">${item.gname }</p>
-											<p id="gid" style='display: none'>${item.gid }</p></a>
+											<p id="gid" style='display: none'>${item.gid }</p>
+										</a>
 									</c:if>
 								</c:if>
 							</c:forEach>
@@ -197,7 +208,7 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[1].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div
+											href="goods_sgbid?gid=${item.gid}"><div
 												class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
@@ -227,7 +238,7 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[2].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div
+											href="goods_sgbid?gid=${item.gid}"><div
 												class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
@@ -257,7 +268,7 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[3].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div
+											href="goods_sgbid?gid=${item.gid}"><div
 												class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
@@ -301,7 +312,7 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[4].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goodsServlet?op=showGoodsBygid&gid=${item.gid}"><div
+											href="goods_sgbid?gid=${item.gid}"><div
 												class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>

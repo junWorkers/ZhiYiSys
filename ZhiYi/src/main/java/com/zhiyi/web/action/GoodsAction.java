@@ -1,5 +1,7 @@
 package com.zhiyi.web.action;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ModelDriven;
 import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Goods;
+import com.zhiyi.entity.GoodsPar;
 import com.zhiyi.service.GoodsService;
 import com.zhiyi.util.UploadUtil;
 @Controller("goodsAction")
@@ -20,6 +23,16 @@ public class GoodsAction implements ModelDriven<Goods>,SessionAware{
 	private JsonObject<Goods> jsonObject;
 	private UploadUtil uploadUtil;
 	private Goods goods;
+	private Goods fgoods;
+	
+	public Goods getFgoods() {
+		return fgoods;
+	}
+
+	public void setFgoods(Goods fgoods) {
+		this.fgoods = fgoods;
+	}
+
 	private List<Goods> youceGoods;
 	private  String page;
 	private String rows;
@@ -102,11 +115,35 @@ public class GoodsAction implements ModelDriven<Goods>,SessionAware{
 	
 	public String findContent(){
 		youceGoods=goodsService.findContent();
-		System.out.println(youceGoods);
 		session.put("Allgoods", youceGoods);
 		return "findcontent";
 	}
 	
+	public String sgbid(){
+		int gid=goods.getGid();
+		Goods goodContents=goodsService.findContentsss(gid);
+		session.put("goodsname", goodContents);
+		List<Goods> goods=goodsService.showGoodsById(gid);
+		session.put("goodsa",goods);
+		return "sgbid";
+	}
+	public String findjuti(){
+		List<GoodsPar> goodspar=goodsService.findGoodsPars(goods.getGid());
+		System.out.println(goodspar);
+		session.put("goodParssss", goodspar);
+		return "findjuti";
+	}
+	
+	public String showGoodsGpid(){
+		int gid=Integer.parseInt(ServletActionContext.getRequest().getParameter("gid"));
+		String color=ServletActionContext.getRequest().getParameter("color");
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("gid",gid);
+		map.put("color",color);
+		fgoods=goodsService.findContent5(map);
+		System.out.println("fgoods"+fgoods);
+		return "showGoodsGpid";
+	}
 	@Override
 	public Goods getModel() {
 		this.goods=new Goods();
