@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.zhiyi.mapper.ReceiveMapper">
+	<insert id="addAddress" parameterType="Receive">
+		insert into receive values(seq_receive_rid.nextval,#{usid},#{rname},#{address},#{xaddress},#{zip},#{phone},#{rtime},1,null,null,null)
+	</insert>
+	
+	<select id="find" resultType="Receive">
+		select rid,rname,address,xaddress,phone from receive where status=1
+	</select>
+	
+	<update id="del" parameterType="int">
+		update receive set status=0 where rid=#{rid}
+	</update>
+
+</mapper>

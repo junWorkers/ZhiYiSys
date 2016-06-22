@@ -215,7 +215,7 @@ insert into orders values(seq_order_osid.nextval,2003,'张三',6021,null,to_date
 insert into orders values(seq_order_osid.nextval,2003,'张三',6021,null,to_date('2013-08-16','yyyy-mm-dd'),to_date('2015-08-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
 insert into orders values(seq_order_osid.nextval,2001,'张三',6001,null,to_date('2013-03-30','yyyy-mm-dd'),to_date('2013-03-30','yyyy-mm-dd'),null,null,'0',1,null,null,null);
 select * from orders;
-
+delete from orders where usid=0;
 drop table orders; 
 drop sequence seq_order_osid;
 select sum(count(distinct gpid)) from orders group by gpid,xdate
@@ -248,7 +248,9 @@ select * from (
 					) group by gname,color,gversion order by sum(onum) desc
 			) a where rownum<=10
 		)b where rn>0
-
+delete from orders
+select * from orders;
+select osid from orders where available1=1 and available2='皮质'
 ------------------------------------------------------------------------------
 --订单详细表
 create table orderInfo(
@@ -284,6 +286,7 @@ insert into orderInfo values(seq_orderInfo_oiid.nextval,1021,6001,50,0,0,null,nu
 select * from orderInfo;
 drop table orderInfo;
 drop sequence seq_orderInfo_oiid;
+delete from orderInfo
 ------------------------------------------------------------------------------
 --退货表
 create table back(
@@ -392,7 +395,7 @@ create table receive(
 create sequence seq_receive_rid start with 1001 increment by 1;
 insert into receive values(seq_receive_rid.nextval,2063,'cc','湖南衡阳','yu',400988,18675894876,1121,1,null,null,null);
 select * from receive;
-
+delete from receive
 drop table receive;
 drop sequence seq_receive_rid;
 delete from receive where usid='2063';
@@ -575,5 +578,9 @@ UNAME VARCHAR2(255 CHAR) NULL
 )
 
 select * from usersb;
-
-
+select * from orders;
+select os.osid,re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and  re.status=1
+orders receive goods orderInfo
+select f.gname,os.osid,re.rname
+select * from receive
+(select gs.gname,gp.gpid from goods gs,goodsPar gp where gs.gid=gp.gid) f

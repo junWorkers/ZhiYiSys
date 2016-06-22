@@ -24,6 +24,10 @@ function choose(d){
 			var color=$("#color"+i).text();
 			window.localStorage.setItem('src',src);
 			window.localStorage.setItem('color',color);
+			var gid=window.localStorage.getItem('gid');
+			$.post("goods_showGoodsGpid?t="+new Date(),{gid:gid,color:color},function(data){
+				
+			},'json');
 		}else{
 			var nodes='#'+i;
 			$(nodes).css('background-color','#fafafa');
@@ -31,9 +35,4 @@ function choose(d){
 		
 	}
 }
-/* $(function(){
-	 var gname=window.localStorage.getItem('gname');
-	$("#gname").html(gname);
- });*/
-
 

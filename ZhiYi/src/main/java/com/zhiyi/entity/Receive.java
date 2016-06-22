@@ -17,6 +17,28 @@ public class Receive implements Serializable {
 	private String phone;                      //手机号码
 	private String rtime;                        //配送时间
 	private int status;                       //状态
+	private String prov;
+	private String citys;
+	private String dist;
+	
+	public String getProv() {
+		return prov;
+	}
+	public void setProv(String prov) {
+		this.prov = prov;
+	}
+	public String getCitys() {
+		return citys;
+	}
+	public void setCitys(String citys) {
+		this.citys = citys;
+	}
+	public String getDist() {
+		return dist;
+	}
+	public void setDist(String dist) {
+		this.dist = dist;
+	}
 	public int getRid() {
 		return rid;
 	}
@@ -36,10 +58,15 @@ public class Receive implements Serializable {
 		this.rname = rname;
 	}
 	public String getAddress() {
-		return address;
+		if(prov==null && citys==null && dist==null){
+			return address;
+		}else{
+			address=prov+citys+dist;
+			return address;
+		}
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		this.address=address;
 	}
 	public String getXaddress() {
 		return xaddress;
@@ -71,20 +98,7 @@ public class Receive implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public Receive(int rid, int usid, String rname, String address,
-			String xaddress, String zip,String phone, String rtime,
-			int status) {
-		super();
-		this.rid = rid;
-		this.usid = usid;
-		this.rname = rname;
-		this.address = address;
-		this.xaddress = xaddress;
-		this.zip = zip;
-		this.phone = phone;
-		this.rtime = rtime;
-		this.status = status;
-	}
+	
 	public Receive() {
 		super();
 	}
@@ -155,9 +169,11 @@ public class Receive implements Serializable {
 	public String toString() {
 		return "Receive [rid=" + rid + ", usid=" + usid + ", rname=" + rname
 				+ ", address=" + address + ", xaddress=" + xaddress + ", zip="
-				+ zip + ", phone=" + phone + ", rtime="
-				+ rtime + ", status=" + status + "]";
+				+ zip + ", phone=" + phone + ", rtime=" + rtime + ", status="
+				+ status + ", prov=" + prov + ", citys=" + citys + ", dist="
+				+ dist + "]";
 	}
+	
 	
 	
 }

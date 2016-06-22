@@ -141,6 +141,7 @@ public class GoodsAction implements ModelDriven<Goods>,SessionAware{
 		map.put("gid",gid);
 		map.put("color",color);
 		fgoods=goodsService.findContent5(map);
+		session.put("gpid",fgoods);
 		System.out.println("fgoods"+fgoods);
 		return "showGoodsGpid";
 	}

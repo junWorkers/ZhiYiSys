@@ -1,6 +1,8 @@
 package com.zhiyi.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * 订单类（包括订单表和订单详细表的属性）
  * @author qyb
@@ -16,6 +18,8 @@ public class Order implements Serializable {
 	private String statu;                 //状态值
 	private String ddate;                 //订单时间
 	private String xdate;                 //下单时间
+	private String ddates;
+	private String xdates;
 	private String zstatus;               //支付状态
 	private String fsatus;                //发货状态
 	private int opoint;                   //积分 
@@ -35,8 +39,28 @@ public class Order implements Serializable {
 	private int num;
 	private String uname;
 	public String rname;
-
+	private SimpleDateFormat sbf=new SimpleDateFormat("yyyy-MM-dd");
+	Date date=new Date();
 	
+	public int getGpid() {
+		return gpid;
+	}
+	public void setGpid(int gpid) {
+		this.gpid = gpid;
+	}
+
+	public String getDdates() {
+		return sbf.format(date);
+	}
+	public void setDdates(String ddates) {
+		this.ddates = ddates;
+	}
+	public String getXdates() {
+		return sbf.format(date);
+	}
+	public void setXdates(String xdates) {
+		this.xdates = xdates;
+	}
 	public String getUname() {
 		return uname;
 	}
@@ -94,12 +118,7 @@ public class Order implements Serializable {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-	public int getgpid() {
-		return gpid;
-	}
-	public void setgpid(int gpid) {
-		this.gpid = gpid;
-	}
+	
 	public String getStatu() {
 		return statu;
 	}
@@ -238,15 +257,20 @@ public class Order implements Serializable {
 	
 	
 	
+	
 	@Override
 	public String toString() {
-		return "Order [osid=" + osid + ", usid=" + usid + ", sname=" + sname
-				+ ", gpid=" + gpid + ", statu=" + statu + ", ddate=" + ddate
-				+ ", xdate=" + xdate + ", zstatus=" + zstatus + ", fsatus="
-				+ fsatus + ", opoint=" + opoint + ", status=" + status
-				+ ", oiid=" + oiid + ", onum=" + onum + ", price=" + price
-				+ ", money=" + money + ", operate=" + operate + ", odescribe="
-				+ odescribe + ", status1=" + status1 + "]";
+		return "Order [oid=" + oid + ", osid=" + osid + ", usid=" + usid
+				+ ", sname=" + sname + ", gpid=" + gpid + ", statu=" + statu
+				+ ", ddate=" + ddate + ", xdate=" + xdate + ", ddates="
+				+ ddates + ", xdates=" + xdates + ", zstatus=" + zstatus
+				+ ", fsatus=" + fsatus + ", opoint=" + opoint + ", status="
+				+ status + ", oiid=" + oiid + ", onum=" + onum + ", price="
+				+ price + ", money=" + money + ", operate=" + operate
+				+ ", odescribe=" + odescribe + ", status1=" + status1
+				+ ", gname=" + gname + ", color=" + color + ", gversion="
+				+ gversion + ", num=" + num + ", uname=" + uname + ", rname="
+				+ rname + "]";
 	}
 	@Override
 	public int hashCode() {

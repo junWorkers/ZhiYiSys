@@ -94,4 +94,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)b where rn>#{min,jdbcType=NUMERIC}
 	</select>
 	
+    <insert id="addOrders" parameterType="Order">
+    	<selectKey keyProperty="osid" keyColumn="curried" order="BEFORE" resultType="int">
+ 			select seq_order_osid.nextval curried from dual
+ 		</selectKey>
+		insert into orders values(#{osid},#{usid},'陈姿',#{gpid},1,to_date(#{xdates},'yyyy-MM-dd'),to_date(#{ddates},'yyyy-MM-dd'),null,null,null,null,#{num},#{color},null)
+	</insert> 
+	
+	<insert id="addOrdersInfo" parameterType="map">
+		insert into orderInfo values(seq_orderInfo_oiid.nextval,#{osids},#{gpid},#{onum},#{price},#{money},null,null,1,null,null,null)
+	</insert> 
+	<select id="findzzz" parameterType="Order" resultType="int">
+		select osid from orders where available1=#{num} and available2=#{color}
+	</select> 
+	
+	<select id="findOrderInfo" resultType="Order" parameterType="int">
+		select distinct(os.osid),re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and re.status=1 and os.usid=#{usid} 
+	</select>
 </mapper>

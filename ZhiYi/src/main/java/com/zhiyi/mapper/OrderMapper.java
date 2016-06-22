@@ -19,4 +19,12 @@ public interface OrderMapper {
 
 	List<Order> finds1(Map<String, Object> params);
 
+	int addOrders(Order order);
+
+	int findzzz(Order order);
+
+	int addOrdersInfo(Map<String, Object> map);
+
+	List<Order> findOrderInfo(int i);
+
 }
