@@ -21,23 +21,20 @@ $(function(){
 	$("#img").attr("src",src);
 	$("#miaoshu").html(gname+color);
 	var taocan=$("#taocan").html();
-	window.localStorage.setItem('taocan',taocan);
+	
 	var phoneprice=$("#phoneprice").html();
 	console.info(phoneprice);
 	$("#allprice").html(phoneprice);
 	window.localStorage.setItem('phoneprice',phoneprice);
 	var gpid=$("#gpid").text();
 	window.localStorage.setItem('gpid',gpid);
-	/*$.post("goods_showGoodsGpid?t="+new Date(),{gid:gid,color:color},function(data){
-		console.info(data)
-		alert(data);
-		$("#phoneprice").html();
-	},'json');*/
+
 });
 
 function buy(){
 	var src=window.localStorage.getItem('src');
 	var gname=window.localStorage.getItem('gname');
+	alert(gname);
 	var color=window.localStorage.getItem('color');
 	var phoneprice=JSON.parse(window.localStorage.getItem('phoneprice'));
 	var isSave;

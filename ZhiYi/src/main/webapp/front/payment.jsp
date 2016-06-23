@@ -59,7 +59,6 @@
 	</div>
 
 	<div class="main carts">
-		<form id="theForm" name="flow">
 			<div class="items fillOrder mt20">
 				<div class="conT">
 					<div class="conB">
@@ -67,7 +66,10 @@
 							<!-- 配送地址开始 -->
 							<div class="address" id="shippingAddress">
 								<div class="hd">
-									<h2>我的收货地址</h2>
+									<h2>我的收货地址
+									<c:if test="${not empty sessionScope.sessiondelError}">
+										<label style="color: red">${sessionScope.sessiondelError}</label>
+									</c:if></h2>
 								</div>
 								<div id="addr"></div>
 								<div class="subHd">
@@ -76,19 +78,25 @@
 										class="save" value="添加新地址" id="otherAddress" type="button"
 										onClick="others()">
 								</div>
+								<form id="dizhixinxi" action="receive_addAddressInfo.action" method="get">
 								<div style="display: none;" id="newAddress" class="newAddress">
 									<ul>
+										<li style="display: none"><div class="inputBg">
+										<input name="usid" type="text" id="usidss" value="${users.usid }"/> 
+											</div></li>
+											
+											
 										<li><label>收件人:</label>
 											<div class="inputBg">
-												<input name="consignee" id="consignee" class="required"
-													type="text" onBlur="checkConsignee()"> <a id="cons"></a>
+												<input name="rname" id="consignee" class="required"
+													type="text"  onBlur="checkConsignee()"> <a id="cons"></a>
 											</div></li>
 
 										<li><label>省份:</label>
 											<div class="inputBg">
 												<div id="city_4">
-													<select class="prov"></select> <select class="citys"></select>
-													<select class="dist"></select>
+													<select class="prov" name="prov"></select> <select class="citys" name="citys"></select>
+													<select class="dist" name="dist"></select>
 												</div>
 											</div></li>
 
@@ -96,7 +104,7 @@
 											class="fl"></span>
 											<div class="inputBg">
 												<p id="shenshiqu"></p>
-												<input class="required" name="address" id="address"
+												<input class="required" name="xaddress" id="address"
 													size="40" type="text" onBlur="checkAddress()"
 													onfocus="getAddress()"> <a id="addrs"></a>
 											</div></li>
@@ -104,13 +112,13 @@
 										<li><label>邮编：</label>
 											<div class="inputBg">
 												<input maxlength="6" class="required validate-zipcode"
-													name="zipcode" id="zipcode" type="text"
+													name="zip" id="zipcode" type="text"
 													onBlur="checkZipcode()"> <a id="zip"></a>
 											</div></li>
 
 										<li><label>手机：</label>
 											<div class="inputBg">
-												<input class="validate-mobile" name="mobile" id="phone"
+												<input class="validate-mobile" name="phone" id="phone"
 													type="text" onBlur="checkMobile()"> <a id="mob"></a>
 											</div></li>
 
@@ -124,30 +132,24 @@
                                                         <span class="btnSelected" id="shipTime">下拉按钮</span>
                                                         <input type="hidden" name="shippingTime" id="shippingTime" value="WorkingDay" />
                                                     </div-->
-													<select name="shippingTime" id="time">
+													<select name="rtime" id="time">
 														<option selected="selected" value="WorkingDay">
 															只工作日送货(双休日、假日不配送)</option>
 														<option value="WorkingRestDay">工作日、双休日与假日均可送货</option>
 														<option value="RestDay">只双休日、假日送货(工作日不配送)</option>
 													</select>
-													<div class="allStyle" style="display: none;">
-														<a href="javascript:;" key="WorkingDay"
-															val="只工作日送货(双休日、假日不配送)"> 只工作日送货(双休日、假日不配送) </a> <a
-															href="javascript:;" key="WorkingRestDay"
-															val="工作日、双休日与假日均可送货"> 工作日、双休日与假日均可送货 </a> <a
-															href="javascript:;" key="RestDay" val="只双休日、假日送货(工作日不配送)">
-															只双休日、假日送货(工作日不配送) </a>
-													</div>
 												</div>
 											</div></li>
 									</ul>
 									<div class="btn clearfix">
-										<input class="save" value="保存新地址" id="saveAddress"
-											type="button" onClick="addAddress()">
+										<input class="save" value="保存新地址" id="saveAddress" type="submit"/>
+										<c:if test="${not empty sessionScope.sessionError}">
+											<label style="color: red">${sessionScope.sessionError}</label>
+										</c:if>
 									</div>
 								</div>
-								<div class="allAddress"></div>
-							</div>
+									<div class="allAddress"></div>
+							</form>
 							<!-- 配送地址结束 -->
 
 							<!-- 购物车显示开始 -->
@@ -185,10 +187,10 @@
 				</div>
 			</div>
 	</div>
-	</form>
+	</div>
 	<button
 		style="float: right; margin-right: 80px; background-color: red; color: white; width: 100px; height: 30px; font-weight: bold;"
 		onClick="tijiao()">提交订单</button>
-	<p id="osid" style="display: nonoe;">${order.osid }</p>
+	<p id="osid" style="display: nonoe;">${orderInfos.osid }</p>
 </body>
 </html>

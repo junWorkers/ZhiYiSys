@@ -19,7 +19,7 @@ public class LoginInterceptor extends MethodFilterInterceptor{
 		Map<String,Object> session=ActionContext.getContext().getSession();   //取到session的封装类
 		Object obj=session.get("loginManager");
 		if(obj == null){
-			session.put("errorMsg", "请登录后在进行操作...");
+			session.put("errorMsg", "请登录后再进行操作...");
 			return "login";
 		}
 		return invation.invoke();

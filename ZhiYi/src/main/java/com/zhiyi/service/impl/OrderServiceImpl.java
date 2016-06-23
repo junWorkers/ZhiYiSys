@@ -116,4 +116,24 @@ public class OrderServiceImpl implements OrderService {
 		params.put("max", Integer.parseInt(page) * Integer.parseInt(rows));
 		return orderMapper.finds1(params);
 	}
+
+	@Override
+	public int addOrders(Order order) {
+		return orderMapper.addOrders(order);
+	}
+
+	@Override
+	public int finds(Order order) {
+		return orderMapper.findzzz(order);
+	}
+
+	@Override
+	public int addOrderInfoss(Map<String, Object> map) {
+		return orderMapper.addOrdersInfo(map);
+	}
+
+	@Override
+	public List<Order> findOrderInfo(int i) {
+		return orderMapper.findOrderInfo(i);
+	}
 }

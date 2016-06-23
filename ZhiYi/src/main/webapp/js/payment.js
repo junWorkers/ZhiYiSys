@@ -1,11 +1,4 @@
-$(function(){
-	
-	//demo04
-	$("#city_4").citySelect({
-    	
-	}); 
-	
-});
+
 
 function checkConsignee(){
 	var consignee=document.getElementById('consignee').value;
@@ -81,6 +74,10 @@ function checkMobile(){
 
 
 $(function(){
+	$("#city_4").citySelect({
+    	
+	}); 
+	
 	var info='';
 	var goods=window.localStorage.getItem('goods');
 	goods=JSON.parse(goods);
@@ -106,35 +103,34 @@ $(function(){
 		total+=price*num;
 	}
 	document.getElementById('productAmount').innerHTML='￥'+total;
+	
+	$.ajax({
+		type:"POST",
+		url:"receive_findAddressInfo.action",
+		dataType:'JSON',
+		success : function(data) {
+			var str='';
+			document.getElementById("addr").innerHTML=str;
+			for ( var i = 0; i < data.length; i++) {
+				var item = data[i];
+				str+="<div onclick='bianse("+i+")' class='allAddress'><div regionid='126' class='subHd' flag='535017' id='a"+i+"'>" +
+						"<div class='subHd-div checked'></div><p class='fl'></p><div class='name'>"+item.rname+"</div>" +
+						"<div><span class='myAddress'>"+item.address+"</span>"+item.xaddress+"<span class='yb'></span></div><div class='tel'>电话:"+item.phone+"&nbsp;<a style='display:none;'  id='rid'>"+item.rid+"</a></div>" +
+						"<p></p><div class='allAddress-btn'><span flag='535017' class='remove' onClick='deletes()'>删除</span></div></div></div>";
+				document.getElementById("addr").innerHTML=str;
+			}
+		}
+	});
 });
 
-
-function addAddress(){
-	var usid=$("#usid").text();
-	var rname=$("#consignee").val();  //收件人
-	var prov=$(".prov").val();
-	var citys=$(".citys").val();
-	var dist=$(".dist").val();
-	
-	var address=prov+citys+dist;
-	
-	var xaddress=$("#address").val();
-	console.info(xaddress);
-	var zip=$("#zipcode").val();	//邮编
-	var phone=$("#phone").val();	//手机
-	var rtime=$("#time option:selected").text();	//配送时间
-	
-	
-	if(checkConsignee()==true && checkAddress()==true && checkZipcode()==true && checkMobile()==true){
-		$.post("receiveServlet?t="+new Date(),{op:"addAddressInfo",usid:usid,rname:rname,address:address,xaddress:xaddress,zip:zip,phone:phone,rtime:rtime},function(data){
-			data=parseInt($.trim(data));
-			if(data==1){
-				console.info("地址添加成功");
-				window.location.href="front/payment.jsp";
-			}else{
-				console.info("地址添加失败");
-			}
-		});
+function bianse(d){
+	var a=document.getElementsByClassName('allAddress');
+	for(var i=0;i<a.length;i++){
+		if(i==d){
+			$("#a"+i+"").attr('class','cas');
+		}else{
+			$("#a"+i+"").attr('class','subHd');
+		}
 	}
 }
 
@@ -148,43 +144,15 @@ function others(){
 }
 
 
-$(function(){
-	$.ajax({
-		type:"POST",
-		url:"receiveServlet?d="+new Date(),
-		data:{op:'findAddressInfo'},
-		dataType:'JSON',
-	
-		success : function(data) {
-			var str='';
-			for ( var i = 0; i < data.rows.length; i++) {
-				
-				var item = data.rows[i];
-				str+="<div class='allAddress'><div regionid='126' class='subHd' flag='535017' id='li_535017'>" +
-						"<div class='subHd-div checked'></div><p class='fl'></p><div class='name'>"+item.rname+"</div>" +
-						"<div><span class='myAddress'>"+item.address+"</span>"+item.xaddress+"<span class='yb'></span></div><div class='tel'>电话:"+item.phone+"&nbsp;<a style='display:none;'  id='rid'>"+item.rid+"</a></div>" +
-						"<p></p><div class='allAddress-btn'><span flag='535017' class='remove' onClick='deletes()'>删除</span></div></div></div>";
-				document.getElementById("addr").innerHTML=str;
-			}
 
-		}
-	});
-	
-});
-
-function deletes(d){
+function deletes(){
 	var rid=$("#rid").text();
-	console.info(rid);
 	var r=confirm("您确定删除此地址吗？");
 	if(r==true){
-		$.post("receiveServlet",{op:"delAddressInfo",rid:rid},function(data){
-			if(data==1){   //删除成功
-				console.info("删除成功");
-				window.location.href="front/payment.jsp";
-			}else{
-				console.info("删除失败");
-			}
-		});
+		location.href="receive_delAddressInfo?rid="+rid;
+		/*$.post("",{rid:rid}
+			
+		);*/
 	}else{
 		window.location.href="front/payment.jsp";
 	}
@@ -192,40 +160,57 @@ function deletes(d){
 }
 
 function tijiao(){
-	var usid=$("#usid").text(); 
+	var usid=$("#usidss").val(); 
 	var gpid=window.localStorage.getItem('gpid');
 	gpid=parseInt(gpid);
 	var num=$("#num").text();
 	var color=window.localStorage.getItem('color');
+	console.info(usid+" " +gpid+" "+num+" "+color)
 	
-	$.post("orderServlet?t="+new Date(),{op:"addOrders",usid:usid,gpid:gpid,num:num,color:color},function(data){
+		
+	/*$.post("order_addOrders.action",{usid:usid,gpid:gpid,num:num,color:color},function(data){
+		alert(data)
 		data=parseInt($.trim(data));
 		if(data==1){
 			window.localStorage.clear();
 			console.info("订单添加成功");
+			alert("成功1")
 		}else{
 			console.info("订单添加失败");
 		}
-	});
-	
-	var osid=$("#osid").text();
+	},"json");*/
 	var onum=parseInt(num);
-	
 	var price=parseInt(window.localStorage.getItem('phoneprice'));
 	var money=price*onum;
-	
+	$.post("order_addOrders.action",{usid:usid,gpid:gpid,num:num,color:color,onum:onum,price:price,money:money},function(data){
+		data=parseInt($.trim(data));
+		if(data==1){
+			window.localStorage.clear();
+			console.info("订单添加成功");
+			window.location.href="front/person.jsp";
+		}else{
+			console.info("订单添加失败");
+		}
+	},"json");
+	/*var osid=$("#osid").text();
+	var onum=parseInt(num);
+	//alert(osid);
+	var price=parseInt(window.localStorage.getItem('phoneprice'));
+	var money=price*onum;
 	if(osid!=null){
-		$.post("orderServlet?t="+new Date(),{op:"addOrderInfo",osid:osid,gpid:gpid,onum:onum,price:price,money:money},function(datas){
-			datas=parseInt($.trim(datas));
-			if(datas==1){
+		$.post("order_addOrderInfo",{osid:osid,gpid:gpid,onum:onum,price:price,money:money},function(data){
+			alert(data)
+			data=parseInt($.trim(data));
+			if(data==1){
+				alert("成功2")
 				window.location.href="front/person.jsp";
 				window.localStorage.clear();
 				console.info("订单添加成功");
 			}else{
 				console.info("订单添加失败");
 			}
-		});
-	}
+		},"json");
+	}*/
 }
 
 

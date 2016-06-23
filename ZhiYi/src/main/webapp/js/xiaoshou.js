@@ -230,3 +230,53 @@ function change11(num){
 	}
 }
 
+$(function(){
+	var usidss=$("#usidss").val(); 
+	$.ajax({
+		type:"POST",
+		url:"order_showOrderInfo.action",
+		dataType:'JSON',
+		data:{usid:usidss},
+		success : function(data) {
+			var strs='';
+			for ( var i = 0; i < data.length; i++) {
+				var item = data[i];
+				strs+="<tr><td>"+item.osid+"</td><td><div>"+item.rname+"</div></td><td><div>"+item.gname+"</div></td>" +
+						"<td><div>"+item.money+"</div></td><td><div>"+(item.xdate).substring(0,11)+"</div></td><td><div><a onClick='drop("+i+")'>删除</a></div></td></tr>";
+			}
+			document.getElementById("tbody").innerHTML=strs;
+		}
+	});
+});
+
+function drop(d){
+	var tr=$("#tbody tr");
+	for(var i=0;i<tr.length;i++){
+		if(i==d){
+			var osid=document.getElementById('tbody').getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerHTML;
+			var s=confirm("您确定删除此订单吗？");
+			if(s==true){
+				$.post("order_delOrders",{osid:osid},function(data){
+					if(data==1){   //删除成功
+						console.info("删除成功");
+						window.location.href="front/person.jsp";
+					}else{
+						console.info("删除失败");
+					}
+				},"json");
+				
+				$.post("orderServlet",{op:"delOrderInfo",osid:osid},function(data){
+					if(data==1){   //删除成功
+						console.info("删除成功");
+						
+					}else{
+						console.info("删除失败");
+					}
+				});
+			}
+		}
+	}	
+}
+
+
+
