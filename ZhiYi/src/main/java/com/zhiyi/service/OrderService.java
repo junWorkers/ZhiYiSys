@@ -39,4 +39,8 @@ public interface OrderService {
 	int addOrderInfoss(Map<String, Object> map);
 
 	List<Order> findOrderInfo(int i);
+
+	int delOrderService(int osid);
+
+	int delOServices(int osid);
 }

@@ -27,4 +27,13 @@
 		</div>
 	</div>
 </div>
+<script>
+function loginOut(){
+	if(window.confirm('您确定要注销登录吗？')){
+		var str='<li><a href="register.jsp">注册</a></li>';
+		str+='<li><a href="login.jsp">登录</a></li>';
+		$(".fa-right").html(str);
+}
+}
 
+</script>

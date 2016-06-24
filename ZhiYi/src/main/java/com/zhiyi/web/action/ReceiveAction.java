@@ -36,11 +36,18 @@ public class ReceiveAction implements ModelDriven<Receive>,SessionAware{
 		return "addAddressInfo";
 	}
 	
+	public String addAddressInfos(){
+		int result=receiveServie.addAddress(receive);
+		if(result==0){
+			session.put("sessionError","地址添加失败");
+		}
+		return "addAddressInfos";
+	}
+	
 	public String findAddressInfo(){
 		addressInfo=receiveServie.find(receive.getUsid());
 		return "findAddressInfo";
 	}
-	
 	public String delAddressInfo(){
 		int rid=receive.getRid();
 		int result=receiveServie.delAddressInfo(rid);
@@ -48,6 +55,15 @@ public class ReceiveAction implements ModelDriven<Receive>,SessionAware{
 			session.put("sessiondelError","地址删除失败");
 		}
 		return "addAddressInfo";
+	}
+	
+	public String delAddressInfos(){
+		int rid=receive.getRid();
+		int result=receiveServie.delAddressInfo(rid);
+		if(result==0){
+			session.put("sessiondelError","地址删除失败");
+		}
+		return "addAddressInfos";
 	}
 	@Override
 	public Receive getModel() {

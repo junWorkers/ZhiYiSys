@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<div class="section">
 			<div class="title">
-				<c:forEach items="${goodsaaaa}" var="item">
+				<c:forEach items="${pei}" var="item">
 					<c:if test="${item.giattribute eq '配件'}">
 						<c:if test="${item.giposition eq 3 }">
 							<h2>${item.giname }薄致用 彩倾心</h2>
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:forEach>
 	</div>
 	<div class="nb-stage s1 return start">
-		<c:forEach items="${goodsaaaa}" var="item">
+		<c:forEach items="${pei}" var="item">
 			<c:if test="${item.giattribute eq '配件'}">
 				<c:if test="${item.giposition eq 4 }">
 					<div class="section">
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="nb-stage s2" onMouseOver="mouseover()">
 		<div class="index-s2-video">
-			<c:forEach items="${goodsaaaa}" var="item">
+			<c:forEach items="${pei}" var="item">
 				<c:if test="${item.giattribute eq '配件'}">
 					<c:if test="${item.giposition eq 5}">
 						<video id="video">
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="nb-stage s4" onMouseOver="gundong()">
 		<div class="section">
-			<c:forEach items="${goodsaaaa}" var="item">
+			<c:forEach items="${pei}" var="item">
 				<c:if test="${item.giattribute eq '配件'}">
 					<c:if test="${item.giposition eq 6}">
 						<div class="title">
@@ -163,7 +163,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="nbp-goods-btn">
 					<a href="#">立即购买</a>
-					<p style="display: none; color: red; margin-top: 5px;">库存不足</p>
 				</div>
 			</div>
 		</div>

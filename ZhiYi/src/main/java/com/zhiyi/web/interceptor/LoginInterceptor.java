@@ -17,10 +17,10 @@ public class LoginInterceptor extends MethodFilterInterceptor{
 	@Override
 	protected String doIntercept(ActionInvocation invation) throws Exception {
 		Map<String,Object> session=ActionContext.getContext().getSession();   //取到session的封装类
-		Object obj=session.get("loginManager");
+		Object obj=session.get("users");
 		if(obj == null){
-			session.put("errorMsg", "请登录后在进行操作...");
-			return "login";
+			session.put("errorMsgsss", "请登录后再进行操作...");
+			return "fail";
 		}
 		return invation.invoke();
 	}

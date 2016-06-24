@@ -82,9 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </a></li> 
         </ul>
     </div>
-    <li style="display: none"><div class="inputBg">
-		<input name="usid" type="text" id="usidss" value="${users.usid }"/> 
-			</div></li>
+
     <div id="services-content">
    		
         <div class="con" id="cons1" style="display:block">
@@ -151,82 +149,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											style="background-color:#E8380D; color:#fff;border-radius: 24px; font-size: 16px;"
 											class="save" value="添加新地址" id="otherAddress" type="button" onClick="newAddr()">
 									</div>
-									<div style="display: block;margin-left:100px; margin-top:100px;" id="newAddress" class="newAddress">
-										<ul>
-											<li><label>收件人:</label>
-												<div class="inputBg">
-													<input name="consignee" id="consignee" class="required" type="text" onBlur="checkConsignee()">
-													<a id="cons"></a>
-												</div>
-											</li>
+									<form id="dizhixinxi" action="receive_addAddressInfos.action" method="get">
+									<div style="display: none;margin-left:100px; margin-top:100px;" id="newAddress" class="newAddress">
+									<ul>
+									    <li style="display: none"><div class="inputBg">
+										<input name="usid" type="text" id="usidss" value="${users.usid }"/> 
+											</div></li>
+										<li><label>收件人:</label>
+											<div class="inputBg">
+												<input name="rname" id="consignee" class="required"
+													type="text"  onBlur="checkConsignee()"> <a id="cons"></a>
+											</div></li>
 
-											<li>
-												<label>省份:</label>
-												<div class="inputBg">
-													<div id="city_4">
-														<select class="prov"></select>
-														<select class="citys"></select>
-														<select class="dist"></select>
-													</div>
+										<li><label>省份:</label>
+											<div class="inputBg">
+												<div id="city_4">
+													<select class="prov" name="prov"></select> <select class="citys" name="citys"></select>
+													<select class="dist" name="dist"></select>
 												</div>
-											</li>
+											</div></li>
 
-											<li><label>收货地址：</label><span id="selectedRegionNames"
-												class="fl"></span>
-												<div class="inputBg">
-													<p id="shenshiqu"></p>
-													<input class="required" name="address" id="address" size="40" type="text" onBlur="checkAddress()" onfocus="getAddress()">
-													<a id="addrs"></a>
-												</div>
-											</li>
-											
-											<li><label>邮编：</label>
-												<div class="inputBg">
-													<input maxlength="6" class="required validate-zipcode" name="zipcode" id="zipcode" type="text" onBlur="checkZipcode()">
-													<a id="zip"></a>
-												</div>
-											</li>
-											
-											<li><label>手机：</label>
-												<div class="inputBg">
-													<input class="validate-mobile" name="mobile" id="phone" type="text" onBlur="checkMobile()">
-													<a id="mob"></a>
-												</div>
-											</li>
-											
-											<li><label>配送时间：</label>
-												<div class="delStyle">
-													<div class="disFixBg">
+										<li><label>收货地址：</label><span id="selectedRegionNames"
+											class="fl"></span>
+											<div class="inputBg">
+												<p id="shenshiqu"></p>
+												<input class="required" name="xaddress" id="address"
+													size="40" type="text" onBlur="checkAddress()"
+													onfocus="getAddress()"> <a id="addrs"></a>
+											</div></li>
 
-														<!--显示所有城市时class="disFixBg selected"-->
-														<!--div class="delivery">
+										<li><label>邮编：</label>
+											<div class="inputBg">
+												<input maxlength="6" class="required validate-zipcode"
+													name="zip" id="zipcode" type="text"
+													onBlur="checkZipcode()"> <a id="zip"></a>
+											</div></li>
+
+										<li><label>手机：</label>
+											<div class="inputBg">
+												<input class="validate-mobile" name="phone" id="phone"
+													type="text" onBlur="checkMobile()"> <a id="mob"></a>
+											</div></li>
+
+										<li><label>配送时间：</label>
+											<div class="delStyle">
+												<div class="disFixBg">
+
+													<!--显示所有城市时class="disFixBg selected"-->
+													<!--div class="delivery">
                                                         <input class="" type="text" readonly="readonly" value="只工作日配送（工作日双休日不配送）" id="shipText"/>
                                                         <span class="btnSelected" id="shipTime">下拉按钮</span>
                                                         <input type="hidden" name="shippingTime" id="shippingTime" value="WorkingDay" />
                                                     </div-->
-														<select name="shippingTime" id="time">
-															<option selected="selected" value="WorkingDay">
-																只工作日送货(双休日、假日不配送)</option>
-															<option value="WorkingRestDay">工作日、双休日与假日均可送货</option>
-															<option value="RestDay">只双休日、假日送货(工作日不配送)</option>
-														</select>
-														<div class="allStyle" style=" display:none;">
-															<a href="javascript:;" key="WorkingDay"
-																val="只工作日送货(双休日、假日不配送)"> 只工作日送货(双休日、假日不配送) </a> <a
-																href="javascript:;" key="WorkingRestDay"
-																val="工作日、双休日与假日均可送货"> 工作日、双休日与假日均可送货 </a> <a
-																href="javascript:;" key="RestDay"
-																val="只双休日、假日送货(工作日不配送)"> 只双休日、假日送货(工作日不配送) </a>
-														</div>
-													</div>
+													<select name="rtime" id="time">
+														<option selected="selected" value="WorkingDay">
+															只工作日送货(双休日、假日不配送)</option>
+														<option value="WorkingRestDay">工作日、双休日与假日均可送货</option>
+														<option value="RestDay">只双休日、假日送货(工作日不配送)</option>
+													</select>
 												</div>
-											</li>
-										</ul>
+											</div></li>
+									</ul>
 										<div class="btn clearfix">
 											<input class="save" value="保存新地址" id="saveAddress"
-												type="button" onClick="addAddress()">
-										</div>
+												type="submit">
+										</div></div>
+											</form>
 									</div>	</div>
+								
+								
 </div>
 
 

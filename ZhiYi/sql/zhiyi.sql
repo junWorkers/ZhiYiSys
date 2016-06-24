@@ -553,6 +553,20 @@ select * from host;
 drop table host;
 drop sequence seq_host_pid;
 --------------------------------------------------------------------------
+
+
+create table zhongxing(
+	adds varchar2(20),
+	lat varchar2(100),
+	lon varchar2(100),
+	city varchar2(100)
+)
+select * from 
+select * from exstore e,zhongxing z where e.province=z.adds 
+insert into zhongxing values('湖南',26.886488,112.691186,111);
+insert into zhongxing values('江苏',32.046992,118.790255,333);
+insert into zhongxing values('湖北',30.585532,114.278007,111);
+drop table zhongxing
 DROP TABLE "SCOTT"."USERSB";
 CREATE TABLE USERSB (
 ID VARCHAR2(32 CHAR) NOT NULL ,
@@ -576,11 +590,15 @@ STATUS NUMBER(10) NOT NULL ,
 TEL VARCHAR2(255 CHAR) NULL ,
 UNAME VARCHAR2(255 CHAR) NULL 
 )
-
+select *　from goods where gposition=20
+delete from receive
+delete from orderInfo
+delete from orders
 select * from usersb;
-select * from orders;
+select * from receive;
+delete from receive where rid=1127
+delete from orders where osid=1103
 select os.osid,re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and  re.status=1
 orders receive goods orderInfo
 select f.gname,os.osid,re.rname
-select * from receive
-(select gs.gname,gp.gpid from goods gs,goodsPar gp where gs.gid=gp.gid) f
+select distinct(os.osid),re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and os.available3=re.rid and re.status=1

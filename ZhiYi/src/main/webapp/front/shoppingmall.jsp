@@ -23,6 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
 
+
+
 function shishis(gids){
 	//var gid=$("#gid+'"+gid+"'").html();
 	var gid=document.getElementById("gid"+gids).innerHTML;
@@ -151,12 +153,14 @@ $(function(){
 								<c:if test="${item.tid eq sessionScope.types[0].tid}">
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
-											href="goods_sgbid?gid=${item.gid}" onclick="shishis(${item.gid})">
+										href="goods_sgbid?gid=${item.gid}" onclick="shishis(${item.gid})">
+
 											<div class="figure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
 											<p id="gname${item.gid }">${item.gname }</p>
 											<label id="gid${item.gid }" style='display: none'>${item.gid }</label>
+
 										</a>
 									</c:if>
 								</c:if>

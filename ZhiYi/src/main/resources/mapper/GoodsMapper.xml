@@ -178,7 +178,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=#{id} and giattribute in ('概述','设计','拍照','技术规格','配件')
 	</select>
 	
-	
+	<select id="findPeijian" parameterType="int" resultType="GoodsInfo">
+			select giname,gisketck,gipath,giattribute,giposition,sataus1 from goodsInfo where gid=#{id} and giattribute='配件'
+	</select>
 	<select id="findContentss" parameterType="int" resultType="Goods">
 		select gid,gname,price from goods where gid=#{id}
 	</select>

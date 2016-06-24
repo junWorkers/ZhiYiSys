@@ -269,5 +269,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsMapper.findContent5(map);
 	}
 
+	@Override
+	public List<Goods> showGoodsByIds(int gid) {
+		return goodsMapper.findPeijian(gid);
+	}
+
 	
 }

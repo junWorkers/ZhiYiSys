@@ -136,4 +136,14 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> findOrderInfo(int i) {
 		return orderMapper.findOrderInfo(i);
 	}
+
+	@Override
+	public int delOrderService(int osid) {
+		return orderMapper.delOrderService(osid);
+	}
+
+	@Override
+	public int delOServices(int osid) {
+		return orderMapper.delOrder(osid);
+	}
 }

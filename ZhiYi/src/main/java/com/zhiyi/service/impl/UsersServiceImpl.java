@@ -118,4 +118,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.updatepwdByEmail(users);
 	}
 
+	@Override
+	public int updatepwd(Users users) {
+		return usersMapper.updatepwd(users);
+	}
+
 }

@@ -22,20 +22,24 @@
 <link href="css/experienceStore.css" rel="stylesheet" type="text/css">
 <link rel="short icon" href="images/logomin.jpg" />
 <!--小图标-->
+<script type="text/javascript">
 
+</script>
 </head>
 
 <body>
 	<%@include file="header.jsp"%>
 	<div class="bg-store"></div>
-
 	<div id="tiyan" class="experstore-layer cl" style="display: block;">
 
 		<div style="display: block;" class="cl experstore-layer-area">
 			<div class="experstore-sw-tab">
 				<ul>
-					<li class="current" lat="32.046992" lon="118.790255" city="1554">
-						<a>南京东方商城店<b class="nb-----ico"></b> </a>
+					<li class="current" lat="${tititi.lat}" lon="${tititi.lon}" >
+						<a>${tititi.address }<b class="nb-----ico"></b> </a>
+						<p id="aa" style="display:none">${tititi.province }</p>
+						<p id="bb" style="display:none">${tititi.lat}</p>
+						<p id="cc" style="display:none">${tititi.lon}</p>
 					</li>
 				</ul>
 
@@ -43,13 +47,19 @@
 					style="display:block; width:760px; height:400px;"></div>
 
 				<script type="text/javascript">
+					 var z=document.getElementById("aa").innerHTML;
+					  var x=document.getElementById("bb").innerHTML;
+					   var y=document.getElementById("cc").innerHTML;
+					   
 					var map = new BMap.Map("container1"); // 创建地图实例
-					var point = new BMap.Point(118.790255, 32.046992); // 创建中心点坐标
+					var point = new BMap.Point(y, x); // 创建中心点坐标
 					map.centerAndZoom(point, 15); // 初始化地图，设置中心点坐标和地图级别
 					map.addControl(new BMap.NavigationControl());//地图平移缩放控件
 					map.addControl(new BMap.MapTypeControl());//地图类型控件，默认位于地图右上方
-					map.setCurrentCity("江苏"); // 仅当设置城市信息时， MapTypeControl 的切换功能才能可用
+					map.setCurrentCity(z); // 仅当设置城市信息时， MapTypeControl 的切换功能才能可用
 					map.addControl(new BMap.ScaleControl());//比例尺控件，默认位于地图左下方，显示地图的比例关系。
+					
+				
 				</script>
 			</div>
 
@@ -62,21 +72,22 @@
 					<dl>
 						<dd class="add cl">
 							<img src="images/icon3.png" /><label>地址：</label>
-							<p>新街口东方商城六楼</p>
+							<p>${tititi.stname }</p>
+							<p id="aa" style="display:none">${tititi.province }</p>
 						</dd>
 						<dd class="tel">
 							<img src="images/icon4.png" /><label>电话：</label>
-							<p>025-84784127</p>
+							<p>${tititi.phone }</p>
 						</dd>
 						<dd class="time">
 							<img src="images/icon6.png" /><label>服务时间：</label>
 							<p>
-								<span>周1--周日10：00---22:00</span>
+								<span>${tititi.etime }</span>
 							</p>
 						</dd>
 						<dd class="traf">
 							<img src="images/icon7.png" /><label>前往方法：</label>
-							<p></p>
+							<p>${tititi.pattern }</p>
 						</dd>
 						<dd class="servise">
 							<img src="images/icon8.png" /><label>服务支持：</label>
@@ -85,7 +96,7 @@
 							<img src="images/icon9.png" />
 						</dd>
 						<dd class="pri">
-							<label>预约</label>
+							<label onclick="ok()">预约</label>
 						</dd>
 					</dl>
 				</li>

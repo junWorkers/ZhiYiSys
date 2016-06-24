@@ -53,18 +53,36 @@
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">
+		<!-- 拦截器的声明 -->
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.zhiyi.web.interceptor.LoginInterceptor"/>
+			<!-- 定义拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="loginInterceptor">
+					<param name="includeMethods">findjuti</param>   <!-- 要过滤的请求方法 -->
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
 
 	<global-allowed-methods>login,findpic,checkUserName,yanzheng,register,UpdatePwd,CheckPwd,
 	SendYZM,CheckEmail,findAllType,findContent,updateByEmail,updateAdminPwd,checkOldPwd,sgbid,findjuti,showGoodsGpid,addAddressInfo,findAddressInfo
-	,delAddressInfo,addOrders,addOrderInfo,showOrderInfo,delOrders
+	,delAddressInfo,addOrders,addOrderInfo,showOrderInfo,delOrders,addAddressInfos,delAddressInfos,updateUsers,chaxunInfo,chaInfo
+	,chaxunxinxi,showfind
 	</global-allowed-methods>
 		<action name="*_*" class="{1}Action" method="{2}">
+			
+			<interceptor-ref name="myStack"/> 
+					
 			<result name="login">/front/index.jsp</result>
 			<result name="fail">login.jsp</result>
 			<result name="sgbid">/front/summarize.jsp</result>
 			<result name="findjuti">/front/productpackage.jsp</result>
 			<result name="showGoodsGpid">/front/shoppingCart.jsp</result>
 			<result name="addAddressInfo">/front/payment.jsp</result>
+			<result name="addAddressInfos">/front/person.jsp</result>
+			<result name="chaInfo">/front/experienceStore1.jsp</result>
+			<result name="showfind">/front/xuncai.jsp</result>
 			<!-- Users类型的 -->
 			<result name="UsersType" type="json">
 				<param name="root">usersType</param>
@@ -93,6 +111,9 @@
 			</result>
 			<result name="showOrderInfo" type="json">
 				<param name="root">orderInfo</param>
+			</result>
+			<result name="chaxunInfo" type="json">
+				<param name="root">store</param>
 			</result>
 		</action>
 		

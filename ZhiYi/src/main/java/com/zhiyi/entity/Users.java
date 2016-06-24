@@ -27,7 +27,15 @@ public class Users implements Serializable {
 	private String email;       //email
 	private String ppoint;      //积分
 	private int status;      //状态
+	private String oldpwd;
 	
+	
+	public String getOldpwd() {
+		return MD5Encryption.createPassword(oldpwd);
+	}
+	public void setOldpwd(String oldpwd) {
+		this.oldpwd = oldpwd;
+	}
 	public int getUsid() {
 		return usid;
 	}

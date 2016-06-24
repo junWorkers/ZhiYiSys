@@ -115,7 +115,17 @@ public class OrderAction implements ModelDriven<Order>,SessionAware{
 	}
 	
 	public String delOrders(){
-		return "delOrders";
+		int osid=order.getOsid();
+		if(orderService.delOrderService(osid)>0){
+			if(orderService.delOServices(osid)>0){
+				chenggong=1;
+			}else{
+				chenggong=0;
+			}
+		}else{
+			chenggong=0;
+		}
+		return "addOrders";
 	}
 	/*public String addOrderInfo(){
 		System.out.println(osids);

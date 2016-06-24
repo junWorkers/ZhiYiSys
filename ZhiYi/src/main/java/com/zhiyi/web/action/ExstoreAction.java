@@ -1,6 +1,11 @@
 package com.zhiyi.web.action;
 
+import java.util.List;
+
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -9,13 +14,23 @@ import com.zhiyi.beans.JsonObject;
 import com.zhiyi.entity.Exstore;
 import com.zhiyi.service.ExstoreService;
 @Controller("exstoreAction")
-public class ExstoreAction implements ModelDriven<Exstore>{
+public class ExstoreAction implements ModelDriven<Exstore>,SessionAware{
 	@Autowired
 	private ExstoreService exstoreService;
 	private JsonObject<Exstore> jsonObject;
 	private Exstore exstore;
+	private List<Exstore> store;
 	private  String page;
 	private String rows;
+	private Map<String, Object> session;
+
+	public List<Exstore> getStore() {
+		return store;
+	}
+
+	public void setStore(List<Exstore> store) {
+		this.store = store;
+	}
 
 	public String getPage() {
 		return page;
@@ -62,9 +77,25 @@ public class ExstoreAction implements ModelDriven<Exstore>{
 		return "success";
 	}
 	
+	
+	public String chaxunInfo(){
+		store=exstoreService.findStore();
+		return "chaxunInfo";
+	}
+	
+	public String chaInfo(){
+		exstore=exstoreService.findsoreByid(exstore.getEid());
+		session.put("tititi", exstore);
+		return "chaInfo";
+	}
 	@Override
 	public Exstore getModel() {
 		this.exstore=new Exstore();
 		return exstore;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 }

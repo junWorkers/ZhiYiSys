@@ -31,4 +31,6 @@ public interface UsersService {
 
 	int updatepwdByEmail(Users users);
 
+	int updatepwd(Users users);
+
 }

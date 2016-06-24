@@ -122,11 +122,21 @@ public class UsersAction implements ModelDriven<Users>,SessionAware{
 		return "login";
 	}
 
+	public String updateUsers(){
+		if(usersService.updatepwd(users)>0){
+			intType=1;
+		}else{
+			intType=0;
+		}
+		return "IntType";
+	}
 	@Override
 	public Users getModel() {
 		this.users =new Users();
 		return users;
 	}
+	
+	
 
 	@Override
 	public void setSession(Map<String, Object> session) {

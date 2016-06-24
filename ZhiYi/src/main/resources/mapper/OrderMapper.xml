@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<selectKey keyProperty="osid" keyColumn="curried" order="BEFORE" resultType="int">
  			select seq_order_osid.nextval curried from dual
  		</selectKey>
-		insert into orders values(#{osid},#{usid},'陈姿',#{gpid},1,to_date(#{xdates},'yyyy-MM-dd'),to_date(#{ddates},'yyyy-MM-dd'),null,null,null,null,#{num},#{color},null)
+		insert into orders values(#{osid},#{usid},'陈姿',#{gpid},1,to_date(#{xdates},'yyyy-MM-dd'),to_date(#{ddates},'yyyy-MM-dd'),null,null,null,null,#{num},#{color},#{rid})
 	</insert> 
 	
 	<insert id="addOrdersInfo" parameterType="map">
@@ -109,6 +109,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select> 
 	
 	<select id="findOrderInfo" resultType="Order" parameterType="int">
-		select distinct(os.osid),re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and re.status=1 and os.usid=#{usid} 
+		select distinct(os.osid),re.rname,gs.gname,oi.money,os.xdate from goodsPar gp,goods gs,receive re,orders os,orderInfo oi where gp.gid=gs.gid and gp.gpid=os.gpid and gp.gpid=oi.gpid and os.gpid=oi.gpid and os.osid=oi.osid and os.usid=re.usid and os.available3=re.rid and re.status=1 and os.usid=#{usid} 
 	</select>
+	
+	<delete id="delOrderService" parameterType="int">
+		delete from orderInfo where osid=#{osid}
+	</delete>
+	
+	<delete id="delOrder" parameterType="int">
+		delete from orders where osid=#{osid}
+	</delete>
 </mapper>

@@ -27,4 +27,8 @@ public interface OrderMapper {
 
 	List<Order> findOrderInfo(int i);
 
+	int delOrderService(int osid);
+
+	int delOrder(int osid);
+
 }

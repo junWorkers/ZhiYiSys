@@ -62,11 +62,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="login-l">
 				<form action="users_login" method="post" id ="login_form">
 					<input type="hidden" name="form_tag" id="form_tag" value="">
-					<c:if test="${not empty sessionScope.errorMsg}">
-							<div style="color: red;font-size: 20px">${sessionScope.errorMsg}</div>
+					<c:if test="${not empty sessionScope.errorMsgsss}">
+							<div style="color: red;font-size: 20px">${sessionScope.errorMsgsss}</div>
                 		
                 	</c:if>
-                	<c:if test="${empty sessionScope.errorMsg}">
+                	<c:if test="${empty sessionScope.errorMsgsss}">
                 		  <div class="login-h1">登录到您的帐户</div>
                 	</c:if>
 					
@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<dl>
 						<span class="u u2019"><img src="images/register.png" /></span>
 						<dt>您没有一个帐户</dt>
-						<dd><a href="register.html">现在注册</a></dd>
+						<dd><a href="register.jsp">现在注册</a></dd>
 					</dl>
 					<dl>
 						<span class="u u1819"><img src="images/lose.png" /></span>

@@ -83,4 +83,14 @@ public class ExstoreServiceImpl implements ExstoreService {
 		return jsonObject;
 	}
 
+	@Override
+	public List<Exstore> findStore() {
+		return exstoreMapper.findStore();
+	}
+
+	@Override
+	public Exstore findsoreByid(int eid) {
+		return exstoreMapper.findStoreById(eid);
+	}
+
 }

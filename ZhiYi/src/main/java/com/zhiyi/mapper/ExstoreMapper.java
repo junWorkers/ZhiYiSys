@@ -17,6 +17,10 @@ public interface ExstoreMapper {
 
 	int updateExstoreInfo(Exstore exstore);
 
+	List<Exstore> findStore();
+
+	Exstore findStoreById(int eid);
+
 
 	
 }

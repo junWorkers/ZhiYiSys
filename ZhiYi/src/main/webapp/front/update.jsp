@@ -53,10 +53,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<dl class="clearfix1">
 							<dt class="dt_l">当前密码：</dt>
 							<dd class="dd_r clearfix1">
-								<input id="txtPwd" class="input_kuang new_width item errortip" type="password" name="oldpassword" isrequired="true">
+								<input id="txtPwd" class="input_kuang new_width item errortip" type="password" name="oldpassword" isrequired="true"/>
 								<span class="check_tips empty_tip"></span>
 								<span class="check_tips error_tip"></span>
 							</dd>
+							<span id="anameNeed" style="display: none">${users.uname}</span>
 							<dt class="dt_l clearfix1">新密码：</dt>
 							<dd id="pwdTd" class="dd_r clearfix1 dd_r_pos">
 								<input id="pwd" class="input_kuang new_width item errortip" type="password" name="password" isrequired="true">
@@ -109,21 +110,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 	
-	var user=$("#anameNeed").html();
-	
 	function pwdUpdate(){
-		var aname = user;
+		var uname = $("#anameNeed").html();
 		var oldpwd = $.trim($("#txtPwd").val());
-		var newpwd = $.trim($("#pwd").val());
+		var pwd = $.trim($("#pwd").val());
 		var pwdagain = $.trim($("#pwd_repeat").val());
-		
-		if(oldpwd!="" && newpwd!="" && pwdagain!=""){
-			if (pwdagain == newpwd && newpwd != "" && newpwd != null) {
-		       
-				$.post("usersServlet?d="+new Date(),{op:"pwdUpdate",newpwd:newpwd,aname:aname,oldpwd:oldpwd},function(data){
+		alert(uname+" "+pwd+" "+oldpwd+" "+pwdagain);
+		if(oldpwd!="" && pwd!="" && pwdagain!=""){
+			if (pwdagain == pwd && pwd != "" && pwd != null) {
+				$.post("users_updateUsers",{pwd:pwd,uname:uname,oldpwd:oldpwd},function(data){
 					if(parseInt($.trim(data))==1){
 						alert("修改成功，请重新登录");
-						location.href="login.html";
+						location.href="login.jsp";
 					}else{
 						alert('旧密码错误，密码修改失败...');
 						$("#txtPwd").val('');

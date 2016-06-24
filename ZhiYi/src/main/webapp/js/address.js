@@ -5,21 +5,21 @@ $(function(){
     	
 	}); 
 	
-	
+	var zz=$("#usidss").val();
 	$.ajax({
 		type:"POST",
-		url:"receiveServlet?d="+new Date(),
-		data:{op:'findAddressInfo'},
+		url:"receive_findAddressInfo.action",
 		dataType:'JSON',
+		data:{usid:zz},
 		success : function(data) {
 			var str='';
 			
-			for ( var i = 0; i < data.rows.length; i++) {
+			for ( var i = 0; i < data.length; i++) {
 				
-				var item = data.rows[i];
+				var item = data[i];
 				str+="<tr><td>"+item.rname+"</td><td>"+(item.address+item.xaddress)+"</td>" +
 						"<td>"+item.phone+"</td>" +
-								"<td><a flag='535017' class='remove' onClick='dels("+i+")'>删除</a></td>" +
+								"<td><a flag='535017' class='remove' onClick='dels("+item.rid+")'>删除</a></td>" +
 										"<td style='display:none;' id='rid'>"+item.rid+"</td</tr>";
 				document.getElementById("tbodys").innerHTML=str;
 			}
@@ -111,58 +111,22 @@ function newAddr(){
 }
 
 
-function addAddress(){
-	var usid=$("#usid").text();
-	console.info(usid);
-	var rname=$("#consignee").val();  //收件人
-	var prov=$(".prov").val();
-	var citys=$(".citys").val();
-	var dist=$(".dist").val();
-	
-	var address=prov+citys+dist;
-	
-	var xaddress=$("#address").val();
 
-	var zip=$("#zipcode").val();	//邮编
-	var phone=$("#phone").val();	//手机
-	var rtime=$("#time option:selected").text();	//配送时间
 
-	if(checkConsignee()==true && checkAddress()==true && checkZipcode()==true && checkMobile()==true){
-		$.post("receiveServlet?t="+new Date(),{op:"addAddressInfo",usid:usid,rname:rname,address:address,xaddress:xaddress,zip:zip,phone:phone,rtime:rtime},function(data){
-			data=parseInt($.trim(data));
-			if(data==1){
-				console.info("地址添加成功");
-				window.location.href="front/person.jsp#cons2";
-			}else{
-				console.info("地址添加失败");
-			}
-		});
+
+
+
+function dels(rid){
+	alert(rid)
+	var r=confirm("您确定删除此地址吗？");
+	if(r==true){
+		location.href="receive_delAddressInfos?rid="+rid;
+		/*$.post("",{rid:rid}
+			
+		);*/
+	}else{
+		window.location.href="front/payment.jsp";
 	}
-}
-
-
-
-
-function dels(d){
-	var trs=$("#tbodys tr");
-	for(var i=0;i<trs.length;i++){
-		if(i==d){
-			var rid=document.getElementById('tbodys').getElementsByTagName('tr')[i].getElementsByTagName('td')[4].innerHTML;
-			var c=confirm("您确定删除此地址吗？");
-			if(c==true){
-				$.post("receiveServlet",{op:"delAddressInfo",rid:rid},function(data){
-					if(data==1){   //删除成功
-						console.info("删除成功");
-						window.location.href="front/person.jsp";
-					}else{
-						console.info("删除失败");
-					}
-				});
-			}else{
-				window.location.href="front/person.jsp";
-			}
-		}
-	}		
 }
 
 

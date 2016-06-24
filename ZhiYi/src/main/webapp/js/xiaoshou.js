@@ -265,14 +265,6 @@ function drop(d){
 					}
 				},"json");
 				
-				$.post("orderServlet",{op:"delOrderInfo",osid:osid},function(data){
-					if(data==1){   //删除成功
-						console.info("删除成功");
-						
-					}else{
-						console.info("删除失败");
-					}
-				});
 			}
 		}
 	}	

@@ -35,4 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update exstore set province=#{province},stname=#{stname},address=#{address},phone=#{phone},etime=#{etime},pattern=#{pattern},status=#{status} where eid=#{eid}
 	</update>
 	
+	<select id="findStore" resultType="Exstore">
+		select * from exstore
+	</select>
+	
+	<select id="findStoreById" parameterType="int" resultType="Exstore">
+		select * from exstore e,zhongxing z where e.province=z.adds and eid=#{eid}
+	</select>
 </mapper>

@@ -21,25 +21,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/index.js"></script>
 
 <script>
-	var str="";
+/* 	var str="";
 	$(function(){
 		$.ajax({
 			type:"POST",
-			url:"goodsServlet?d="+new Date(),
-			data:{op:'chaxunxinxi'},
+			url:"goods_chaxunxinxi",
 			dataType:'JSON',
 			success:function(data){
-				if(parseInt($.trim(data.code))==1){
-					for(var i=0;i<data.rows.length;i++){
-						var item=data.rows[i];
-						str+="<li class='column'><a href='javascript:void(0)'><div class='figure'><img src="+item.firstPic+" height='240px' /><p>"+item.gname+"</p></a></li>";
-					}
-					document.getElementById("fdsfsdfsd").innerHTML=str;
-
+				for(var i=0;i<data.rows.length;i++){
+					var item=data.rows[i];
+					str+="<li class='column'><a href='javascript:void(0)'><div class='figure'><img src="+item.firstPic+" height='240px' /><p>"+item.gname+"</p></a></li>";
 				}
+				document.getElementById("fdsfsdfsd").innerHTML=str;
 			}
 		});                                   
-	});
+	}); */
 </script>
 </head>
 
@@ -47,7 +43,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%@include file="header.jsp"%>
 	<div id="parts">
 		<ul>
-			<li id="parts-img1"><a href="#">
+		<c:forEach items="${Allgoods}" var="item">
+				<c:if test="${item.gposition eq 12}">
+					<li><a href="javascript:void(0)">
+					<div height="80" width="150" class="figure">
+						<img src="${item.gpath }" />
+						<p>${item.gname }</p>
+					</div>
+					</a></li>
+				</c:if>
+		</c:forEach>
+			<%-- <li id="parts-img1"><a href="#">
 					<div height="80" width="150" class="figure">
 						<img src="${Gcontent2[0].gpath }" />
 						<p>${Gcontent2[0].gname }</p>
@@ -82,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img src="${Gcontent2[5].gpath }" />
 						<p>${Gcontent2[5].gname }</p>
 					</div>
-			</a></li>
+			</a></li> --%>
 		</ul>
 	</div>
 
@@ -90,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:forEach items="${Allgoods}" var="item">
 			<c:if test="${item.tname eq '配件'}">
 				<c:if test="${item.gposition eq 2}">
-					<a href="goodsServlet?op=showGoodsBygid1&gid=${item.gid}"><img
+					<a href="goods_showfind.action?gid=${item.gid}"><img
 						src="${item.gpath}" /> </a>
 				</c:if>
 			</c:if>
@@ -140,6 +146,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<div id="fo_parts">
 			<ul id="fdsfsdfsd">
+				<c:forEach items="${Allgoods}" var="item">
+				<c:if test="${item.gposition eq 20}">
+						<li class='column'><a href='javascript:void(0)'><div class='figure'><img src="${item.firstPic }"   height='240px' /><p>${item.gname}</p></a></li>;
+				</c:if>
+		</c:forEach>
 				<!--  
 					<li class="column"><a href="javascript:void(0)">
 							<div class="figure">

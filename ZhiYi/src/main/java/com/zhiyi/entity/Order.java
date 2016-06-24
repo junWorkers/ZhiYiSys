@@ -39,6 +39,27 @@ public class Order implements Serializable {
 	private int num;
 	private String uname;
 	public String rname;
+	private int rid;
+	
+	
+	public int getRid() {
+		return rid;
+	}
+	public void setRid(int rid) {
+		this.rid = rid;
+	}
+	public SimpleDateFormat getSbf() {
+		return sbf;
+	}
+	public void setSbf(SimpleDateFormat sbf) {
+		this.sbf = sbf;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	private SimpleDateFormat sbf=new SimpleDateFormat("yyyy-MM-dd");
 	Date date=new Date();
 	

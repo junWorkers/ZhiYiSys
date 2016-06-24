@@ -163,17 +163,17 @@ $(function(){
 							<img src="images/thumnail_user.jpg" alt="">
 						</div>
 						<ul class="info-list">
-							<li class="pl24"><span>用户名：</span> ${currentAdminInfo}</li>
+							<li class="pl24"><span>用户名：</span> ${sessionScope.users.uname}</li>
 							<li class="pl24"><span>邮箱：</span> <c:if
-									test="${not empty (usermessage.email)}">
-                						${usermessage.email}
-                					</c:if> <c:if test="${empty (usermessage.email)}">
+									test="${not empty (users.email)}">
+                						${users.email}
+                					</c:if> <c:if test="${empty (users.email)}">
                 						[未绑定]
                 					</c:if></li>
 							<li class="pl24"><span>手机：</span> <c:if
-									test="${not empty (usermessage.phone)}">
-                						${usermessage.phone}
-                					</c:if> <c:if test="${empty (usermessage.phone)}">
+									test="${not empty (users.phone)}">
+                						${users.phone}
+                					</c:if> <c:if test="${empty (users.phone)}">
                 						[未绑定]
                 					</c:if></li>
 							<li class="pl24"><span>密码：</span> <a href="front/update.jsp">更改</a>

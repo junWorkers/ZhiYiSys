@@ -38,6 +38,7 @@ ul{
 .fillOrder .con .address .hd{ width:100%; float:left; padding-top:20px; font-size:14px; color:#808184; line-height:22px; font-weight: bold; }
 
 .fillOrder .con .address .subHd{ width:100%; margin-top:30px; padding-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
+.fillOrder .con .address .cas{ width:100%; margin-top:30px; padding-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
 
 .fillOrder .con .newAddress{ margin-top:20px; padding-left:60px; clear:both; }
 .fillOrder .con .newAddress ul{ width:100%; float:left; }
@@ -75,7 +76,9 @@ ul{
 .fillOrder .con .address .subHd{ width:100%; margin-top:30px;margin-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
 .fillOrder .con .address .subHd .radio{ background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) -3px -498px no-repeat; width:15px; height:15px; float:left; margin-top:3px; margin-right:5px; cursor:pointer; }
 .fillOrder .con .address .subHd .radio.selected{ background-position:-38px -497px; }
-.fillOrder .con .address .newAddress{ }
+.fillOrder .con .address .cas{ width:100%; margin-top:30px;margin-left:40px; display:inline; float:left; font-size:12px; color:#808184; line-height:22px; }
+.fillOrder .con .address .cas .radio{ background:url(../../images/payment/51dfc75f0a1bb59b4d000d8e.png) -3px -498px no-repeat; width:15px; height:15px; float:left; margin-top:3px; margin-right:5px; cursor:pointer; }
+.fillOrder .con .address .cas .radio.selected{ background-position:-38px -497px; }
 .fl {float:left;}
 
 
@@ -85,16 +88,27 @@ ul{
 .fillOrder .con .allAddress{ padding-top:10px; width: 350px; float: left;}
 .fillOrder .con .allAddress .subHd{position:relative;padding:10px;margin-top: 20px; width: 300px;  height: 145px;  border: 2px solid #D8D8D8; cursor: pointer;}
 
+.fillOrder .con .allAddress .cas{position:relative;padding:10px;margin-top: 20px; width: 300px;  height: 145px;  border: 2px solid red; cursor: pointer;}
+
+
 .fillOrder .con .allAddress .subHd .subHd-div{position: absolute;bottom: -11px;right: 0;width: 28px;height: 28px;border-bottom: none;}
+.fillOrder .con .allAddress .cas .subHd-div{position: absolute;bottom: -11px;right: 0;width: 28px;height: 28px;border-bottom: none;}
 
 .fillOrder .con .allAddress .subHd-checked{border: 2px solid #e8340e;}
 .fillOrder .con .allAddress .subHd .checked{background:url(../images/address_checked.jpg)no-repeat;}
 .fillOrder .con .allAddress .subHd div{ border-bottom: 1px dashed #d5d5d5;padding: 5px 0;}
+.fillOrder .con .allAddress .cas .checked{background:url(../images/address_checked.jpg)no-repeat;}
+.fillOrder .con .allAddress .cas div{ border-bottom: 1px dashed #d5d5d5;padding: 5px 0;}
 .fillOrder .con .allAddress span{ padding-right:10px; display:inline-block;}
 .fillOrder .con .allAddress span.radio{ padding:0;}
 .fillOrder .con .address .subHd input[type='radio']{ float:left; margin:4px 5px 0 0; display:inline; }
+.fillOrder .con .address .cas input[type='radio']{ float:left; margin:4px 5px 0 0; display:inline; }
+
 .fillOrder .con .allAddress .allAddress-btn{position: absolute;bottom: 2px;right: 23px;border: none!important;color:#cc0000;display:none;}
 .fillOrder .con .allAddress .subHd:hover .allAddress-btn{display:block;}
+.fillOrder .con .allAddress .cas:hover .allAddress-btn{display:block;}
+
+
 .mod .hd{height:46px;}
 .mod .hd h2{ background: #fafafa none repeat scroll 0 0;
     color: #585858;

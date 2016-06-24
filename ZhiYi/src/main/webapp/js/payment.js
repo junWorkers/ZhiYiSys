@@ -114,15 +114,28 @@ $(function(){
 			document.getElementById("addr").innerHTML=str;
 			for ( var i = 0; i < data.length; i++) {
 				var item = data[i];
-				str+="<div class='allAddress'><div regionid='126' class='subHd' flag='535017' id='li_535017'>" +
+				str+="<div onclick='bianse("+i+")' class='allAddress'><div regionid='126' class='subHd' flag='535017' id='a"+i+"'>" +
 						"<div class='subHd-div checked'></div><p class='fl'></p><div class='name'>"+item.rname+"</div>" +
-						"<div><span class='myAddress'>"+item.address+"</span>"+item.xaddress+"<span class='yb'></span></div><div class='tel'>电话:"+item.phone+"&nbsp;<a style='display:none;'  id='rid'>"+item.rid+"</a></div>" +
-						"<p></p><div class='allAddress-btn'><span flag='535017' class='remove' onClick='deletes()'>删除</span></div></div></div>";
+						"<div><span class='myAddress'>"+item.address+"</span>"+item.xaddress+"<span class='yb'></span></div><div class='tel'>电话:"+item.phone+"&nbsp;<a   id='rid"+i+"' style='display:none'>"+item.rid+"</a></div>" +
+						"<p></p><div class='allAddress-btn'><span flag='535017' class='remove' onClick='deletes("+item.rid+")'>删除</span></div></div></div>";
 				document.getElementById("addr").innerHTML=str;
 			}
 		}
 	});
 });
+
+function bianse(d){
+	var a=document.getElementsByClassName('allAddress');
+	for(var i=0;i<a.length;i++){
+		if(i==d){
+			$("#a"+i+"").attr('class','cas');
+			var ridss=$("#rid"+i+"").text();
+			window.localStorage.setItem('rid',ridss);
+		}else{
+			$("#a"+i+"").attr('class','subHd');
+		}
+	}
+}
 
 function others(){
 		var newAddress=document.getElementById('newAddress');
@@ -135,8 +148,7 @@ function others(){
 
 
 
-function deletes(){
-	var rid=$("#rid").text();
+function deletes(rid){
 	var r=confirm("您确定删除此地址吗？");
 	if(r==true){
 		location.href="receive_delAddressInfo?rid="+rid;
@@ -156,8 +168,7 @@ function tijiao(){
 	var num=$("#num").text();
 	var color=window.localStorage.getItem('color');
 	console.info(usid+" " +gpid+" "+num+" "+color)
-	
-		
+	var rid=window.localStorage.getItem('rid');
 	/*$.post("order_addOrders.action",{usid:usid,gpid:gpid,num:num,color:color},function(data){
 		alert(data)
 		data=parseInt($.trim(data));
@@ -172,7 +183,7 @@ function tijiao(){
 	var onum=parseInt(num);
 	var price=parseInt(window.localStorage.getItem('phoneprice'));
 	var money=price*onum;
-	$.post("order_addOrders.action",{usid:usid,gpid:gpid,num:num,color:color,onum:onum,price:price,money:money},function(data){
+	$.post("order_addOrders.action",{usid:usid,gpid:gpid,num:num,color:color,onum:onum,price:price,money:money,rid:rid},function(data){
 		data=parseInt($.trim(data));
 		if(data==1){
 			window.localStorage.clear();

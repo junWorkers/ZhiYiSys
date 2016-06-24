@@ -63,4 +63,6 @@ public interface GoodsService {
 	List<GoodsPar> findGoodsPars(int gid);
 
 	Goods findContent5(Map<String, Object> map);
+
+	List<Goods> showGoodsByIds(int gid);
 }

@@ -145,11 +145,20 @@ public class GoodsAction implements ModelDriven<Goods>,SessionAware{
 		System.out.println("fgoods"+fgoods);
 		return "showGoodsGpid";
 	}
+	
+	public String showfind(){
+		int gid=goods.getGid();
+		List<Goods> goods=goodsService.showGoodsByIds(gid);
+		session.put("pei",goods);
+		return "showfind";
+	}
 	@Override
 	public Goods getModel() {
 		this.goods=new Goods();
 		return goods;
 	}
+	
+	
 
 	@Override
 	public void setSession(Map<String, Object> session) {

@@ -25,9 +25,9 @@ public interface UsersMapper {
 
 	Users CheckEamil(String email);
 
-
-
 	int updateUsersInfo(Users users);
 
 	int updatepwdByEmail(Users users);
+
+	int updatepwd(Users users);
 }
