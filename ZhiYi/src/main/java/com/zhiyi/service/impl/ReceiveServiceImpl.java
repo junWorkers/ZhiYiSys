@@ -21,8 +21,8 @@ public class ReceiveServiceImpl implements ReceiveServie {
 	}
 
 	@Override
-	public List<Receive> find() {
-		return receiveMapper.find();
+	public List<Receive> find(int i) {
+		return receiveMapper.find(i);
 	}
 
 	@Override

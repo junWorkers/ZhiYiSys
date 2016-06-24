@@ -400,7 +400,7 @@ drop table receive;
 drop sequence seq_receive_rid;
 delete from receive where usid='2063';
 select rid,rname,address,xaddress,phone from receive where status=1
-
+update receive set status=3 where status!=0 and rid not in 1002
 --------------------------------------------------------------------------
 --发货人信息表
 create table sender(
@@ -482,7 +482,7 @@ create table pinfo(
        znum int,         --主题数量
        tnum int,         --帖子数量
        pdays int,                  --签到天数
-      status int default 1,
+       status int default 1,
        available1  varchar2(30),  
        available2  varchar2(30),
        available3 varchar2(30)  

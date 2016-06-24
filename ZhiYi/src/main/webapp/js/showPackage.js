@@ -28,7 +28,6 @@ $(function(){
 	window.localStorage.setItem('phoneprice',phoneprice);
 	var gpid=$("#gpid").text();
 	window.localStorage.setItem('gpid',gpid);
-
 });
 
 function buy(){

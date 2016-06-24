@@ -103,11 +103,12 @@ $(function(){
 		total+=price*num;
 	}
 	document.getElementById('productAmount').innerHTML='￥'+total;
-	
+	var usidnicai=$("#usidss").val(); 
 	$.ajax({
 		type:"POST",
 		url:"receive_findAddressInfo.action",
 		dataType:'JSON',
+		data:{usid:usidnicai},
 		success : function(data) {
 			var str='';
 			document.getElementById("addr").innerHTML=str;

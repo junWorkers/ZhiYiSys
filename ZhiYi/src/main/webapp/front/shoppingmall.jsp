@@ -30,8 +30,6 @@ function shishis(gids){
 	//var gname=$("#gname").html();
 	var gname=document.getElementById("gname"+gids).innerHTML;
 	window.localStorage.setItem('gname',gname); 
-	
-	
 }
 
 var ssss=0;
@@ -158,7 +156,7 @@ $(function(){
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
 											<p id="gname${item.gid }">${item.gname }</p>
-											<p id="gid${item.gid }" style='display: none'>${item.gid }</p>
+											<label id="gid${item.gid }" style='display: none'>${item.gid }</label>
 										</a>
 									</c:if>
 								</c:if>
@@ -210,7 +208,7 @@ $(function(){
 									<c:if test="${item.gposition eq 1}">
 										<a class="cl"
 											href="goods_sgbid?gid=${item.gid}"><div
-												class="figure">
+												class="figsure">
 												<img src="${item.firstPic}" height="46" width="46">
 											</div>
 											<p>${item.gname }</p></a>

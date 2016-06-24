@@ -6,6 +6,6 @@ import com.zhiyi.entity.Receive;
 
 public interface ReceiveServie {
 	public int addAddress(Receive receive);
-	public List<Receive> find();
+	public List<Receive> find(int i);
 	public int delAddressInfo(int rid);
 }

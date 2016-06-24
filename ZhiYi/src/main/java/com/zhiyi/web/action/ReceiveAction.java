@@ -37,7 +37,7 @@ public class ReceiveAction implements ModelDriven<Receive>,SessionAware{
 	}
 	
 	public String findAddressInfo(){
-		addressInfo=receiveServie.find();
+		addressInfo=receiveServie.find(receive.getUsid());
 		return "findAddressInfo";
 	}
 	
